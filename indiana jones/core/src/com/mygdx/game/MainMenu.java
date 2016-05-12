@@ -22,7 +22,7 @@ public class MainMenu implements Screen {
 	 Game game;
 	 Stage stage;
 	 SpriteBatch batch;
-	 Texture bg = new Texture ("background(terraria).png");
+	 Texture bg = new Texture ("menubg.png");
 	 
 	 public MainMenu(Game game){
 		 this.game = game;
