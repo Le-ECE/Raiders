@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<drjava version="drjava-20140826-r5761">
+  <project autorefresh="false" build="core/bin/" main="" root="core/src/com/mygdx/game/" work="core/">
+    <createjar file=""/>
+    <source>
+      <file active="true" name="DesktopLauncher.java" package="com.mygdx.game.desktop" timestamp="12-May-2016 10:19:36">
+        <select from="73" to="73"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Movement.java" package="com.mygdx.game" timestamp="12-May-2016 10:19:34">
+        <select from="73" to="73"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="MainMenu.java" package="com.mygdx.game" timestamp="12-May-2016 10:19:34">
+        <select from="73" to="73"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="MainGame.java" package="com.mygdx.game" timestamp="12-May-2016 10:19:34">
+        <select from="73" to="73"/>
+        <scroll column="0" row="0"/>
+      </file>
+    </source>
+    <included/>
+    <excluded/>
+    <collapsed/>
+    <classpath>
+      <file absolute="false" name="../../../../../gdx.jar"/>
+    </classpath>
+    <breakpoints/>
+    <watches/>
+    <bookmarks/>
+    <preferences/>
+  </project>
+</drjava>
