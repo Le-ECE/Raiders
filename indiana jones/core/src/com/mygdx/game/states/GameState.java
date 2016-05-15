@@ -35,7 +35,7 @@ public abstract class GameState {
 	protected GameState (GameStateManager gsm){
 		this.gsm = gsm;
 		game = gsm.getGame();
-		batch = game.getSpriteBatch();
+		//batch = game.getSpriteBatch();
 	}
 	
 	/**

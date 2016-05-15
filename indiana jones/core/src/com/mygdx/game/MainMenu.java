@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -43,7 +42,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  * 
  */
 public class MainMenu implements Screen {
-	Game game;
+	MainGame game;
 
 	Stage stage;
 
@@ -60,18 +59,20 @@ public class MainMenu implements Screen {
 	Skin skin;
 
 	Pixmap pix;
+	
+	public MainMenu (SpriteBatch batch, MainGame game){
+		this.batch = batch;
+		this.game = game;
+	}
 
 	/**
-	 * The create() method instantiates and gives value to all of the variables.
-	 * The create() method is run every time the MainMenu class is called. The
+	 * The show() method instantiates and gives value to all of the variables.
+	 * The show() method is run every time the MainMenu class is called. The
 	 * method also allows for button inputs to be taken by using a GDX built in
 	 * method called setInputProcessor. Buttons and their listeners that take in
 	 * user input from the buttons are added as well. Finally, the buttons,
 	 * title, and background are added to the stage.
 	 */
-	public void create(){
-		
-	}
 	@Override
 	public void show() {
 		stage = new Stage();
@@ -128,7 +129,7 @@ public class MainMenu implements Screen {
 
 		playButton.addCaptureListener(new ChangeListener(){
 			public void changed (ChangeEvent event, Actor actor){
-				game.setScreen (new Movement(game));
+				game.setScreen (new Movement(batch,game));
 				dispose();
 			}
 		});

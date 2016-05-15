@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenAccessor;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 import tween.SpriteManager;
@@ -20,6 +19,8 @@ import tween.SpriteManager;
 public class SplashScreen implements Screen {
 
 	SpriteBatch batch;
+	
+	MainGame game;
 	
 	Animation walkAnim;
 	Animation rollAnim;
@@ -40,13 +41,13 @@ public class SplashScreen implements Screen {
 	
 	TweenManager tweenManager;
 	
-	public SplashScreen(SpriteBatch batch){
-		this.batch = batch;
-		create();
+	public SplashScreen(MainGame game){
+		this.game = game;
 	}
 	
-	public void create(){
-		
+	@Override
+	public void show() {
+		batch = new SpriteBatch();
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
 		
@@ -83,18 +84,11 @@ public class SplashScreen implements Screen {
 		Tween.to(splashTitleSprite, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f).setCallback(new TweenCallback() {
 			@Override
 			public void onEvent(int arg0, BaseTween<?> arg1) {
-				((Game)Gdx.app.getApplicationListener()).setScreen (new MainMenu());
+				((Game)Gdx.app.getApplicationListener()).setScreen (new MainMenu(batch,game));
 			}
 		}).start(tweenManager);
 		
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
-
-	}
-	
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -148,8 +142,6 @@ public class SplashScreen implements Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
-		 batch.dispose();
 		 walk.dispose();
 		 roll.dispose();
 		 background.dispose();

@@ -83,7 +83,6 @@
 
 package com.mygdx.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
@@ -111,8 +110,8 @@ public class Movement implements Screen {
 	TextureRegion[] frames_up;
 	TextureRegion[]	frames_down;
 	
-	Game game;
-	
+	MainGame game;
+		
 	SpriteBatch batch;
 	
 	Sprite indianaJones;
@@ -144,17 +143,12 @@ public class Movement implements Screen {
 
 	boolean catched = true;	
 	
-	/**
-	 * The class' constructor takes in the game screen from MainMenu, and runs 
-	 * the create() method.
-	 * 
-	 * @param game Handles onscreen elements
-	 */
-	public Movement (Game game){
-		this.game=game;
+	public Movement (SpriteBatch batch, MainGame game){
+		this.batch = batch;
+		this.game = game;
 		create();
 	}
-
+	
 /**
  * The create() method is an overridden method that is used to instantiate and
  * give values to all of the variables. Create() is called every time the 
@@ -165,7 +159,6 @@ public class Movement implements Screen {
  */
 	public void create() {
 		// TODO Auto-generated method stub
-		batch = new SpriteBatch();
 		
 		//stage = new Stage();
 
@@ -262,7 +255,6 @@ public class Movement implements Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		batch.dispose();
 
 	}
 	/**

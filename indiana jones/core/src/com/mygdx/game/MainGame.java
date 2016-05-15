@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * The MainGame, which extends the Game class, is currently responsible for
@@ -19,7 +18,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  *
  */
 public class MainGame extends Game {
- private SpriteBatch batch;
  
  /**
   * create() is an overridden method that is responsible for setting the cursor
@@ -33,23 +31,14 @@ public class MainGame extends Game {
   Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
   pm.dispose();
   
-  batch = new SpriteBatch();
-  mainMenu();
- }
- 
- /**
-  * Returns the SpriteBatch object.
-  * @return batch
-  */
- public SpriteBatch getSpriteBatch (){
-	 return batch;
+  splashScreen();
  }
  
  /**
   * Sets the current screen to the MainMenu screen.
   */
- public void mainMenu(){
-  setScreen (new SplashScreen (batch));
+ public void splashScreen(){
+  setScreen (new SplashScreen (this));
  }
 
  /**
@@ -93,7 +82,6 @@ public void resume() {
 @Override
 public void dispose() {
 	// TODO Auto-generated method stub
-	batch.dispose();
 }
 
 
