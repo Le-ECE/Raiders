@@ -17,20 +17,60 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-
+/**
+ * The MainMenu class displays the main menu screen for the user that controls
+ * general program flow. From the main menu, the user will be able to select
+ * options that will allow them to play the game at varying difficulties, view
+ * the instructions to the game, quit the game, and more. The main menu also
+ * displays a graphic background, with custom made buttons and the title of
+ * the project. Upon pressing the "Play" button, the user is currently taken
+ * to the basic game screen, however things such as name entries and difficulty
+ * selection will be implemented.
+ * 
+ * @author Brian Tran
+ * @version 1.0 13/05/2016
+ * 
+ * <p>
+ * <b>Instance Variables</b>
+ * <p>
+ * <b>game</b> Instance of Game that manages multiple displays on the screen
+ * <p>
+ * <b>stage</b> Instance of Stage that manages all elements on the screen such as buttons
+ * <p>
+ * <b>batch</b> Instance of SpriteBatch that acts as a container for onscreen elements
+ * <p>
+ * <b>bg</b> Instance of Texture that stores an image that acts as the menu background
+ * 
+ */
 public class MainMenu implements Screen {
 	 Game game;
+	 
 	 Stage stage;
+	 
 	 SpriteBatch batch;
+	 
 	 Texture bg = new Texture ("menubg.png");
 	 
+	 /**
+	  * The constructor for the MainMenu class takes in a Game from the MainGame,
+	  * and runs the create() method.
+	  * 
+	  * @param game Game handles onscreen elements
+	  */
 	 public MainMenu(Game game){
 		 this.game = game;
 		 create();
 	 }
 	 
+	 /**
+	  * The create() method instantiates and gives value to all of the variables.
+	  * The create() method is run every time the MainMenu class is called. The
+	  * method also allows for button inputs to be taken by using a GDX built in
+	  * method called setInputProcessor. Buttons and their listeners that take in
+	  * user input from the buttons are added as well. Finally, the buttons,
+	  * title, and background are added to the stage.
+	  */
 	 public void create(){
-		 
 		 stage = new Stage();
 		 Texture pB = new Texture ("playbutton.png");
 		 Texture qB = new Texture ("quit.png");
@@ -43,7 +83,6 @@ public class MainMenu implements Screen {
 		 ttl.setHeight(400);
 		 ttl.setPosition(175, 380);
 		
-		 
 		 Image bG = new Image (bg);
 		 bG.setPosition(0, 0);
 		 bG.setWidth (1200);
@@ -73,7 +112,6 @@ public class MainMenu implements Screen {
 		 tb1.over = skin.newDrawable("qover");
 		 tb1.font = new BitmapFont();
 		 
-		 
 		 final TextButton playButton = new TextButton ("", tb);
 		 final TextButton quitButton = new TextButton ("",tb1);
 		 
@@ -84,7 +122,6 @@ public class MainMenu implements Screen {
 		 quitButton.setPosition (475,150);
 		 quitButton.setWidth(250f);
 		 quitButton.setHeight(105f);
-		 
 		 
 		 playButton.addCaptureListener(new ChangeListener(){
 			 public void changed (ChangeEvent event, Actor actor){
@@ -99,6 +136,7 @@ public class MainMenu implements Screen {
 				 Gdx.app.exit();
 			 }
 		 });
+		 
 		 stage.addActor(playButton);
 		 stage.addActor(quitButton);
 	 }
@@ -107,6 +145,13 @@ public class MainMenu implements Screen {
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * The render() method is an overridden, looped method. The render method
+	 * runs once every frame. As a result, graphics and screen elements are
+	 * updated every frame through this method. Stage.draw() is called to draw
+	 * all of the elements contained in the stage (such as buttons) onto the
+	 * screen.
+	 */
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
@@ -115,26 +160,42 @@ public class MainMenu implements Screen {
 		stage.act();
 		stage.draw();
 	}
+	/**
+	 * Unused overridden method.
+	 */
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * Unused overridden method.
+	 */
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * Unused overridden method.
+	 */
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * Unused overridden method.
+	 */
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * dispose() is an overridden method that disposes of the resources once
+	 * exited in order to prevent memory leaks.
+	 */
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
