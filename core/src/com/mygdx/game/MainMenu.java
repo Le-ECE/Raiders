@@ -81,7 +81,7 @@ public class MainMenu implements Screen {
 	@Override
 	public void show() {
 		stage = new Stage();
-		bg = new Texture("menubg.png");
+		bg = new Texture("splash.png");
 		pB = new Texture("playbutton.png");
 		qB = new Texture("quit.png");
 		skin = new Skin();
