@@ -77,8 +77,8 @@ public class SplashScreen implements Screen {
 			}
 		}
 
-		walkAnim = new Animation(0.25f, framesWalk);
-		rollAnim = new Animation(0.25f, framesRoll);
+		walkAnim = new Animation(0.15f, framesWalk);
+		rollAnim = new Animation(0.05f, framesRoll);
 
 		Tween.set(splashTitleSprite, SpriteManager.ALPHA).target(0f).start(tweenManager);
 		Tween.to(splashTitleSprite, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f)
@@ -111,7 +111,6 @@ public class SplashScreen implements Screen {
 		batch.draw(rollAnim.getKeyFrame(time, true), 1450 - walkX, 100, 128f, 128f);
 
 		splashTitleSprite.draw(batch);
-
 		batch.end();
 	}
 
