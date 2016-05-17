@@ -88,7 +88,6 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -99,11 +98,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.CircleMapObject;
+import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Rectangle;
 
 import aurelienribon.tweenengine.Tween;
@@ -122,7 +126,7 @@ public class GameScreen implements Screen {
 	TextureRegion[] frames_down;
 
 	ShapeRenderer sr;
-
+	
 	MainGame game;
 
 	SpriteBatch batch;
@@ -143,8 +147,8 @@ public class GameScreen implements Screen {
 	Rectangle backRect;
 	Rectangle quitRect;
 
-	// Rectangle [] collisionArray = new Rectangle [100];
 	ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
+	ArrayList <TiledMap> mapList = new ArrayList<TiledMap>();
 
 	Texture indianaText;
 	Texture walk_right;
@@ -159,8 +163,10 @@ public class GameScreen implements Screen {
 	Texture quitButton;
 	Texture backDark;
 	Texture quitDark;
+	
+	Ellipse start;
 
-	TiledMap map;
+	TiledMap currentMap;
 	TiledMapRenderer tmRender;
 
 	TweenManager tweenManager;
@@ -245,8 +251,17 @@ public class GameScreen implements Screen {
 		Gdx.input.setCursorCatched(catched);
 
 		// tiledmap renderer
-		map = new TmxMapLoader().load("snow_map.tmx");
-		tmRender = new OrthogonalTiledMapRenderer(map);
+		occupyArray ("snow_map.tmx");
+		occupyArray ("snow_map2.tmx");
+		setCurrentMap (1);
+		tmRender = new OrthogonalTiledMapRenderer(currentMap);
+		
+		//set start
+		for (MapObject object : currentMap.getLayers().get("start_end").getObjects()) {
+			if (object instanceof EllipseMapObject) {
+				start = ((EllipseMapObject) object).getEllipse();
+			}
+		}
 
 		// camera
 		camera = new OrthographicCamera();
@@ -264,15 +279,13 @@ public class GameScreen implements Screen {
 
 		indianaJones.setSize(32f, 64f);
 
-		indianaX = 70;
-		indianaY = 120;
+		indianaX = start.x;
+		indianaY = start.y;
 
 		collide = column.getBoundingRectangle();
 		collideBoulder = boulder.getBoundingRectangle();
 		body = indianaJones.getBoundingRectangle();
-		interp = new Rectangle(body.x, body.y, body.width, body.height-25);
-
-
+		interp = new Rectangle(body.x, body.y, body.width, body.height - 25);
 
 		speed = 250.0f;
 
@@ -311,12 +324,8 @@ public class GameScreen implements Screen {
 		Tween.set(pauseTextSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(pauseTextSprite, SpriteManager.ALPHA, 0.5f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
 		.start(tweenManager);
-		Rectangle temp;
-		// int indexRec = 0;
-		for (MapObject object : map.getLayers().get("collision").getObjects()) {
+		for (MapObject object : currentMap.getLayers().get("collision").getObjects()) {
 			if (object instanceof RectangleMapObject) {
-				// collisionArray[indexRec] =
-				// ((RectangleMapObject)object).getRectangle();
 				collisionArray.add(((RectangleMapObject) object).getRectangle());
 			}
 		}
@@ -360,7 +369,7 @@ public class GameScreen implements Screen {
 		walk_down.dispose();
 		colText.dispose();
 		boulderText.dispose();
-		map.dispose();
+		currentMap.dispose();
 	}
 
 	/**
@@ -384,7 +393,7 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 
 		tweenManager.update(delta);
-
+		
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -411,9 +420,9 @@ public class GameScreen implements Screen {
 		column.draw(batch);
 		boulder.draw(batch);
 
-		if (!paused) 
+		if (!paused)
 			gameUpdate();
-		else{
+		else {
 
 			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
 			batch.draw(pauseOverlay, 0, 0);
@@ -439,7 +448,7 @@ public class GameScreen implements Screen {
 				paused = false;
 				Gdx.input.setCursorCatched(!catched);
 				catched = !catched;
-			} 
+			}
 		}
 
 		batch.end();
@@ -448,8 +457,8 @@ public class GameScreen implements Screen {
 	public void gameUpdate() {
 
 		interpY = indianaY;
-priority=false;
-direction="none";
+		priority = false;
+		direction = "none";
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Gdx.input.setCursorCatched(!catched);
 			catched = !catched;
@@ -459,7 +468,7 @@ direction="none";
 		if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
 			interp.setPosition(indianaX + 4, interpY);
 			if (!collidesWithMap()) {
-				indianaX+= Gdx.graphics.getDeltaTime() * speed;
+				indianaX += Gdx.graphics.getDeltaTime() * speed;
 			}
 
 			interp.setPosition(indianaX, interpY);
@@ -467,12 +476,12 @@ direction="none";
 			if (indianaX + indianaJones.getWidth() >= 1200) {
 				indianaX = 1200 - indianaJones.getWidth();
 			}
-			if(!priority)
-				direction="right";
-priority=true;
-priorityDraw();
+			if (!priority)
+				direction = "right";
+			priority = true;
+			priorityDraw();
 
-		} 
+		}
 		if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
 
 			interp.setPosition(indianaX - 4, interpY);
@@ -486,16 +495,15 @@ priorityDraw();
 			if (indianaX <= -17) {
 				indianaX = -17;
 			}
-			if(!priority)
-				direction="left";
-priority=true;
-priorityDraw();
+			if (!priority)
+				direction = "left";
+			priority = true;
+			priorityDraw();
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
 
 			interp.setPosition(indianaX, interpY - 4);
-
 
 			if (!collidesWithMap()) {
 				indianaY -= Gdx.graphics.getDeltaTime() * speed;
@@ -506,10 +514,10 @@ priorityDraw();
 			if (indianaY <= 0) {
 				indianaY = 0;
 			}
-			if(!priority)
-				direction="down";
-priority=true;
-priorityDraw();
+			if (!priority)
+				direction = "down";
+			priority = true;
+			priorityDraw();
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
@@ -518,36 +526,29 @@ priorityDraw();
 
 			if (!collidesWithMap()) {
 				indianaY += Gdx.graphics.getDeltaTime() * speed;
-			} else
-				System.out.println("collides!!!");
-
+			} 
+			
 			interp.setPosition(indianaX, interpY);
 
 			if (indianaY + indianaJones.getHeight() >= 768) {
 				indianaY = 768 - indianaJones.getHeight();
 			}
-			if(!priority)
-				direction="up";
-priority=true;
-priorityDraw();
+			if (!priority)
+				direction = "up";
+			priority = true;
+			priorityDraw();
 
 		} else {
-			if(!priority)
-				direction="none";
-priority=true;
-priorityDraw();
+			if (!priority)
+				direction = "none";
+			priority = true;
+			priorityDraw();
 		}
 
-
-
-		System.out.println("interp y: " + interpY);
-		System.out.println("indiana y: " + indianaY);
 	}
 
 	private boolean collidesWithMap (){
 		boolean result = false;
-		if(!interp.overlaps(collide) && !interp.overlaps(collideBoulder))
-			return false;
 		for (int x = 0; x < collisionArray.size(); x++) {
 			if (interp.overlaps(collisionArray.get(x))) {
 				result = true;
@@ -556,26 +557,49 @@ priorityDraw();
 		}
 		return result;
 	}
-
-	private void priorityDraw(){
-if(direction.equals("up"))
-	batch.draw(animation_up.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
-else if(direction.equals("down"))
-	batch.draw(animation_down.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
-else if(direction.equals("left"))
-	batch.draw(animation_left.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
-else if(direction.equals("right"))
-	batch.draw(animation_right.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
-else if(direction.equals("none"))
-batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
-	}
 	
+	// wtf david
+//	private boolean collidesWithMap() {
+//		boolean result = false;
+//		if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder))
+//			return false;
+//		for (int x = 0; x < collisionArray.size(); x++) {
+//			if (interp.overlaps(collisionArray.get(x))) {
+//				result = true;
+//				break;
+//			}
+//		}
+//		return result;
+//	}
+
+	private void priorityDraw() {
+		if (direction.equals("up"))
+			batch.draw(animation_up.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+		else if (direction.equals("down"))
+			batch.draw(animation_down.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+		else if (direction.equals("left"))
+			batch.draw(animation_left.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+		else if (direction.equals("right"))
+			batch.draw(animation_right.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+		else if (direction.equals("none"))
+			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
+	}
+
 	/**
 	 * Unused overridden method.
 	 */
 	@Override
 	public void hide() {
 		this.dispose();
+	}
+	
+	private void occupyArray(String path){
+		TiledMap map = new TmxMapLoader().load(path);
+		mapList.add(map);
+	}
+	
+	private void setCurrentMap (int index){
+		currentMap = mapList.get(index);
 	}
 
 }
