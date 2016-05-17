@@ -172,6 +172,8 @@ public class GameScreen implements Screen {
 	float speed;
 	float time;
 	float interpY;
+	boolean priority;
+	String direction;
 
 	boolean catched = true;
 	boolean paused = false;
@@ -264,7 +266,7 @@ public class GameScreen implements Screen {
 
 		indianaX = 70;
 		indianaY = 120;
-		
+
 		collide = column.getBoundingRectangle();
 		collideBoulder = boulder.getBoundingRectangle();
 		body = indianaJones.getBoundingRectangle();
@@ -409,20 +411,11 @@ public class GameScreen implements Screen {
 		column.draw(batch);
 		boulder.draw(batch);
 
-		if (!paused) {
+		if (!paused) 
 			gameUpdate();
-		} else {
-			if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-				paused = false;
-				Gdx.input.setCursorCatched(!catched);
-				catched = !catched;
-			} else {
-				batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
-			}
-		}
+		else{
 
-		if (paused) {
-
+			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
 			batch.draw(pauseOverlay, 0, 0);
 			pauseTextSprite.draw(batch);
 			darkBackSprite.draw(batch);
@@ -442,153 +435,141 @@ public class GameScreen implements Screen {
 					catched = !catched;
 				}
 			}
-
+			if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+				paused = false;
+				Gdx.input.setCursorCatched(!catched);
+				catched = !catched;
+			} 
 		}
 
 		batch.end();
-
-//		for (int x = 0; x < collisionArray.size(); x++) {
-//			sr.begin(ShapeType.Filled);
-//			sr.rect(collisionArray.get(x).x, collisionArray.get(x).y, collisionArray.get(x).width,
-//					collisionArray.get(x).height);
-//			sr.end();
-//		}
 	}
 
 	public void gameUpdate() {
 
 		interpY = indianaY;
-
+priority=false;
+direction="none";
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Gdx.input.setCursorCatched(!catched);
 			catched = !catched;
 			paused = true;
 		}
 
-		// interp.overlaps(r)
-
 		if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
-			
 			interp.setPosition(indianaX + 4, interpY);
-//			sr.begin (ShapeType.Filled);
-//			sr.setColor(Color.RED);
-//			sr.rect(interp.x,interp.y,interp.width,interp.height);
-//			sr.end();
-//			sr.setColor (Color.BLUE);
-			
-			for (int x = 0; x < collisionArray.size(); x++) {
-				if (interp.overlaps(collisionArray.get(x))) {
-					mapCollide = true;
-					System.out.println("map collides!");
-					break;
-				} else {
-					mapCollide = false;
-				}
+			if (!collidesWithMap()) {
+				indianaX+= Gdx.graphics.getDeltaTime() * speed;
 			}
-			
-			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder) && mapCollide == false) {
-				indianaX += Gdx.graphics.getDeltaTime() * speed;
-			}
-			
+
 			interp.setPosition(indianaX, interpY);
-			
+
 			if (indianaX + indianaJones.getWidth() >= 1200) {
 				indianaX = 1200 - indianaJones.getWidth();
 			}
-			
-			batch.draw(animation_right.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
-			
-		} else if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
-			
+			if(!priority)
+				direction="right";
+priority=true;
+priorityDraw();
+
+		} 
+		if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
+
 			interp.setPosition(indianaX - 4, interpY);
-			
-			for (int x = 0; x < collisionArray.size(); x++) {
-				if (interp.overlaps(collisionArray.get(x))) {
-					mapCollide = true;
-					System.out.println("map collides!");
-					break;
 
-
-				} else {
-					mapCollide = false;
-				}
-			}
-			
-			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder) && mapCollide == false) {
+			if (!collidesWithMap()) {
 				indianaX -= Gdx.graphics.getDeltaTime() * speed;
 			}
-			
+
 			interp.setPosition(indianaX, interpY);
-			
+
 			if (indianaX <= -17) {
 				indianaX = -17;
 			}
-			
-			batch.draw(animation_left.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
-			
-		} else if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
-			
+			if(!priority)
+				direction="left";
+priority=true;
+priorityDraw();
+
+		}
+		if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
+
 			interp.setPosition(indianaX, interpY - 4);
-			
-			for (int x = 0; x < collisionArray.size(); x++) {
-				if (interp.overlaps(collisionArray.get(x))) {
-					mapCollide = true;
-					System.out.println("map collides!");
-					break;
 
 
-				} else {
-					mapCollide = false;
-				}
-			}
-			
-			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder) && mapCollide == false) {
+			if (!collidesWithMap()) {
 				indianaY -= Gdx.graphics.getDeltaTime() * speed;
 			}
-			
+
 			interp.setPosition(indianaX, interpY);
-			
+
 			if (indianaY <= 0) {
 				indianaY = 0;
 			}
-			
-			batch.draw(animation_down.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
-			
-		} else if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
-			
+			if(!priority)
+				direction="down";
+priority=true;
+priorityDraw();
+
+		}
+		if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
+
 			interp.setPosition(indianaX, interpY + 4);
-			
-			for (int x = 0; x < collisionArray.size(); x++) {
-				if (interp.overlaps(collisionArray.get(x))) {
-					mapCollide = true;
-					System.out.println("map collides!");
-					break;
-				} else {
-					mapCollide = false;
-				}
-			}
-			
-			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder) && mapCollide == false) {
+
+			if (!collidesWithMap()) {
 				indianaY += Gdx.graphics.getDeltaTime() * speed;
 			} else
 				System.out.println("collides!!!");
-			
+
 			interp.setPosition(indianaX, interpY);
-			
+
 			if (indianaY + indianaJones.getHeight() >= 768) {
 				indianaY = 768 - indianaJones.getHeight();
 			}
-			
-			batch.draw(animation_up.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
-			
+			if(!priority)
+				direction="up";
+priority=true;
+priorityDraw();
+
 		} else {
-			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
+			if(!priority)
+				direction="none";
+priority=true;
+priorityDraw();
 		}
-		
+
+
+
 		System.out.println("interp y: " + interpY);
 		System.out.println("indiana y: " + indianaY);
 	}
 
+	private boolean collidesWithMap (){
+		boolean result = false;
+		if(!interp.overlaps(collide) && !interp.overlaps(collideBoulder))
+			return false;
+		for (int x = 0; x < collisionArray.size(); x++) {
+			if (interp.overlaps(collisionArray.get(x))) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+
+	private void priorityDraw(){
+if(direction.equals("up"))
+	batch.draw(animation_up.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+else if(direction.equals("down"))
+	batch.draw(animation_down.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+else if(direction.equals("left"))
+	batch.draw(animation_left.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+else if(direction.equals("right"))
+	batch.draw(animation_right.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+else if(direction.equals("none"))
+batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
+	}
+	
 	/**
 	 * Unused overridden method.
 	 */
