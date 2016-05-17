@@ -83,9 +83,12 @@
 
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -93,6 +96,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -114,6 +121,8 @@ public class GameScreen implements Screen {
 	TextureRegion[] frames_up;
 	TextureRegion[] frames_down;
 
+	ShapeRenderer sr;
+
 	MainGame game;
 
 	SpriteBatch batch;
@@ -134,6 +143,9 @@ public class GameScreen implements Screen {
 	Rectangle backRect;
 	Rectangle quitRect;
 
+	// Rectangle [] collisionArray = new Rectangle [100];
+	ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
+
 	Texture indianaText;
 	Texture walk_right;
 	Texture walk_left;
@@ -150,7 +162,7 @@ public class GameScreen implements Screen {
 
 	TiledMap map;
 	TiledMapRenderer tmRender;
-	
+
 	TweenManager tweenManager;
 
 	OrthographicCamera camera;
@@ -159,9 +171,11 @@ public class GameScreen implements Screen {
 	float indianaY;
 	float speed;
 	float time;
+	float interpY;
 
 	boolean catched = true;
 	boolean paused = false;
+	boolean mapCollide = false;
 
 	public GameScreen(SpriteBatch batch, MainGame game) {
 		this.batch = batch;
@@ -178,56 +192,58 @@ public class GameScreen implements Screen {
 	 * TextureRegion to a 1D array of TextureRegion for animation.
 	 */
 	public void create() {
-		
-		//set accessor
+
+		sr = new ShapeRenderer();
+
+		// set accessor
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
-		
-		//set tween manager
+
+		// set tween manager
 		tweenManager = new TweenManager();
-		
-		//pause overlay
-		pauseOverlay = new Texture ("pause_overlay.png");
-		
-		//pause text
-		pauseText = new Texture ("pause_text.png");
-		pauseTextSprite = new Sprite (pauseText);
-		
-		//back button
-		backButton = new Texture ("backbutton.png");
-		backSprite = new Sprite (backButton);
-		backSprite.setPosition(Gdx.graphics.getWidth()/2-145, 400f);
+
+		// pause overlay
+		pauseOverlay = new Texture("pause_overlay.png");
+
+		// pause text
+		pauseText = new Texture("pause_text.png");
+		pauseTextSprite = new Sprite(pauseText);
+
+		// back button
+		backButton = new Texture("backbutton.png");
+		backSprite = new Sprite(backButton);
+		backSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 400f);
 		backSprite.setSize(290f, 110f);
-		
-		//back dark button
-		backDark = new Texture ("back_dark.png");
-		darkBackSprite = new Sprite (backDark);
-		darkBackSprite.setPosition(Gdx.graphics.getWidth()/2-145, 400f);
+
+		// back dark button
+		backDark = new Texture("back_dark.png");
+		darkBackSprite = new Sprite(backDark);
+		darkBackSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 400f);
 		darkBackSprite.setSize(290f, 110f);
-		
-		//back rectangle
-		backRect = new Rectangle (backSprite.getX(),backSprite.getY(),backSprite.getWidth(),backSprite.getHeight());
-		
-		//quit button
-		quitButton = new Texture ("quit.png");
-		quitSprite = new Sprite (quitButton);
-		quitSprite.setPosition(Gdx.graphics.getWidth()/2-145, 250f);
+
+		// back rectangle
+		backRect = new Rectangle(backSprite.getX(), backSprite.getY(), backSprite.getWidth(), backSprite.getHeight());
+
+		// quit button
+		quitButton = new Texture("quit.png");
+		quitSprite = new Sprite(quitButton);
+		quitSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 250f);
 		quitSprite.setSize(290f, 110f);
-		
-		//quit dark button
-		quitDark = new Texture ("quit_dark.png");
-		darkQuitSprite = new Sprite (quitDark);
-		darkQuitSprite.setPosition(Gdx.graphics.getWidth()/2-145, 250f);
+
+		// quit dark button
+		quitDark = new Texture("quit_dark.png");
+		darkQuitSprite = new Sprite(quitDark);
+		darkQuitSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 250f);
 		darkQuitSprite.setSize(290f, 110f);
-		
-		//quit rectangle
-		quitRect = new Rectangle (quitSprite.getX(),quitSprite.getY(),quitSprite.getWidth(),quitSprite.getHeight());
-		
+
+		// quit rectangle
+		quitRect = new Rectangle(quitSprite.getX(), quitSprite.getY(), quitSprite.getWidth(), quitSprite.getHeight());
+
 		// stage = new Stage();
 
 		Gdx.input.setCursorCatched(catched);
 
 		// tiledmap renderer
-		map = new TmxMapLoader().load("maps/newmap.tmx");
+		map = new TmxMapLoader().load("snow_map.tmx");
 		tmRender = new OrthogonalTiledMapRenderer(map);
 
 		// camera
@@ -244,15 +260,17 @@ public class GameScreen implements Screen {
 		indianaText = new Texture("indianajones.png");
 		indianaJones = new Sprite(indianaText);
 
-		indianaJones.setSize(48f, 96f);
+		indianaJones.setSize(32f, 64f);
 
+		indianaX = 70;
+		indianaY = 120;
+		
 		collide = column.getBoundingRectangle();
 		collideBoulder = boulder.getBoundingRectangle();
 		body = indianaJones.getBoundingRectangle();
-		interp = new Rectangle(body.getX(), body.getY(), body.getWidth(), body.getHeight());
+		interp = new Rectangle(body.x, body.y, body.width, body.height-25);
 
-		indianaX = 30;
-		indianaY = 300;
+
 
 		speed = 250.0f;
 
@@ -285,11 +303,22 @@ public class GameScreen implements Screen {
 		animation_left = new Animation(0.25f, frames_left);
 		animation_right = new Animation(0.25f, frames_right);
 		animation_down = new Animation(0.25f, frames_down);
-		
-		pauseTextSprite.setPosition(0, 780-pauseTextSprite.getHeight());
-		//pause text animation
+
+		pauseTextSprite.setPosition(0, 780 - pauseTextSprite.getHeight());
+		// pause text animation
 		Tween.set(pauseTextSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
-		Tween.to(pauseTextSprite, SpriteManager.ALPHA, 0.5f).target(1f).repeatYoyo(Tween.INFINITY, 0f).start(tweenManager);
+		Tween.to(pauseTextSprite, SpriteManager.ALPHA, 0.5f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
+		.start(tweenManager);
+		Rectangle temp;
+		// int indexRec = 0;
+		for (MapObject object : map.getLayers().get("collision").getObjects()) {
+			if (object instanceof RectangleMapObject) {
+				// collisionArray[indexRec] =
+				// ((RectangleMapObject)object).getRectangle();
+				collisionArray.add(((RectangleMapObject) object).getRectangle());
+			}
+		}
+
 	}
 
 	/**
@@ -322,7 +351,6 @@ public class GameScreen implements Screen {
 	@Override
 	public void dispose() {
 		game.dispose();
-		//batch.dispose();
 		indianaText.dispose();
 		walk_right.dispose();
 		walk_left.dispose();
@@ -354,11 +382,9 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 
 		tweenManager.update(delta);
-		
+
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		
 
 		boulder.setPosition(500f, 300f);
 		column.setPosition(250f, 250f);
@@ -367,15 +393,14 @@ public class GameScreen implements Screen {
 		collide.setPosition(250f, 250f);
 		collideBoulder.setPosition(boulder.getX(), boulder.getY());
 
-		//keep track of elapsed time
+		// keep track of elapsed time
 		time += Gdx.graphics.getDeltaTime();
 
-	
-		//set camera view
+		// set camera view
 		tmRender.setView(camera);
 		// render tile map
 		tmRender.render();
-		//update camera view
+		// update camera view
 		camera.update();
 
 		batch.begin();
@@ -392,38 +417,47 @@ public class GameScreen implements Screen {
 				Gdx.input.setCursorCatched(!catched);
 				catched = !catched;
 			} else {
-				batch.draw(indianaJones, (int) indianaX, (int) indianaY, 64f, 128f);
+				batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
 			}
 		}
 
-		if (paused){
-			
-			batch.draw(pauseOverlay, 0,0);
+		if (paused) {
+
+			batch.draw(pauseOverlay, 0, 0);
 			pauseTextSprite.draw(batch);
 			darkBackSprite.draw(batch);
 			darkQuitSprite.draw(batch);
-			
-			if (backRect.contains(Gdx.input.getX(),Gdx.input.getY())){
+
+			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY())) {
 				quitSprite.draw(batch);
-				if (Gdx.input.justTouched()){
-					game.setScreen(new MainMenu(batch,game));
+				if (Gdx.input.justTouched()) {
+					game.setScreen(new MainMenu(batch, game));
 				}
 			}
-			if (quitRect.contains(Gdx.input.getX(),Gdx.input.getY())){
+			if (quitRect.contains(Gdx.input.getX(), Gdx.input.getY())) {
 				backSprite.draw(batch);
-				if (Gdx.input.justTouched()){
+				if (Gdx.input.justTouched()) {
 					paused = false;
 					Gdx.input.setCursorCatched(!catched);
 					catched = !catched;
 				}
 			}
-			
+
 		}
-		
+
 		batch.end();
+
+//		for (int x = 0; x < collisionArray.size(); x++) {
+//			sr.begin(ShapeType.Filled);
+//			sr.rect(collisionArray.get(x).x, collisionArray.get(x).y, collisionArray.get(x).width,
+//					collisionArray.get(x).height);
+//			sr.end();
+//		}
 	}
 
 	public void gameUpdate() {
+
+		interpY = indianaY;
 
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Gdx.input.setCursorCatched(!catched);
@@ -431,49 +465,128 @@ public class GameScreen implements Screen {
 			paused = true;
 		}
 
+		// interp.overlaps(r)
+
 		if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
-			interp.setPosition(indianaX + 4, indianaY);
-			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder)) {
+			
+			interp.setPosition(indianaX + 4, interpY);
+//			sr.begin (ShapeType.Filled);
+//			sr.setColor(Color.RED);
+//			sr.rect(interp.x,interp.y,interp.width,interp.height);
+//			sr.end();
+//			sr.setColor (Color.BLUE);
+			
+			for (int x = 0; x < collisionArray.size(); x++) {
+				if (interp.overlaps(collisionArray.get(x))) {
+					mapCollide = true;
+					System.out.println("map collides!");
+					break;
+				} else {
+					mapCollide = false;
+				}
+			}
+			
+			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder) && mapCollide == false) {
 				indianaX += Gdx.graphics.getDeltaTime() * speed;
 			}
-			interp.setPosition(indianaX, indianaY);
+			
+			interp.setPosition(indianaX, interpY);
+			
 			if (indianaX + indianaJones.getWidth() >= 1200) {
 				indianaX = 1200 - indianaJones.getWidth();
 			}
-			batch.draw(animation_right.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 64f, 128f);
+			
+			batch.draw(animation_right.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+			
 		} else if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
-			interp.setPosition(indianaX - 4, indianaY);
-			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder)) {
+			
+			interp.setPosition(indianaX - 4, interpY);
+			
+			for (int x = 0; x < collisionArray.size(); x++) {
+				if (interp.overlaps(collisionArray.get(x))) {
+					mapCollide = true;
+					System.out.println("map collides!");
+					break;
+
+
+				} else {
+					mapCollide = false;
+				}
+			}
+			
+			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder) && mapCollide == false) {
 				indianaX -= Gdx.graphics.getDeltaTime() * speed;
 			}
-			interp.setPosition(indianaX, indianaY);
+			
+			interp.setPosition(indianaX, interpY);
+			
 			if (indianaX <= -17) {
 				indianaX = -17;
 			}
-			batch.draw(animation_left.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 64f, 128f);
+			
+			batch.draw(animation_left.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+			
 		} else if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
-			interp.setPosition(indianaX, indianaY - 4);
-			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder)) {
+			
+			interp.setPosition(indianaX, interpY - 4);
+			
+			for (int x = 0; x < collisionArray.size(); x++) {
+				if (interp.overlaps(collisionArray.get(x))) {
+					mapCollide = true;
+					System.out.println("map collides!");
+					break;
+
+
+				} else {
+					mapCollide = false;
+				}
+			}
+			
+			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder) && mapCollide == false) {
 				indianaY -= Gdx.graphics.getDeltaTime() * speed;
 			}
-			interp.setPosition(indianaX, indianaY);
+			
+			interp.setPosition(indianaX, interpY);
+			
 			if (indianaY <= 0) {
 				indianaY = 0;
 			}
-			batch.draw(animation_down.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 64f, 128f);
+			
+			batch.draw(animation_down.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+			
 		} else if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
-			interp.setPosition(indianaX, indianaY + 4);
-			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder)) {
-				indianaY += Gdx.graphics.getDeltaTime() * speed;
+			
+			interp.setPosition(indianaX, interpY + 4);
+			
+			for (int x = 0; x < collisionArray.size(); x++) {
+				if (interp.overlaps(collisionArray.get(x))) {
+					mapCollide = true;
+					System.out.println("map collides!");
+					break;
+				} else {
+					mapCollide = false;
+				}
 			}
-			interp.setPosition(indianaX, indianaY);
+			
+			if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder) && mapCollide == false) {
+				indianaY += Gdx.graphics.getDeltaTime() * speed;
+			} else
+				System.out.println("collides!!!");
+			
+			interp.setPosition(indianaX, interpY);
+			
 			if (indianaY + indianaJones.getHeight() >= 768) {
 				indianaY = 768 - indianaJones.getHeight();
 			}
-			batch.draw(animation_up.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 64f, 128f);
+			
+			batch.draw(animation_up.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+			
 		} else {
-			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 64f, 128f);
+			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
 		}
+		
+		System.out.println("interp y: " + interpY);
+		System.out.println("indiana y: " + indianaY);
 	}
 
 	/**
