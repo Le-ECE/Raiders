@@ -479,7 +479,7 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "right";
 			priority = true;
-			priorityDraw();
+			//priorityDraw();
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
@@ -498,7 +498,7 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "left";
 			priority = true;
-			priorityDraw();
+		//	priorityDraw();
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
@@ -517,7 +517,7 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "down";
 			priority = true;
-			priorityDraw();
+			//priorityDraw();
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
@@ -536,15 +536,15 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "up";
 			priority = true;
-			priorityDraw();
+		//	priorityDraw();
 
 		} else {
 			if (!priority)
 				direction = "none";
 			priority = true;
-			priorityDraw();
+		//	priorityDraw();
 		}
-
+		priorityDraw();
 	}
 
 	private boolean collidesWithMap (){
@@ -558,19 +558,6 @@ public class GameScreen implements Screen {
 		return result;
 	}
 	
-	// wtf david
-//	private boolean collidesWithMap() {
-//		boolean result = false;
-//		if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder))
-//			return false;
-//		for (int x = 0; x < collisionArray.size(); x++) {
-//			if (interp.overlaps(collisionArray.get(x))) {
-//				result = true;
-//				break;
-//			}
-//		}
-//		return result;
-//	}
 
 	private void priorityDraw() {
 		if (direction.equals("up"))
