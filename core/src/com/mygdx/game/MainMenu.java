@@ -135,7 +135,7 @@ public class MainMenu implements Screen {
 		playButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				dispose();
-				game.setScreen(new GameScreen(batch, game));
+				game.setScreen(new GameScreen(batch, game, 0));
 			}
 		});
 
@@ -209,7 +209,7 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void dispose() {
-		//batch.dispose();
+		// batch.dispose();
 		stage.dispose();
 		bg.dispose();
 		pB.dispose();
