@@ -573,7 +573,7 @@ public class GameScreen implements Screen {
 //	}
 
 	private boolean collidesWithMap() {
-		boolean result = false;
+boolean result = false;
 		for (int x = 0; x < collisionArray.size(); x++) {
 			if (interp.overlaps(collisionArray.get(x))) {
 				result = true;
@@ -582,24 +582,6 @@ public class GameScreen implements Screen {
 		}
 		return result;
 	}
-<<<<<<< HEAD
-	
-=======
-
-	// wtf david
-	// private boolean collidesWithMap() {
-	// boolean result = false;
-	// if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder))
-	// return false;
-	// for (int x = 0; x < collisionArray.size(); x++) {
-	// if (interp.overlaps(collisionArray.get(x))) {
-	// result = true;
-	// break;
-	// }
-	// }
-	// return result;
-	// }
->>>>>>> origin/master
 
 	private void priorityDraw() {
 		if (direction.equals("up"))

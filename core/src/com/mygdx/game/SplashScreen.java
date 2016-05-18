@@ -61,7 +61,7 @@ public class SplashScreen implements Screen {
 		splashTitleSprite = new Sprite(splashTitle);
 		splashTitleSprite.setPosition(0f, 768 - splashTitleSprite.getHeight());
 
-		roll = new Texture("roll_left.png");
+		roll = new Texture("roll_right.png");
 		walk = new Texture("left_walk.png");
 
 		TextureRegion[][] temp_left = TextureRegion.split(walk, 32, 64);
@@ -80,11 +80,9 @@ public class SplashScreen implements Screen {
 		}
 
 		walkAnim = new Animation(0.15f, framesWalk);
-<<<<<<< HEAD
+
 		rollAnim = new Animation(0.08f, framesRoll);
-=======
-		rollAnim = new Animation(0.10f, framesRoll);
->>>>>>> origin/master
+
 
 		Tween.set(splashTitleSprite, SpriteManager.ALPHA).target(0f).start(tweenManager);
 		Tween.to(splashTitleSprite, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f)
