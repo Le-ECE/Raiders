@@ -158,7 +158,10 @@ public class GameScreen implements Screen {
 	Texture quitButton;
 	Texture backDark;
 	Texture quitDark;
+<<<<<<< HEAD
 	Texture boulder1;
+=======
+>>>>>>> refs/remotes/origin/kazmanfima-patch-10
 
 	Ellipse start;
 	Polygon boulder1Start;
@@ -175,8 +178,11 @@ public class GameScreen implements Screen {
 	float speed;
 	float time;
 	float interpY;
+<<<<<<< HEAD
 	float delay;
 	float distance;
+=======
+>>>>>>> refs/remotes/origin/kazmanfima-patch-10
 	
 	String direction;
 
@@ -186,8 +192,11 @@ public class GameScreen implements Screen {
 	boolean priority;
 	
 	private int difficulty;
+<<<<<<< HEAD
 	int repeat;
 	int interval;
+=======
+>>>>>>> refs/remotes/origin/kazmanfima-patch-10
 
 	public GameScreen(SpriteBatch batch, MainGame game, int difficulty) {
 		this.batch = batch;
@@ -262,6 +271,7 @@ public class GameScreen implements Screen {
 		occupyArray("snow_map2.tmx");
 		// sets current map based on difficulty
 		setCurrentMap(difficulty);
+<<<<<<< HEAD
 		
 		System.out.print("Property test: ");
 
@@ -288,6 +298,15 @@ public class GameScreen implements Screen {
 		//boulder1Sprite.set
 		
 		
+=======
+		
+		System.out.print("Property test: ");
+
+		System.out.println (currentMap.getLayers().get("properties").getProperties().get("string_prop", String.class));
+
+		tmRender = new OrthogonalTiledMapRenderer(currentMap);
+
+>>>>>>> refs/remotes/origin/kazmanfima-patch-10
 		// set player start position
 		for (MapObject object : currentMap.getLayers().get("start_end").getObjects()) {
 			if (object instanceof EllipseMapObject) {
@@ -433,10 +452,13 @@ public class GameScreen implements Screen {
 		camera.update();
 
 		batch.begin();
+<<<<<<< HEAD
 		
 		
 		//draw boulder
 		boulder1Sprite.draw(batch);
+=======
+>>>>>>> refs/remotes/origin/kazmanfima-patch-10
 
 		if (!paused)
 			gameUpdate();
@@ -582,6 +604,33 @@ boolean result = false;
 		}
 		return result;
 	}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+	
+=======
+=======
+>>>>>>> refs/remotes/origin/kazmanfima-patch-10
+
+	// wtf david
+	// private boolean collidesWithMap() {
+	// boolean result = false;
+	// if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder))
+	// return false;
+	// for (int x = 0; x < collisionArray.size(); x++) {
+	// if (interp.overlaps(collisionArray.get(x))) {
+	// result = true;
+	// break;
+	// }
+	// }
+	// return result;
+	// }
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
+>>>>>>> refs/remotes/origin/kazmanfima-patch-10
+>>>>>>> refs/remotes/origin/master
 
 	private void priorityDraw() {
 		if (direction.equals("up"))
