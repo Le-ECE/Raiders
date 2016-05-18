@@ -96,18 +96,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.CircleMapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Ellipse;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 import aurelienribon.tweenengine.Tween;
@@ -126,7 +124,7 @@ public class GameScreen implements Screen {
 	TextureRegion[] frames_down;
 
 	ShapeRenderer sr;
-	
+
 	MainGame game;
 
 	SpriteBatch batch;
@@ -139,32 +137,31 @@ public class GameScreen implements Screen {
 	Sprite quitSprite;
 	Sprite darkBackSprite;
 	Sprite darkQuitSprite;
+	Sprite boulder1Sprite;
 
 	Rectangle body;
-	Rectangle collide;
-	Rectangle collideBoulder;
 	Rectangle interp;
 	Rectangle backRect;
 	Rectangle quitRect;
 
 	ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
-	ArrayList <TiledMap> mapList = new ArrayList<TiledMap>();
+	ArrayList<TiledMap> mapList = new ArrayList<TiledMap>();
 
 	Texture indianaText;
 	Texture walk_right;
 	Texture walk_left;
 	Texture walk_up;
 	Texture walk_down;
-	Texture colText;
-	Texture boulderText;
 	Texture pauseOverlay;
 	Texture pauseText;
 	Texture backButton;
 	Texture quitButton;
 	Texture backDark;
 	Texture quitDark;
-	
+	Texture boulder1;
+
 	Ellipse start;
+	Polygon boulder1Start;
 
 	TiledMap currentMap;
 	TiledMapRenderer tmRender;
@@ -178,16 +175,24 @@ public class GameScreen implements Screen {
 	float speed;
 	float time;
 	float interpY;
-	boolean priority;
+	float delay;
+	float distance;
+	
 	String direction;
 
 	boolean catched = true;
 	boolean paused = false;
 	boolean mapCollide = false;
+	boolean priority;
+	
+	private int difficulty;
+	int repeat;
+	int interval;
 
-	public GameScreen(SpriteBatch batch, MainGame game) {
+	public GameScreen(SpriteBatch batch, MainGame game, int difficulty) {
 		this.batch = batch;
 		this.game = game;
+		this.difficulty = difficulty;
 		create();
 	}
 
@@ -251,12 +256,39 @@ public class GameScreen implements Screen {
 		Gdx.input.setCursorCatched(catched);
 
 		// tiledmap renderer
-		occupyArray ("snow_map.tmx");
-		occupyArray ("snow_map2.tmx");
-		setCurrentMap (1);
-		tmRender = new OrthogonalTiledMapRenderer(currentMap);
+		// fills array with maps
+		occupyArray("earth_map.tmx");
+		occupyArray("snow_map.tmx");
+		occupyArray("snow_map2.tmx");
+		// sets current map based on difficulty
+		setCurrentMap(difficulty);
 		
-		//set start
+		System.out.print("Property test: ");
+
+		System.out.println (currentMap.getLayers().get("properties").getObjects().get("boulder1").getProperties().get("string_prop",String.class));
+				
+		tmRender = new OrthogonalTiledMapRenderer(currentMap);
+
+		//create boulder
+		boulder1 = new Texture ("boulder_1.png");
+		boulder1Sprite = new Sprite (boulder1);
+		
+		delay = Float.parseFloat(currentMap.getLayers().get("properties").getObjects().get("boulder1").getProperties().get("delay",String.class));
+		distance = Float.parseFloat(currentMap.getLayers().get("properties").getObjects().get("boulder1").getProperties().get("distance",String.class));
+		
+		for (MapObject object : currentMap.getLayers().get("properties").getObjects()) {
+			if (object instanceof PolygonMapObject) {
+				boulder1Start = ((PolygonMapObject) object).getPolygon();
+			}
+		}
+		
+		boulder1Sprite.setPosition(boulder1Start.getX(), boulder1Start.getY());
+		boulder1Sprite.setSize(64f, 64f);
+		
+		//boulder1Sprite.set
+		
+		
+		// set player start position
 		for (MapObject object : currentMap.getLayers().get("start_end").getObjects()) {
 			if (object instanceof EllipseMapObject) {
 				start = ((EllipseMapObject) object).getEllipse();
@@ -268,12 +300,6 @@ public class GameScreen implements Screen {
 		camera.setToOrtho(false, 1216, 768);
 		camera.update();
 
-		colText = new Texture(Gdx.files.internal("column.png"));
-		column = new Sprite(colText);
-
-		boulderText = new Texture(Gdx.files.internal("boulder_0.png"));
-		boulder = new Sprite(boulderText);
-
 		indianaText = new Texture("indianajones.png");
 		indianaJones = new Sprite(indianaText);
 
@@ -282,8 +308,6 @@ public class GameScreen implements Screen {
 		indianaX = start.x;
 		indianaY = start.y;
 
-		collide = column.getBoundingRectangle();
-		collideBoulder = boulder.getBoundingRectangle();
 		body = indianaJones.getBoundingRectangle();
 		interp = new Rectangle(body.x, body.y, body.width, body.height - 25);
 
@@ -320,6 +344,7 @@ public class GameScreen implements Screen {
 		animation_down = new Animation(0.25f, frames_down);
 
 		pauseTextSprite.setPosition(0, 780 - pauseTextSprite.getHeight());
+
 		// pause text animation
 		Tween.set(pauseTextSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(pauseTextSprite, SpriteManager.ALPHA, 0.5f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
@@ -367,8 +392,6 @@ public class GameScreen implements Screen {
 		walk_left.dispose();
 		walk_up.dispose();
 		walk_down.dispose();
-		colText.dispose();
-		boulderText.dispose();
 		currentMap.dispose();
 	}
 
@@ -393,16 +416,11 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 
 		tweenManager.update(delta);
-		
+
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		boulder.setPosition(500f, 300f);
-		column.setPosition(250f, 250f);
-
 		body.setPosition(indianaX, indianaY);
-		collide.setPosition(250f, 250f);
-		collideBoulder.setPosition(boulder.getX(), boulder.getY());
 
 		// keep track of elapsed time
 		time += Gdx.graphics.getDeltaTime();
@@ -415,10 +433,10 @@ public class GameScreen implements Screen {
 		camera.update();
 
 		batch.begin();
-
-		// draw sprites
-		column.draw(batch);
-		boulder.draw(batch);
+		
+		
+		//draw boulder
+		boulder1Sprite.draw(batch);
 
 		if (!paused)
 			gameUpdate();
@@ -450,6 +468,8 @@ public class GameScreen implements Screen {
 				catched = !catched;
 			}
 		}
+
+		
 
 		batch.end();
 	}
@@ -526,8 +546,8 @@ public class GameScreen implements Screen {
 
 			if (!collidesWithMap()) {
 				indianaY += Gdx.graphics.getDeltaTime() * speed;
-			} 
-			
+			}
+
 			interp.setPosition(indianaX, interpY);
 
 			if (indianaY + indianaJones.getHeight() >= 768) {
@@ -546,8 +566,13 @@ public class GameScreen implements Screen {
 		}
 		priorityDraw();
 	}
+	
+//	private void boulderUpdate(float distance){
+//		boulder1Sprite.setPosition(boulder1Sprite.getX(), boulder1Sprite.);
+//		
+//	}
 
-	private boolean collidesWithMap (){
+	private boolean collidesWithMap() {
 		boolean result = false;
 		for (int x = 0; x < collisionArray.size(); x++) {
 			if (interp.overlaps(collisionArray.get(x))) {
@@ -557,7 +582,24 @@ public class GameScreen implements Screen {
 		}
 		return result;
 	}
+<<<<<<< HEAD
 	
+=======
+
+	// wtf david
+	// private boolean collidesWithMap() {
+	// boolean result = false;
+	// if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder))
+	// return false;
+	// for (int x = 0; x < collisionArray.size(); x++) {
+	// if (interp.overlaps(collisionArray.get(x))) {
+	// result = true;
+	// break;
+	// }
+	// }
+	// return result;
+	// }
+>>>>>>> origin/master
 
 	private void priorityDraw() {
 		if (direction.equals("up"))
@@ -579,13 +621,13 @@ public class GameScreen implements Screen {
 	public void hide() {
 		this.dispose();
 	}
-	
-	private void occupyArray(String path){
+
+	private void occupyArray(String path) {
 		TiledMap map = new TmxMapLoader().load(path);
 		mapList.add(map);
 	}
-	
-	private void setCurrentMap (int index){
+
+	private void setCurrentMap(int index) {
 		currentMap = mapList.get(index);
 	}
 

@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -48,6 +49,7 @@ public class SplashScreen implements Screen {
 	@Override
 	public void show() {
 		batch = new SpriteBatch();
+		
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
 
@@ -78,17 +80,21 @@ public class SplashScreen implements Screen {
 		}
 
 		walkAnim = new Animation(0.15f, framesWalk);
+<<<<<<< HEAD
 		rollAnim = new Animation(0.08f, framesRoll);
+=======
+		rollAnim = new Animation(0.10f, framesRoll);
+>>>>>>> origin/master
 
 		Tween.set(splashTitleSprite, SpriteManager.ALPHA).target(0f).start(tweenManager);
 		Tween.to(splashTitleSprite, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f)
-		.setCallback(new TweenCallback() {
-			@Override
-			public void onEvent(int arg0, BaseTween<?> arg1) {
-				dispose();
-				((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
-			}
-		}).start(tweenManager);
+				.setCallback(new TweenCallback() {
+					@Override
+					public void onEvent(int arg0, BaseTween<?> arg1) {
+						dispose();
+						((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
+					}
+				}).start(tweenManager);
 
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
 	}
@@ -100,7 +106,7 @@ public class SplashScreen implements Screen {
 
 		time += Gdx.graphics.getDeltaTime();
 		batch.begin();
-		// TODO Auto-generated method stub
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batch.draw(background, 0, 0, 1200f, 768f);
@@ -112,6 +118,10 @@ public class SplashScreen implements Screen {
 
 		splashTitleSprite.draw(batch);
 		batch.end();
+
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+			((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
+		}
 	}
 
 	@Override
