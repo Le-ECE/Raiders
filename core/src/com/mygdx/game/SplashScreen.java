@@ -81,10 +81,14 @@ public class SplashScreen implements Screen {
 
 		walkAnim = new Animation(0.15f, framesWalk);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		rollAnim = new Animation(0.08f, framesRoll);
 =======
 		rollAnim = new Animation(0.10f, framesRoll);
 >>>>>>> origin/master
+=======
+		rollAnim = new Animation(0.10f, framesRoll);
+>>>>>>> refs/remotes/origin/kazmanfima-patch-10
 
 		Tween.set(splashTitleSprite, SpriteManager.ALPHA).target(0f).start(tweenManager);
 		Tween.to(splashTitleSprite, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f)
