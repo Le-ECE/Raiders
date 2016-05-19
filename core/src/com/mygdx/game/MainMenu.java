@@ -135,7 +135,8 @@ public class MainMenu implements Screen {
 		playButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				dispose();
-				game.setScreen(new GameScreen(batch, game, 0));
+				game.setScreen(new Difficulty (batch,game));
+				//game.setScreen(new GameScreen(batch, game, 1));
 			}
 		});
 

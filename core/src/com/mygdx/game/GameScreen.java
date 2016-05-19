@@ -203,9 +203,6 @@ public class GameScreen implements Screen {
 
 		sr = new ShapeRenderer();
 
-
-		
-		
 		// set accessor
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
 
@@ -261,9 +258,9 @@ public class GameScreen implements Screen {
 		// sets current map based on difficulty
 		setCurrentMap(difficulty);
 		
-		System.out.print("Property test: ");
+		//System.out.print("Property test: ");
 
-		System.out.println (currentMap.getLayers().get("properties").getObjects().get ("boulder1").getProperties().get("string_prop",String.class));
+		//System.out.println (currentMap.getLayers().get("properties").getObjects().get ("boulder1").getProperties().get("string_prop",String.class));
 
 		tmRender = new OrthogonalTiledMapRenderer(currentMap);
 
@@ -490,7 +487,7 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "right";
 			priority = true;
-			priorityDraw();
+		
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
@@ -509,7 +506,7 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "left";
 			priority = true;
-			priorityDraw();
+		
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
@@ -528,7 +525,7 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "down";
 			priority = true;
-			priorityDraw();
+		
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
@@ -547,15 +544,15 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "up";
 			priority = true;
-			priorityDraw();
+		
 
 		} else {
 			if (!priority)
 				direction = "none";
 			priority = true;
-			priorityDraw();
+			
 		}
-
+		priorityDraw();
 	}
 
 	private boolean collidesWithMap() {
