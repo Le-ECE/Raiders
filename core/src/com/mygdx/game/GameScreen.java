@@ -98,14 +98,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Ellipse;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 import aurelienribon.tweenengine.Tween;
@@ -145,6 +143,8 @@ public class GameScreen implements Screen {
 	Rectangle quitRect;
 
 	ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
+	ArrayList <Rectangle> boulderArr = new ArrayList<Rectangle>();
+	
 	ArrayList<TiledMap> mapList = new ArrayList<TiledMap>();
 
 	Texture indianaText;
@@ -158,13 +158,9 @@ public class GameScreen implements Screen {
 	Texture quitButton;
 	Texture backDark;
 	Texture quitDark;
-<<<<<<< HEAD
 	Texture boulder1;
-=======
->>>>>>> refs/remotes/origin/kazmanfima-patch-10
 
 	Ellipse start;
-	Polygon boulder1Start;
 
 	TiledMap currentMap;
 	TiledMapRenderer tmRender;
@@ -178,11 +174,6 @@ public class GameScreen implements Screen {
 	float speed;
 	float time;
 	float interpY;
-<<<<<<< HEAD
-	float delay;
-	float distance;
-=======
->>>>>>> refs/remotes/origin/kazmanfima-patch-10
 	
 	String direction;
 
@@ -192,11 +183,6 @@ public class GameScreen implements Screen {
 	boolean priority;
 	
 	private int difficulty;
-<<<<<<< HEAD
-	int repeat;
-	int interval;
-=======
->>>>>>> refs/remotes/origin/kazmanfima-patch-10
 
 	public GameScreen(SpriteBatch batch, MainGame game, int difficulty) {
 		this.batch = batch;
@@ -217,6 +203,9 @@ public class GameScreen implements Screen {
 
 		sr = new ShapeRenderer();
 
+
+		
+		
 		// set accessor
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
 
@@ -271,42 +260,23 @@ public class GameScreen implements Screen {
 		occupyArray("snow_map2.tmx");
 		// sets current map based on difficulty
 		setCurrentMap(difficulty);
-<<<<<<< HEAD
 		
 		System.out.print("Property test: ");
 
-		System.out.println (currentMap.getLayers().get("properties").getObjects().get("boulder1").getProperties().get("string_prop",String.class));
-				
+		System.out.println (currentMap.getLayers().get("properties").getObjects().get ("boulder1").getProperties().get("string_prop",String.class));
+
 		tmRender = new OrthogonalTiledMapRenderer(currentMap);
 
-		//create boulder
-		boulder1 = new Texture ("boulder_1.png");
-		boulder1Sprite = new Sprite (boulder1);
-		
-		delay = Float.parseFloat(currentMap.getLayers().get("properties").getObjects().get("boulder1").getProperties().get("delay",String.class));
-		distance = Float.parseFloat(currentMap.getLayers().get("properties").getObjects().get("boulder1").getProperties().get("distance",String.class));
-		
+		//boulder1 create
 		for (MapObject object : currentMap.getLayers().get("properties").getObjects()) {
-			if (object instanceof PolygonMapObject) {
-				boulder1Start = ((PolygonMapObject) object).getPolygon();
+			if (object instanceof RectangleMapObject) {
+				boulderArr.add(((RectangleMapObject) object).getRectangle());
 			}
 		}
-		
-		boulder1Sprite.setPosition(boulder1Start.getX(), boulder1Start.getY());
+		boulder1 = new Texture ("boulder_1.png");
+		boulder1Sprite = new Sprite (boulder1);
 		boulder1Sprite.setSize(64f, 64f);
 		
-		//boulder1Sprite.set
-		
-		
-=======
-		
-		System.out.print("Property test: ");
-
-		System.out.println (currentMap.getLayers().get("properties").getProperties().get("string_prop", String.class));
-
-		tmRender = new OrthogonalTiledMapRenderer(currentMap);
-
->>>>>>> refs/remotes/origin/kazmanfima-patch-10
 		// set player start position
 		for (MapObject object : currentMap.getLayers().get("start_end").getObjects()) {
 			if (object instanceof EllipseMapObject) {
@@ -452,13 +422,12 @@ public class GameScreen implements Screen {
 		camera.update();
 
 		batch.begin();
-<<<<<<< HEAD
 		
-		
-		//draw boulder
-		boulder1Sprite.draw(batch);
-=======
->>>>>>> refs/remotes/origin/kazmanfima-patch-10
+		//boulder1 draw
+		for (int x = 0;x<boulderArr.size();x++){
+			boulder1Sprite.setPosition(boulderArr.get(x).x, boulderArr.get(x).y);
+			boulder1Sprite.draw(batch);
+		}
 
 		if (!paused)
 			gameUpdate();
@@ -490,10 +459,10 @@ public class GameScreen implements Screen {
 				catched = !catched;
 			}
 		}
-
-		
-
 		batch.end();
+	}
+	
+	public void boulderUpdate(){
 	}
 
 	public void gameUpdate() {
@@ -521,7 +490,7 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "right";
 			priority = true;
-			//priorityDraw();
+			priorityDraw();
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
@@ -540,7 +509,7 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "left";
 			priority = true;
-		//	priorityDraw();
+			priorityDraw();
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
@@ -559,7 +528,7 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "down";
 			priority = true;
-			//priorityDraw();
+			priorityDraw();
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
@@ -578,21 +547,16 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "up";
 			priority = true;
-		//	priorityDraw();
+			priorityDraw();
 
 		} else {
 			if (!priority)
 				direction = "none";
 			priority = true;
-		//	priorityDraw();
+			priorityDraw();
 		}
-		priorityDraw();
+
 	}
-	
-//	private void boulderUpdate(float distance){
-//		boulder1Sprite.setPosition(boulder1Sprite.getX(), boulder1Sprite.);
-//		
-//	}
 
 	private boolean collidesWithMap() {
 		boolean result = false;
@@ -604,30 +568,6 @@ public class GameScreen implements Screen {
 		}
 		return result;
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-	
-=======
-=======
->>>>>>> refs/remotes/origin/kazmanfima-patch-10
-
-	// wtf david
-	// private boolean collidesWithMap() {
-	// boolean result = false;
-	// if (!interp.overlaps(collide) && !interp.overlaps(collideBoulder))
-	// return false;
-	// for (int x = 0; x < collisionArray.size(); x++) {
-	// if (interp.overlaps(collisionArray.get(x))) {
-	// result = true;
-	// break;
-	// }
-	// }
-	// return result;
-	// }
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> refs/remotes/origin/kazmanfima-patch-10
 
 	private void priorityDraw() {
 		if (direction.equals("up"))
