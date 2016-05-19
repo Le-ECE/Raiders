@@ -1,3 +1,4 @@
+/Oscar.png
 /Tilesets/
 /back_dark.png
 /backbutton.png
@@ -7,10 +8,14 @@
 /boulder_2.png
 /boulder_3.png
 /column.png
+/com/
 /cursor.png
+/dirt text/
 /down_walk.png
+/earth_map.tmx
 /indianajones.png
 /left_walk.png
+/managers/
 /maps/
 /menubg.png
 /pause_overlay.png
@@ -22,6 +27,8 @@
 /quitover.png
 /right_walk.png
 /roll_left.png
+/rule1.tmx
+/rules.txt
 /snow text/
 /snow_map.tmx
 /snow_map2.tmx
@@ -29,8 +36,5 @@
 /splashtitle.png
 /title.png
 /title_new.png
+/tween/
 /up_walk.png
-/com/
-/earth_map.tmx
-/rule1.tmx
-/rules.txt
