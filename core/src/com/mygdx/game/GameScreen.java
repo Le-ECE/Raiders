@@ -1,5 +1,6 @@
 /**
- * The Movement class is used to test the main character sprite's movement.
+ * The GameScreen class is used to display the main character sprite's movement,
+ * as well as render the maps and collision for the game.
  * The class also includes a render of a custom made map, as well as
  * drawings of sprites. All of this is done on a single screen.
  * A looping method as well as a series of if statements (to check for
@@ -7,10 +8,12 @@
  * It takes a 'sprite sheet', which is a grid of animation frames, and
  * splits it into a 2D array of type TextureRegion, which is then made into
  * a 1D array of the same type. That array, in conjunction with the built in
- * Animation class, is used to animate the sprite's walking cycle. 
+ * Animation class, is used to animate the sprite's walking cycle. For-each loops
+ * are used to render the collision rectangles for the custom map files, as well
+ * as for the map properties.
  * 
  * @author Brian Tran
- * @version 1.0 13.05.2016
+ * @version 2.0 19.05.2016
  * 
  * <p>
  * <b>Instance Variables</b>
@@ -143,8 +146,8 @@ public class GameScreen implements Screen {
 	Rectangle quitRect;
 
 	ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
-	ArrayList <Rectangle> boulderArr = new ArrayList<Rectangle>();
-	
+	ArrayList<Rectangle> boulderArr = new ArrayList<Rectangle>();
+
 	ArrayList<TiledMap> mapList = new ArrayList<TiledMap>();
 
 	Texture indianaText;
@@ -174,14 +177,14 @@ public class GameScreen implements Screen {
 	float speed;
 	float time;
 	float interpY;
-	
+
 	String direction;
 
 	boolean catched = true;
 	boolean paused = false;
 	boolean mapCollide = false;
 	boolean priority;
-	
+
 	private int difficulty;
 
 	public GameScreen(SpriteBatch batch, MainGame game, int difficulty) {
@@ -196,8 +199,8 @@ public class GameScreen implements Screen {
 	 * and give values to all of the variables. Create() is called every time
 	 * the application is run. The create() method also sets the cursor to
 	 * remain within the window and be non visible with a built in GDX method
-	 * setCursorCatched (). Two for loops are used to transfer the 2D array of
-	 * TextureRegion to a 1D array of TextureRegion for animation.
+	 * setCursorCatched (). Multiple for loops are used to create animation
+	 * frames as well as to import collision hitboxes from the map.
 	 */
 	public void create() {
 
@@ -257,23 +260,25 @@ public class GameScreen implements Screen {
 		occupyArray("snow_map2.tmx");
 		// sets current map based on difficulty
 		setCurrentMap(difficulty);
-		
-		//System.out.print("Property test: ");
 
-		//System.out.println (currentMap.getLayers().get("properties").getObjects().get ("boulder1").getProperties().get("string_prop",String.class));
+		// System.out.print("Property test: ");
+
+		// System.out.println
+		// (currentMap.getLayers().get("properties").getObjects().get
+		// ("boulder1").getProperties().get("string_prop",String.class));
 
 		tmRender = new OrthogonalTiledMapRenderer(currentMap);
 
-		//boulder1 create
+		// boulder1 create
 		for (MapObject object : currentMap.getLayers().get("properties").getObjects()) {
 			if (object instanceof RectangleMapObject) {
 				boulderArr.add(((RectangleMapObject) object).getRectangle());
 			}
 		}
-		boulder1 = new Texture ("boulder_1.png");
-		boulder1Sprite = new Sprite (boulder1);
+		boulder1 = new Texture("boulder_1.png");
+		boulder1Sprite = new Sprite(boulder1);
 		boulder1Sprite.setSize(64f, 64f);
-		
+
 		// set player start position
 		for (MapObject object : currentMap.getLayers().get("start_end").getObjects()) {
 			if (object instanceof EllipseMapObject) {
@@ -368,7 +373,8 @@ public class GameScreen implements Screen {
 	}
 
 	/**
-	 * Unused overridden method.
+	 * This method disposes of all unused resources in order to prevent more
+	 * memory from being taken up.
 	 */
 	@Override
 	public void dispose() {
@@ -419,9 +425,9 @@ public class GameScreen implements Screen {
 		camera.update();
 
 		batch.begin();
-		
-		//boulder1 draw
-		for (int x = 0;x<boulderArr.size();x++){
+
+		// boulder1 draw
+		for (int x = 0; x < boulderArr.size(); x++) {
 			boulder1Sprite.setPosition(boulderArr.get(x).x, boulderArr.get(x).y);
 			boulder1Sprite.draw(batch);
 		}
@@ -458,10 +464,16 @@ public class GameScreen implements Screen {
 		}
 		batch.end();
 	}
-	
-	public void boulderUpdate(){
+
+	public void boulderUpdate() {
 	}
 
+	/**
+	 * The gameUpdate method takes in user input and updates the player's
+	 * current location based on the keys the user enters. This method is called
+	 * everytime the render method runs, as long as the game is not in a paused
+	 * state.
+	 */
 	public void gameUpdate() {
 
 		interpY = indianaY;
@@ -487,7 +499,6 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "right";
 			priority = true;
-		
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
@@ -506,7 +517,6 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "left";
 			priority = true;
-		
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
@@ -525,7 +535,6 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "down";
 			priority = true;
-		
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
@@ -544,17 +553,23 @@ public class GameScreen implements Screen {
 			if (!priority)
 				direction = "up";
 			priority = true;
-		
 
 		} else {
 			if (!priority)
 				direction = "none";
 			priority = true;
-			
+
 		}
 		priorityDraw();
 	}
 
+	/**
+	 * This method uses a for loop and an if statement to determine if the
+	 * user's walking hitbox collides with the map boundaries. If the user
+	 * collides with the map, a result of true is returned.
+	 * 
+	 * @return result boolean based on if player collides with map
+	 */
 	private boolean collidesWithMap() {
 		boolean result = false;
 		for (int x = 0; x < collisionArray.size(); x++) {
@@ -566,6 +581,12 @@ public class GameScreen implements Screen {
 		return result;
 	}
 
+	/**
+	 * The priority draw method is called every render loop. This method
+	 * ensures, through a series of if statements, that if the user inputs
+	 * multiple keys at once, only the first key's animation will play, instead
+	 * of having multiple walking animations play at the same time.
+	 */
 	private void priorityDraw() {
 		if (direction.equals("up"))
 			batch.draw(animation_up.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
@@ -580,18 +601,33 @@ public class GameScreen implements Screen {
 	}
 
 	/**
-	 * Unused overridden method.
+	 * This method calls the dispose method once the screen has been changed.
 	 */
 	@Override
 	public void hide() {
 		this.dispose();
 	}
 
+	/**
+	 * The occupyArray method adds TileMaps to the TileMap ArrayList. This
+	 * allows for easy traversing through each of the maps.
+	 * 
+	 * @param path
+	 *            Path of the map file.
+	 */
 	private void occupyArray(String path) {
 		TiledMap map = new TmxMapLoader().load(path);
 		mapList.add(map);
 	}
 
+	/**
+	 * The setCurrentMap method sets the current game map based on the user's
+	 * entered difficulty. It does this with an index variable used to traverse
+	 * the ArrayList of maps.
+	 * 
+	 * @param index
+	 *            integer used to traverse ArrayList
+	 */
 	private void setCurrentMap(int index) {
 		currentMap = mapList.get(index);
 	}

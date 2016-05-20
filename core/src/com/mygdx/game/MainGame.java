@@ -9,12 +9,14 @@ import com.badlogic.gdx.graphics.Pixmap;
  * starting the execution of the application by calling upon the MainMenu class.
  * 
  * @author Brian Tran
- * @version 1.0 13/05/2016
+ * @version 2.0 19/05/2016
  *
  *          <p>
  *          <b>Instance Variables</b>
  *          <p>
  *          <b>batch</b> Acts as a container for onscreen elements
+ *          <p>
+ *          <b>pm</b> Instance of Pixmap that allows for the image importing of the cursor image for custom cursors.
  *
  */
 public class MainGame extends Game {

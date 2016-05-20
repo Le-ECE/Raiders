@@ -17,6 +17,56 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 import tween.SpriteManager;
 
+/**
+ * The SplashScreen class shows an animation of the main character running
+ * across the screen with a boulder following, displaying the company name on
+ * the screen. Once the company name fades, the game is taken to the main menu.
+ * <p>
+ * <b>Instance Variables</b>
+ * <p>
+ * <b>batch</b> Instance of SpriteBatch that allows for elements to display on
+ * the screen.
+ * <p>
+ * <b>game</b> Instance of MainGame that allows for screen changes.
+ * <p>
+ * <b>walkAnim</b> Instance of Animation that allows for animation of walking
+ * frames.
+ * <p>
+ * <b>rollAnim</b> Instance of Animation that allows for animation of rolling
+ * frames.
+ * <p>
+ * <b>framesWalk</b> Array of TextureRegion that contains the frames for walk
+ * animation.
+ * <p>
+ * <b>framesRoll</b> Array of TextureRegion that contains the frames for roll
+ * animation.
+ * <p>
+ * <b>splashTitleSprite</b> Instance of Sprite that loads the sprite for the
+ * company title.
+ * <p>
+ * <b>walk</b> Instance of Texture that loads the spritesheet for walk
+ * animation.
+ * <p>
+ * <b>roll</b> Instance of Texture that loads the spritesheet for roll
+ * animation.
+ * <p>
+ * <b>background</b> Instance of Texture that loads the background image.
+ * <p>
+ * <b>splashTitle</b> Instance of Texture that loads the splashscreen image.
+ * <p>
+ * <b>time</b> Float variable used to keep track of time for animation.
+ * <p>
+ * <b>speed</b> Float variable used to determine speed of animation.
+ * <p>
+ * <b>walkX</b> Float variable used to determine the user's location.
+ * <p>
+ * <b>tweenManager</b> Instance of TweenManager used to animate the text.
+ * 
+ * @author Brian Tran
+ * @version 2.0.0 19/05/2016
+ *
+ */
+
 public class SplashScreen implements Screen {
 
 	SpriteBatch batch;
@@ -42,14 +92,25 @@ public class SplashScreen implements Screen {
 
 	TweenManager tweenManager;
 
+	/**
+	 * The constructor for this class takes in an instance of MainGame and in
+	 * order to allow for changing of game screens.
+	 * 
+	 * @param game MainGame instance used for changing screens
+	 */
 	public SplashScreen(MainGame game) {
 		this.game = game;
 	}
 
+	/**
+	 * The show method is used to initialize all of the variables, as well as
+	 * set all the positions, and sizes for each of the sprites to be drawn on
+	 * screen. The show method runs every time the application is ran.
+	 */
 	@Override
 	public void show() {
 		batch = new SpriteBatch();
-		
+
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
 
@@ -59,7 +120,7 @@ public class SplashScreen implements Screen {
 
 		splashTitle = new Texture("splashtitle.png");
 		splashTitleSprite = new Sprite(splashTitle);
-		splashTitleSprite.setPosition(0f, 768 - splashTitleSprite.getHeight());
+		splashTitleSprite.setPosition(0f, 750 - splashTitleSprite.getHeight());
 
 		roll = new Texture("roll_left.png");
 		walk = new Texture("left_walk.png");
@@ -84,17 +145,26 @@ public class SplashScreen implements Screen {
 
 		Tween.set(splashTitleSprite, SpriteManager.ALPHA).target(0f).start(tweenManager);
 		Tween.to(splashTitleSprite, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f)
-				.setCallback(new TweenCallback() {
-					@Override
-					public void onEvent(int arg0, BaseTween<?> arg1) {
-						dispose();
-						((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
-					}
-				}).start(tweenManager);
+		.setCallback(new TweenCallback() {
+			@Override
+			public void onEvent(int arg0, BaseTween<?> arg1) {
+				dispose();
+				((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
+			}
+		}).start(tweenManager);
 
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
 	}
 
+	/**
+	 * The render() method is an overridden method from the GDX library. The
+	 * render method is run every frame, and as a result, updates the screen
+	 * every frame with new information. This allows for animations of sprites
+	 * and such to be easier. Things are displayed on the screen using a
+	 * SpriteBatch, which acts as a container of sorts for the screen
+	 * elements.Various for loops are used to detect user input, as for
+	 * collision and detection.
+	 */
 	@Override
 	public void render(float delta) {
 
@@ -120,30 +190,46 @@ public class SplashScreen implements Screen {
 		}
 	}
 
+	/**
+	 * Unused overridden method.
+	 */
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Unused overridden method.
+	 */
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Unused overridden method.
+	 */
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Unused overridden method.
+	 */
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-
+		dispose();
 	}
 
+	/**
+	 * This method disposes of all unused resources in order to prevent more
+	 * memory from being taken up.
+	 */
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub

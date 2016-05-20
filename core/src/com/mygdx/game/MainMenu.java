@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,13 +26,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  * selection will be implemented.
  * 
  * @author Brian Tran
- * @version 1.0 13/05/2016
+ * @version 2.0 19/05/2016
  * 
  *          <p>
  *          <b>Instance Variables</b>
  *          <p>
- *          <b>game</b> Instance of Game that manages multiple displays on the
- *          screen
+ *          <b>game</b> Instance of MainGame that manages multiple displays on
+ *          the screen
  *          <p>
  *          <b>stage</b> Instance of Stage that manages all elements on the
  *          screen such as buttons
@@ -44,6 +42,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  *          <p>
  *          <b>bg</b> Instance of Texture that stores an image that acts as the
  *          menu background
+ *          <p>
+ *          <b>pB</b> Instance of Texture that stores an image that acts as the
+ *          play button.
+ *          <p>
+ *          <b>qB</b> Instance of Texture that stores an image that acts as the
+ *          quit button.
+ *          <p>
+ *          <b>title</b> Instance of Texture that stores an image that acts as
+ *          the title.
+ *          <p>
+ *          <b>ttl</b> Instance of Image that loads the image of the title.
+ *          <p>
+ *          <b>bG</b> Instance of Image that loads the image of the background.
+ *          <p>
+ *          <b>skin</b> Instance of Skin that allows for the customization of
+ *          onscreen elements.
  * 
  */
 public class MainMenu implements Screen {
@@ -63,7 +77,7 @@ public class MainMenu implements Screen {
 
 	Skin skin;
 
-	Pixmap pix;
+	// Pixmap pix;
 
 	public MainMenu(SpriteBatch batch, MainGame game) {
 		this.batch = batch;
@@ -85,7 +99,7 @@ public class MainMenu implements Screen {
 		pB = new Texture("playbutton.png");
 		qB = new Texture("quit.png");
 		skin = new Skin();
-		pix = new Pixmap(100, 100, Format.RGBA8888);
+		// pix = new Pixmap(100, 100, Format.RGBA8888);
 
 		title = new Texture("title_new.png");
 		ttl = new Image(title);
@@ -101,8 +115,8 @@ public class MainMenu implements Screen {
 
 		Gdx.input.setInputProcessor(stage);
 
-		pix.setColor(Color.RED);
-		pix.fill();
+		// pix.setColor(Color.RED);
+		// pix.fill();
 		skin.add("red", pB);
 		skin.add("overlay", qB);
 		skin.add("pb", new Texture("playbutton.png"));
@@ -135,8 +149,8 @@ public class MainMenu implements Screen {
 		playButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				dispose();
-				game.setScreen(new Difficulty (batch,game));
-				//game.setScreen(new GameScreen(batch, game, 1));
+				game.setScreen(new Difficulty(batch, game));
+				// game.setScreen(new GameScreen(batch, game, 1));
 			}
 		});
 
@@ -217,7 +231,7 @@ public class MainMenu implements Screen {
 		qB.dispose();
 		title.dispose();
 		skin.dispose();
-		pix.dispose();
+		// pix.dispose();
 	}
 
 }
