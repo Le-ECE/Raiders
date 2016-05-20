@@ -59,7 +59,7 @@ public class SplashScreen implements Screen {
 
 		splashTitle = new Texture("splashtitle.png");
 		splashTitleSprite = new Sprite(splashTitle);
-		splashTitleSprite.setPosition(0f, 768 - splashTitleSprite.getHeight());
+		splashTitleSprite.setPosition(0f, 750 - splashTitleSprite.getHeight());
 
 		roll = new Texture("roll_left.png");
 		walk = new Texture("left_walk.png");
