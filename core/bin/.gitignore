@@ -1,32 +1,5 @@
-/Oscar.png
-/Tilesets/
-/back_dark.png
-/backbutton.png
-/background(terraria).png
-/boulder_0.png
-/boulder_1.png
-/boulder_2.png
-/boulder_3.png
-/column.png
 /com/
-/cursor.png
-/dirt text/
-/down_walk.png
-/earth_map.tmx
-/indianajones.png
-/left_walk.png
 /managers/
-/maps/
-/menubg.png
-/pause_overlay.png
-/pause_text.png
-/playbutton.png
-/playbuttonover.png
-/quit.png
-/quit_dark.png
-/quitover.png
-/right_walk.png
-/roll_left.png
 /rule1.tmx
 /rules.txt
 /snow text/
