@@ -204,7 +204,7 @@
   <object id="24" x="1166" y="544" width="17" height="131"/>
   <object id="39" x="69.3333" y="69.3333" width="52" height="53.3333"/>
  </objectgroup>
- <objectgroup name="start_end" visible="0">
+ <objectgroup name="start_end">
   <object id="25" x="67" y="590" width="50" height="50">
    <ellipse/>
   </object>
