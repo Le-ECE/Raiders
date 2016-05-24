@@ -162,6 +162,8 @@ public class Difficulty implements Screen {
 	private SpriteBatch batch;
 
 	private MainGame game;
+	
+	public static boolean playing;
 
 	/**
 	 * The Difficulty constructor takes in a SpriteBatch and a MainGame in order
@@ -348,7 +350,7 @@ public class Difficulty implements Screen {
 		if (medRect.contains(Gdx.input.getX(), Gdx.input.getY() - 70)) {
 			mediumSprite.draw(batch);
 			if (Gdx.input.justTouched()) {
-				difficulty = 0;
+				difficulty = 1;
 				drawDarkMedium = false;
 				drawDarkEasy = true;
 				drawDarkHard = true;
@@ -420,6 +422,8 @@ public class Difficulty implements Screen {
 	 */
 	@Override
 	public void dispose() {
+		System.out.println ("successfully disposed");
+		
 		easy.dispose();
 		background.dispose();
 		medium.dispose();
@@ -432,6 +436,7 @@ public class Difficulty implements Screen {
 		backDark.dispose();
 		go.dispose();
 		goDark.dispose();
+		
 	}
 
 }

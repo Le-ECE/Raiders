@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -62,6 +63,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  */
 public class MainMenu implements Screen {
 	MainGame game;
+	
+	
 
 	Stage stage;
 
@@ -71,9 +74,11 @@ public class MainMenu implements Screen {
 	Texture pB;
 	Texture qB;
 	Texture title;
+	
 
-	Image ttl;
 	Image bG;
+	
+	Image ttl;
 
 	Skin skin;
 
@@ -94,6 +99,7 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void show() {
+						
 		stage = new Stage();
 		bg = new Texture("splash.png");
 		pB = new Texture("playbutton.png");
@@ -102,21 +108,28 @@ public class MainMenu implements Screen {
 		// pix = new Pixmap(100, 100, Format.RGBA8888);
 
 		title = new Texture("title_new.png");
-		ttl = new Image(title);
+		ttl = new Image (title);
 		ttl.setPosition(0, 720 - title.getHeight());
-
+				
+//		Tween.set(ttl, SpriteManager.ALPHA).target(0f).start(tweenManager);
+//		Tween.to(ttl, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f).start (tweenManager);
+		
 		bG = new Image(bg);
 		bG.setPosition(0, 0);
 		bG.setWidth(1200);
 		bG.setHeight(768);
 
+		ttl.setColor(ttl.getColor().r,ttl.getColor().g,ttl.getColor().b,0);
+		
+		ttl.addAction (Actions.fadeIn(2f));
+		
 		stage.addActor(bG);
+		
 		stage.addActor(ttl);
+
 
 		Gdx.input.setInputProcessor(stage);
 
-		// pix.setColor(Color.RED);
-		// pix.fill();
 		skin.add("red", pB);
 		skin.add("overlay", qB);
 		skin.add("pb", new Texture("playbutton.png"));
@@ -141,16 +154,22 @@ public class MainMenu implements Screen {
 		playButton.setPosition(475, 300);
 		playButton.setWidth(250f);
 		playButton.setHeight(105f);
+		playButton.setColor(playButton.getColor().r,playButton.getColor().g,playButton.getColor().b, 0);
 
+		playButton.addAction(Actions.fadeIn (2f));
+		
 		quitButton.setPosition(475, 150);
 		quitButton.setWidth(250f);
 		quitButton.setHeight(105f);
+		quitButton.setColor(quitButton.getColor().r,quitButton.getColor().g,quitButton.getColor().b, 0);
+
+		quitButton.addAction(Actions.fadeIn(2f));
+		
 
 		playButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				dispose();
 				game.setScreen(new Difficulty(batch, game));
-				// game.setScreen(new GameScreen(batch, game, 1));
 			}
 		});
 
@@ -175,11 +194,13 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
+				
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		stage.act();
 		stage.draw();
+		ttl.act(delta);
 	}
 
 	/**
@@ -231,6 +252,7 @@ public class MainMenu implements Screen {
 		qB.dispose();
 		title.dispose();
 		skin.dispose();
+		//mainMusic.dispose();
 		// pix.dispose();
 	}
 

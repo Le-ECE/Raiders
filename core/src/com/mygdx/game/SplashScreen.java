@@ -235,7 +235,7 @@ public class SplashScreen implements Screen {
 		// TODO Auto-generated method stub
 		walk.dispose();
 		roll.dispose();
-		background.dispose();
+		//background.dispose();
 		splashTitle.dispose();
 
 	}

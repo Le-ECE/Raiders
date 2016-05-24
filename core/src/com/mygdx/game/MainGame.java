@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Pixmap;
 
 /**
@@ -20,6 +21,8 @@ import com.badlogic.gdx.graphics.Pixmap;
  *
  */
 public class MainGame extends Game {
+	
+	public static Music mainMusic;
 
 	Pixmap pm;
 
@@ -30,6 +33,12 @@ public class MainGame extends Game {
 	 */
 	@Override
 	public void create() {
+		
+		//set music
+		mainMusic = Gdx.audio.newMusic(Gdx.files.internal("main_music.mp3"));
+		mainMusic.setLooping(true);
+		mainMusic.play();
+		
 		// sets the cursor to a custom image
 		pm = new Pixmap(Gdx.files.internal("cursor.png"));
 		Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));

@@ -91,6 +91,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -118,6 +119,10 @@ public class GameScreen implements Screen {
 	Animation animation_left;
 	Animation animation_up;
 	Animation animation_down;
+	
+	Music desertMusic;
+	Music earthMusic;
+	Music iceMusic;
 
 	TextureRegion[] frames_right;
 	TextureRegion[] frames_left;
@@ -205,7 +210,24 @@ public class GameScreen implements Screen {
 	public void create() {
 
 		sr = new ShapeRenderer();
+		
+		MainGame.mainMusic.dispose();
+		
+		//set music
+		desertMusic = Gdx.audio.newMusic(Gdx.files.internal("desert_music.mp3"));
+		earthMusic = Gdx.audio.newMusic(Gdx.files.internal("grass_theme.mp3"));
+		iceMusic = Gdx.audio.newMusic(Gdx.files.internal("ice_theme.mp3"));
 
+		if (difficulty ==0){
+			desertMusic.play();
+		}
+		else if (difficulty == 1){
+			earthMusic.play();
+		}
+		else{
+			iceMusic.play();
+		}
+		
 		// set accessor
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
 
@@ -255,11 +277,15 @@ public class GameScreen implements Screen {
 
 		// tiledmap renderer
 		// fills array with maps
+		occupyArray ("dust_map2.tmx");
 		occupyArray("earth_map.tmx");
 		occupyArray("snow_map.tmx");
 		occupyArray("snow_map2.tmx");
+		
 		// sets current map based on difficulty
 		setCurrentMap(difficulty);
+		
+		
 
 		// System.out.print("Property test: ");
 
@@ -378,6 +404,9 @@ public class GameScreen implements Screen {
 	 */
 	@Override
 	public void dispose() {
+		desertMusic.dispose();
+		earthMusic.dispose();
+		iceMusic.dispose();
 		game.dispose();
 		indianaText.dispose();
 		walk_right.dispose();
