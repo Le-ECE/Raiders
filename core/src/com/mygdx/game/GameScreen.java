@@ -240,141 +240,399 @@ public class GameScreen implements Screen {
 		quitSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 250f);
 		quitSprite.setSize(290f, 110f);
 
-		// quit dark
-	at org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor$4.partHidden(IDEWorkbenchWindowAdvisor.java:331)
-	at org.eclipse.ui.internal.PartService$11.run(PartService.java:214)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.ui.internal.PartService.partHidden(PartService.java:211)
-	at org.eclipse.ui.internal.WorkbenchPage$25.run(WorkbenchPage.java:5190)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.ui.internal.WorkbenchPage.firePartHidden(WorkbenchPage.java:5187)
-	at org.eclipse.ui.internal.WorkbenchPage$E4PartListener.partHidden(WorkbenchPage.java:233)
-	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl$5.run(PartServiceImpl.java:277)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl.firePartHidden(PartServiceImpl.java:274)
-	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl.access$1(PartServiceImpl.java:272)
-	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl$1.handleEvent(PartServiceImpl.java:91)
-	at org.eclipse.e4.ui.services.internal.events.UIEventHandler$1.run(UIEventHandler.java:40)
-	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:186)
-	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:145)
-	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4761)
-	at org.eclipse.e4.ui.internal.workbench.swt.E4Application$1.syncExec(E4Application.java:211)
-	at org.eclipse.e4.ui.services.internal.events.UIEventHandler.handleEvent(UIEventHandler.java:36)
-	at org.eclipse.equinox.internal.event.EventHandlerWrapper.handleEvent(EventHandlerWrapper.java:197)
-	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:197)
-	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:1)
-	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
-	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:148)
-	at org.eclipse.equinox.internal.event.EventAdminImpl.dispatchEvent(EventAdminImpl.java:135)
-	at org.eclipse.equinox.internal.event.EventAdminImpl.sendEvent(EventAdminImpl.java:78)
-	at org.eclipse.equinox.internal.event.EventComponent.sendEvent(EventComponent.java:39)
-	at org.eclipse.e4.ui.services.internal.events.EventBroker.send(EventBroker.java:85)
-	at org.eclipse.e4.ui.internal.workbench.UIEventPublisher.notifyChanged(UIEventPublisher.java:59)
-	at org.eclipse.emf.common.notify.impl.BasicNotifierImpl.eNotify(BasicNotifierImpl.java:374)
-	at org.eclipse.e4.ui.model.application.ui.impl.ElementContainerImpl.setSelectedElement(ElementContainerImpl.java:171)
-	at org.eclipse.e4.ui.workbench.renderers.swt.StackRenderer$9.widgetSelected(StackRenderer.java:1084)
-	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:248)
-	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
-	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4362)
-	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1113)
-	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1137)
-	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1122)
-	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:788)
-	at org.eclipse.swt.custom.CTabFolder.setSelection(CTabFolder.java:3158)
-	at org.eclipse.swt.custom.CTabFolder.onMouse(CTabFolder.java:1841)
-	at org.eclipse.swt.custom.CTabFolder$1.handleEvent(CTabFolder.java:330)
-	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
-	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4362)
-	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1113)
-	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4180)
-	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3769)
-	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$4.run(PartRenderingEngine.java:1127)
-	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:337)
-	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1018)
-	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
-	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:694)
-	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:337)
-	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:606)
-	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
-	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:139)
-	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
-	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
-	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
-	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:380)
-	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:235)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:669)
-	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:608)
-	at org.eclipse.equinox.launcher.Main.run(Main.java:1515)
+		// quit dark button
+		quitDark = new Texture("quit_dark.png");
+		darkQuitSprite = new Sprite(quitDark);
+		darkQuitSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 250f);
+		darkQuitSprite.setSize(290f, 110f);
 
-!ENTRY org.eclipse.ui.workbench 4 2 2016-05-24 14:27:01.371
-!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.ui.workbench".
-!STACK 0
-java.lang.NoClassDefFoundError: org/eclipse/ui/internal/misc/StatusUtil
-	at org.eclipse.ui.statushandlers.StatusManager.logError(StatusManager.java:279)
-	at org.eclipse.ui.statushandlers.StatusManager.handle(StatusManager.java:201)
-	at org.eclipse.ui.internal.JFaceUtil$3.show(JFaceUtil.java:73)
-	at org.eclipse.jface.util.SafeRunnable.handleException(SafeRunnable.java:63)
-	at org.eclipse.core.runtime.SafeRunner.handleException(SafeRunner.java:75)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:46)
-	at org.eclipse.ui.internal.PartService.partHidden(PartService.java:211)
-	at org.eclipse.ui.internal.WorkbenchPage$25.run(WorkbenchPage.java:5190)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.ui.internal.WorkbenchPage.firePartHidden(WorkbenchPage.java:5187)
-	at org.eclipse.ui.internal.WorkbenchPage$E4PartListener.partHidden(WorkbenchPage.java:233)
-	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl$5.run(PartServiceImpl.java:277)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl.firePartHidden(PartServiceImpl.java:274)
-	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl.access$1(PartServiceImpl.java:272)
-	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl$1.handleEvent(PartServiceImpl.java:91)
-	at org.eclipse.e4.ui.services.internal.events.UIEventHandler$1.run(UIEventHandler.java:40)
-	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:186)
-	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:145)
-	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4761)
-	at org.eclipse.e4.ui.internal.workbench.swt.E4Application$1.syncExec(E4Application.java:211)
-	at org.eclipse.e4.ui.services.internal.events.UIEventHandler.handleEvent(UIEventHandler.java:36)
-	at org.eclipse.equinox.internal.event.EventHandlerWrapper.handleEvent(EventHandlerWrapper.java:197)
-	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:197)
-	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:1)
-	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
-	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:148)
-	at org.eclipse.equinox.internal.event.EventAdminImpl.dispatchEvent(EventAdminImpl.java:135)
-	at org.eclipse.equinox.internal.event.EventAdminImpl.sendEvent(EventAdminImpl.java:78)
-	at org.eclipse.equinox.internal.event.EventComponent.sendEvent(EventComponent.java:39)
-	at org.eclipse.e4.ui.services.internal.events.EventBroker.send(EventBroker.java:85)
-	at org.eclipse.e4.ui.internal.workbench.UIEventPublisher.notifyChanged(UIEventPublisher.java:59)
-	at org.eclipse.emf.common.notify.impl.BasicNotifierImpl.eNotify(BasicNotifierImpl.java:374)
-	at org.eclipse.e4.ui.model.application.ui.impl.ElementContainerImpl.setSelectedElement(ElementContainerImpl.java:171)
-	at org.eclipse.e4.ui.workbench.renderers.swt.StackRenderer$9.widgetSelected(StackRenderer.java:1084)
-	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:248)
-	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
-	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4362)
-	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1113)
-	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1137)
-	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1122)
-	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:788)
-	at org.eclipse.swt.custom.CTabFolder.setSelection(CTabFolder.java:3158)
-	at org.eclipse.swt.custom.CTabFolder.onMouse(CTabFolder.java:1841)
-	at org.eclipse.swt.custom.CTabFolder$1.handleEvent(CTabFolder.java:330)
-	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
-	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4362)
-	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1113)
-	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4180)
-	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3769)
-	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$4.run(PartRenderingEngine.java:1127)
-	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:337)
-	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1018)
-	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
-	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:694)
-	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:337)
-	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:606)
-	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
-	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:139)
-	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
-	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
-	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
-	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:380)
-	at org.eclipse.core.runtime.ad
+		// quit rectangle
+		quitRect = new Rectangle(quitSprite.getX(), quitSprite.getY(), quitSprite.getWidth(), quitSprite.getHeight());
+
+		// stage = new Stage();
+
+		Gdx.input.setCursorCatched(catched);
+
+		// tiledmap renderer
+		// fills array with maps
+		occupyArray("dust_map.tmx");
+		occupyArray("dust_map2.tmx");
+		occupyArray("earth_map.tmx");
+		occupyArray("earth_map2.tmx");
+		occupyArray("snow_map.tmx");
+		occupyArray("snow_map2.tmx");
+		// sets current map based on difficulty
+		setCurrentMap(difficulty);
+
+		// System.out.print("Property test: ");
+
+		// System.out.println
+		// (currentMap.getLayers().get("properties").getObjects().get
+		// ("boulder1").getProperties().get("string_prop",String.class));
+
+		tmRender = new OrthogonalTiledMapRenderer(currentMap);
+
+		// boulder1 create
+		for (MapObject object : currentMap.getLayers().get("properties").getObjects()) {
+			if (object instanceof RectangleMapObject) {
+				boulderArr.add(((RectangleMapObject) object).getRectangle());
+			}
+		}
+		boulder1 = new Texture("boulder_1.png");
+		boulder1Sprite = new Sprite(boulder1);
+		boulder1Sprite.setSize(64f, 64f);
+
+		// set player start position
+		for (MapObject object : currentMap.getLayers().get("start_end").getObjects()) {
+			if (object instanceof EllipseMapObject) {
+				start = ((EllipseMapObject) object).getEllipse();
+			}
+		}
+
+		// camera
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 1216, 768);
+		camera.update();
+
+		indianaText = new Texture("indianajones.png");
+		indianaJones = new Sprite(indianaText);
+
+		indianaJones.setSize(32f, 64f);
+
+		indianaX = start.x;
+		indianaY = start.y;
+
+		body = indianaJones.getBoundingRectangle();
+		interp = new Rectangle(body.x, body.y, body.width, body.height - 25);
+
+		speed = 250.0f;
+
+		walk_right = new Texture("right_walk.png");
+		walk_left = new Texture("left_walk.png");
+		walk_up = new Texture("up_walk.png");
+		walk_down = new Texture("down_walk.png");
+
+		TextureRegion[][] temp_right = TextureRegion.split(walk_right, 32, 64);
+		frames_right = new TextureRegion[4];
+		TextureRegion[][] temp_left = TextureRegion.split(walk_left, 32, 64);
+		frames_left = new TextureRegion[4];
+		TextureRegion[][] temp_up = TextureRegion.split(walk_up, 32, 64);
+		frames_up = new TextureRegion[4];
+		TextureRegion[][] temp_down = TextureRegion.split(walk_down, 32, 64);
+		frames_down = new TextureRegion[4];
+
+		int index = 0;
+		// transfer 2D array of sprite sheet to 1d array for animation
+		for (int rows = 0; rows < 2; rows++) {
+			for (int col = 0; col < 2; col++) {
+				frames_right[index] = temp_right[rows][col];
+				frames_left[index] = temp_left[rows][col];
+				frames_up[index] = temp_up[rows][col];
+				frames_down[index] = temp_down[rows][col];
+				index++;
+			}
+		}
+		animation_up = new Animation(0.25f, frames_up);
+		animation_left = new Animation(0.25f, frames_left);
+		animation_right = new Animation(0.25f, frames_right);
+		animation_down = new Animation(0.25f, frames_down);
+
+		pauseTextSprite.setPosition(0, 780 - pauseTextSprite.getHeight());
+
+		// pause text animation
+		Tween.set(pauseTextSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
+		Tween.to(pauseTextSprite, SpriteManager.ALPHA, 0.5f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
+		.start(tweenManager);
+		for (MapObject object : currentMap.getLayers().get("collision").getObjects()) {
+			if (object instanceof RectangleMapObject) {
+				collisionArray.add(((RectangleMapObject) object).getRectangle());
+			}
+		}
+
+	}
+
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void resize(int width, int height) {
+
+	}
+
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void pause() {
+
+	}
+
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void resume() {
+
+	}
+
+	/**
+	 * This method disposes of all unused resources in order to prevent more
+	 * memory from being taken up.
+	 */
+	@Override
+	public void dispose() {
+		game.dispose();
+		indianaText.dispose();
+		walk_right.dispose();
+		walk_left.dispose();
+		walk_up.dispose();
+		walk_down.dispose();
+		currentMap.dispose();
+	}
+
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void show() {
+
+	}
+
+	/**
+	 * The render() method is an overridden method from the GDX library. The
+	 * render method is run every frame, and as a result, updates the screen
+	 * every frame with new information. This allows for animations of sprites
+	 * and such to be easier. Things are displayed on the screen using a
+	 * SpriteBatch, which acts as a container of sorts for the screen
+	 * elements.Various for loops are used to detect user input, as for
+	 * collision and detection.
+	 */
+	@Override
+	public void render(float delta) {
+
+		tweenManager.update(delta);
+
+		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		body.setPosition(indianaX, indianaY);
+
+		// keep track of elapsed time
+		time += Gdx.graphics.getDeltaTime();
+
+		// set camera view
+		tmRender.setView(camera);
+		// render tile map
+		tmRender.render();
+		// update camera view
+		camera.update();
+
+		batch.begin();
+
+		// boulder1 draw
+		for (int x = 0; x < boulderArr.size(); x++) {
+			boulder1Sprite.setPosition(boulderArr.get(x).x, boulderArr.get(x).y);
+			boulder1Sprite.draw(batch);
+		}
+
+		if (!paused)
+			gameUpdate();
+		else {
+
+			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
+			batch.draw(pauseOverlay, 0, 0);
+			pauseTextSprite.draw(batch);
+			darkBackSprite.draw(batch);
+			darkQuitSprite.draw(batch);
+
+			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY())) {
+				quitSprite.draw(batch);
+				if (Gdx.input.justTouched()) {
+					game.setScreen(new MainMenu(batch, game));
+				}
+			}
+			if (quitRect.contains(Gdx.input.getX(), Gdx.input.getY())) {
+				backSprite.draw(batch);
+				if (Gdx.input.justTouched()) {
+					paused = false;
+					Gdx.input.setCursorCatched(!catched);
+					catched = !catched;
+				}
+			}
+			if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+				paused = false;
+				Gdx.input.setCursorCatched(!catched);
+				catched = !catched;
+			}
+		}
+		batch.end();
+	}
+
+	public void boulderUpdate() {
+	}
+
+	/**
+	 * The gameUpdate method takes in user input and updates the player's
+	 * current location based on the keys the user enters. This method is called
+	 * everytime the render method runs, as long as the game is not in a paused
+	 * state.
+	 */
+	public void gameUpdate() {
+
+		interpY = indianaY;
+		priority = false;
+		direction = "none";
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			Gdx.input.setCursorCatched(!catched);
+			catched = !catched;
+			paused = true;
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
+			interp.setPosition(indianaX + 4, interpY);
+			if (!collidesWithMap()) {
+				indianaX += Gdx.graphics.getDeltaTime() * speed;
+			}
+
+			interp.setPosition(indianaX, interpY);
+
+			if (indianaX + indianaJones.getWidth() >= 1200) {
+				indianaX = 1200 - indianaJones.getWidth();
+			}
+			if (!priority)
+				direction = "right";
+			priority = true;
+
+		}
+		if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
+
+			interp.setPosition(indianaX - 4, interpY);
+
+			if (!collidesWithMap()) {
+				indianaX -= Gdx.graphics.getDeltaTime() * speed;
+			}
+
+			interp.setPosition(indianaX, interpY);
+
+			if (indianaX <= -17) {
+				indianaX = -17;
+			}
+			if (!priority)
+				direction = "left";
+			priority = true;
+
+		}
+		if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
+
+			interp.setPosition(indianaX, interpY - 4);
+
+			if (!collidesWithMap()) {
+				indianaY -= Gdx.graphics.getDeltaTime() * speed;
+			}
+
+			interp.setPosition(indianaX, interpY);
+
+			if (indianaY <= 0) {
+				indianaY = 0;
+			}
+			if (!priority)
+				direction = "down";
+			priority = true;
+
+		}
+		if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
+
+			interp.setPosition(indianaX, interpY + 4);
+
+			if (!collidesWithMap()) {
+				indianaY += Gdx.graphics.getDeltaTime() * speed;
+			}
+
+			interp.setPosition(indianaX, interpY);
+
+			if (indianaY + indianaJones.getHeight() >= 768) {
+				indianaY = 768 - indianaJones.getHeight();
+			}
+			if (!priority)
+				direction = "up";
+			priority = true;
+
+		} else {
+			if (!priority)
+				direction = "none";
+			priority = true;
+
+		}
+		priorityDraw();
+	}
+
+	/**
+	 * This method uses a for loop and an if statement to determine if the
+	 * user's walking hitbox collides with the map boundaries. If the user
+	 * collides with the map, a result of true is returned.
+	 * 
+	 * @return result boolean based on if player collides with map
+	 */
+	private boolean collidesWithMap() {
+		boolean result = false;
+		for (int x = 0; x < collisionArray.size(); x++) {
+			if (interp.overlaps(collisionArray.get(x))) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * The priority draw method is called every render loop. This method
+	 * ensures, through a series of if statements, that if the user inputs
+	 * multiple keys at once, only the first key's animation will play, instead
+	 * of having multiple walking animations play at the same time.
+	 */
+	private void priorityDraw() {
+		if (direction.equals("up"))
+			batch.draw(animation_up.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+		else if (direction.equals("down"))
+			batch.draw(animation_down.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+		else if (direction.equals("left"))
+			batch.draw(animation_left.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+		else if (direction.equals("right"))
+			batch.draw(animation_right.getKeyFrame(time, true), (int) indianaX, (int) indianaY, 48f, 96f);
+		else if (direction.equals("none"))
+			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
+	}
+
+	/**
+	 * This method calls the dispose method once the screen has been changed.
+	 */
+	@Override
+	public void hide() {
+		this.dispose();
+	}
+
+	/**
+	 * The occupyArray method adds TileMaps to the TileMap ArrayList. This
+	 * allows for easy traversing through each of the maps.
+	 * 
+	 * @param path
+	 *            Path of the map file.
+	 */
+	private void occupyArray(String path) {
+		TiledMap map = new TmxMapLoader().load(path);
+		mapList.add(map);
+	}
+
+	/**
+	 * The setCurrentMap method sets the current game map based on the user's
+	 * entered difficulty. It does this with an index variable used to traverse
+	 * the ArrayList of maps.
+	 * 
+	 * @param index
+	 *            integer used to traverse ArrayList
+	 */
+	private void setCurrentMap(int index) {
+		currentMap = mapList.get(index);
+	}
+
+}
