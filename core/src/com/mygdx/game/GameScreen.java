@@ -277,8 +277,10 @@ public class GameScreen implements Screen {
 
 		// tiledmap renderer
 		// fills array with maps
+		occupyArray ("dust_map.tmx");
 		occupyArray ("dust_map2.tmx");
 		occupyArray("earth_map.tmx");
+		occupyArray ("earth_map2.tmx");
 		occupyArray("snow_map.tmx");
 		occupyArray("snow_map2.tmx");
 		

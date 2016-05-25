@@ -350,7 +350,7 @@ public class Difficulty implements Screen {
 		if (medRect.contains(Gdx.input.getX(), Gdx.input.getY() - 70)) {
 			mediumSprite.draw(batch);
 			if (Gdx.input.justTouched()) {
-				difficulty = 1;
+				difficulty = 2;
 				drawDarkMedium = false;
 				drawDarkEasy = true;
 				drawDarkHard = true;
@@ -360,7 +360,7 @@ public class Difficulty implements Screen {
 		if (hardRect.contains(Gdx.input.getX(), Gdx.input.getY() - 300)) {
 			hardSprite.draw(batch);
 			if (Gdx.input.justTouched()) {
-				difficulty = 2;
+				difficulty = 4;
 				drawDarkHard = false;
 				drawDarkEasy = true;
 				drawDarkMedium = true;

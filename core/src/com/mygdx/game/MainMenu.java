@@ -156,14 +156,14 @@ public class MainMenu implements Screen {
 		playButton.setHeight(105f);
 		playButton.setColor(playButton.getColor().r,playButton.getColor().g,playButton.getColor().b, 0);
 
-		playButton.addAction(Actions.fadeIn (2f));
+		playButton.addAction(Actions.fadeIn (1.5f));
 		
 		quitButton.setPosition(475, 150);
 		quitButton.setWidth(250f);
 		quitButton.setHeight(105f);
 		quitButton.setColor(quitButton.getColor().r,quitButton.getColor().g,quitButton.getColor().b, 0);
 
-		quitButton.addAction(Actions.fadeIn(2f));
+		quitButton.addAction(Actions.fadeIn(1.5f));
 		
 
 		playButton.addCaptureListener(new ChangeListener() {
