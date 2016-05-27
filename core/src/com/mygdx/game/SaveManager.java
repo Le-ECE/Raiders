@@ -5,6 +5,7 @@ private String tempName;
 private int tempDifficulty;
 private int tempTimeSeconds;
 private Save loadedSave;
+
 public SaveManager(){
 Save newSave=new Save("No Name",0,0);
 this.loadedSave=newSave;
@@ -33,6 +34,12 @@ public int getManagerTimeSeconds(){
 	return this.tempTimeSeconds;
 }
 
+public void setSave(Save passSave){
+this.loadedSave=passSave;
+this.tempName=this.loadedSave.getName();
+this.tempDifficulty=this.loadedSave.getDifficulty();
+this.tempTimeSeconds=this.loadedSave.getTimeSeconds();
+}
 
 
 }

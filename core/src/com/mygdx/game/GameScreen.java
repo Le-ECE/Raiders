@@ -162,6 +162,8 @@ public class GameScreen implements Screen {
 
 	ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
 	ArrayList<Rectangle> boulderArr = new ArrayList<Rectangle>();
+	ArrayList<Integer>boulderXArr=new ArrayList<Integer>();
+	ArrayList<Integer>boulderYArr=new ArrayList<Integer>();
 
 	ArrayList<TiledMap> mapList = new ArrayList<TiledMap>();
 
@@ -546,7 +548,13 @@ public class GameScreen implements Screen {
 		batch.end();
 	}
 
-	public void boulderUpdate() {
+	private void drawBoulder(int boulderNum,String direction, int distance,String rotation){
+	if (direction.equals("up"))
+			batch.draw(boulder1, (int) boulderXArr.get(boulderNum),(int)boulderYArr.get(boulderNum),64f,64f);
+	}
+	
+	private boolean boulderCheck() {
+		return true;
 	}
 
 	/**
