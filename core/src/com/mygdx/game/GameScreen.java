@@ -210,11 +210,13 @@ public class GameScreen implements Screen {
 	boolean gameEnded;
 
 	private int difficulty;
+	private int timeSeconds;
 
-	public GameScreen(SpriteBatch batch, MainGame game, int difficulty) {
+	public GameScreen(SpriteBatch batch, MainGame game, int difficulty,int timeSeconds) {
 		this.batch = batch;
 		this.game = game;
 		this.difficulty = difficulty;
+		this.timeSeconds=timeSeconds;
 		create();
 	}
 
@@ -738,6 +740,9 @@ public class GameScreen implements Screen {
 		} else if (mapEnds() && difficulty % 2 != 0) {
 			System.out.println("level complete");
 			gameEnded = true;
+			game.getSaveManager().setManagerName("let user input name here");
+			game.getSaveManager().setManagerDifficulty(difficulty);
+			game.getSaveManager().setManagerTimeSeconds(timeSeconds+(int)totalTime);
 		}
 	}
 
