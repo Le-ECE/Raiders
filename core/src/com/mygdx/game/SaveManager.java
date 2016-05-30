@@ -1,45 +1,27 @@
 package com.mygdx.game;
+import java.io.*;
+import java.util.*;
+public class SaveManager{
 
-public class SaveManager {
-private String tempName;
-private int tempDifficulty;
-private int tempTimeSeconds;
 private Save loadedSave;
 
 public SaveManager(){
-Save newSave=new Save("No Name",0,0);
-this.loadedSave=newSave;
-}
-public void setManagerName(String newName){
-	this.tempName=newName;
+this.loadedSave=new Save("No Name",0,0);
 }
 
-public void setManagerDifficulty(int newDifficulty){
-	this.tempDifficulty=newDifficulty;
+public void setSave(Save newSave){
+	this.loadedSave=newSave;
 }
 
-public void setManagerTimeSeconds(int newTimeSeconds){
-	this.tempTimeSeconds=newTimeSeconds;
-}
-
-public String getManagerName(){
-	return this.tempName;
-}
-
-public int getManagerDifficulty(){
-	return this.tempDifficulty;
-}
-
-public int getManagerTimeSeconds(){
-	return this.tempTimeSeconds;
-}
-
-public void setSave(Save passSave){
-this.loadedSave=passSave;
-this.tempName=this.loadedSave.getName();
-this.tempDifficulty=this.loadedSave.getDifficulty();
-this.tempTimeSeconds=this.loadedSave.getTimeSeconds();
+public Save getSave(){
+return this.loadedSave;
 }
 
 
+public void writeSave(){
+	String saveName="";
+	Calendar newCalendar=Calendar.getInstance();
+	newCalendar.setTimeInMillis(System.currentTimeMillis());
+	saveName=newCalendar.toString();
+}
 }

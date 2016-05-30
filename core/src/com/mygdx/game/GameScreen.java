@@ -748,9 +748,9 @@ public class GameScreen implements Screen {
 		} else if (mapEnds() && difficulty % 2 != 0) {
 			System.out.println("level complete");
 			gameEnded = true;
-			game.getSaveManager().setManagerName("let user input name here");
-			game.getSaveManager().setManagerDifficulty(difficulty);
-			game.getSaveManager().setManagerTimeSeconds(timeSeconds+(int)totalTime);
+			game.getSaveManager().getSave().setName("let user input name here");
+			game.getSaveManager().getSave().setDifficulty(difficulty);
+			game.getSaveManager().getSave().setTimeSeconds(timeSeconds+(int)totalTime);
 		}
 	}
 
