@@ -88,6 +88,8 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
@@ -779,10 +781,29 @@ public class GameScreen implements Screen {
 		} else if (mapEnds() && difficulty % 2 != 0) {
 			System.out.println("level complete");
 			gameEnded = true;
-			game.getSaveManager().getSave().setName("let user input name here");
-			game.getSaveManager().getSave().setDifficulty(difficulty);
-			game.getSaveManager().getSave().setTimeSeconds(timeSeconds+(int)totalTime);
+		saveGame();
+		
 		}
+	}
+	
+	public void saveGame(){
+		String inputName="No Name";
+		while(true){
+		inputName=JOptionPane.showInputDialog(null,"Enter your full name.","Input",2)
+	if(inputName.isEmpty()){
+	JOptionPane.showMessageDialog(null, "Name cannot be blank.","ATTENTION",JOptionPane.ERROR_MESSAGE);	
+	}
+	else if(inputName.length()>25){
+		JOptionPane.showMessageDialog(null, "Name must be under 25 Characters.","ATTENTION",JOptionPane.ERROR_MESSAGE);
+	}
+	else{
+	break;	
+	}
+		}
+	
+				game.getSaveManager().getSave().setName(inputName);
+		game.getSaveManager().getSave().setDifficulty(difficulty);
+		game.getSaveManager().getSave().setTimeSeconds(timeSeconds+(int)totalTime);	
 	}
 
 	private void drawOverlay() {
@@ -793,6 +814,8 @@ public class GameScreen implements Screen {
 		scoreSprite.draw(batch);
 		menuDarkSprite.draw(batch);
 		goDarkSprite.draw(batch);
+		System.out.println();
+		System.out.println(game.getSaveManager().getSave().getName());
 
 		if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610)) {
 			menuSprite.draw(batch);
