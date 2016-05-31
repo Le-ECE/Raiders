@@ -1,11 +1,3 @@
-/Signs0.png
-/Signs1.png
-/Signs2.png
-/Signs3.png
-/Signs4.png
-/Signs5.png
-/Signs6.png
-/Signs7.png
 /Tilesets/
 /back_dark.png
 /backbutton.png
@@ -37,6 +29,7 @@
 /indianajones.png
 /left_walk.png
 /levelcomplete_text.png
+/load.png
 /main_music.mp3
 /maps/
 /medium.png
@@ -45,6 +38,7 @@
 /menu_dark.png
 /menubg.png
 /music/
+/com/
 /oscar (2).png
 /oscar.png
 /pause_overlay.png
@@ -59,15 +53,6 @@
 /rule1.tmx
 /rules.txt
 /score_panel.png
-/signs0 (2).png
-/com/
-/signs1 (2).png
-/signs2 (2).png
-/signs3 (2).png
-/signs4 (2).png
-/signs5 (2).png
-/signs6 (2).png
-/signs7 (2).png
 /snow text/
 /snow_map.tmx
 /snow_map2.tmx

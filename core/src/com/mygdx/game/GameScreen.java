@@ -215,6 +215,7 @@ public class GameScreen implements Screen {
 	boolean priority;
 	boolean gameEnded;
 
+	private String name;
 	private int difficulty;
 	private int timeSeconds;
 	private int boulderX;
@@ -222,7 +223,7 @@ public class GameScreen implements Screen {
 	
 	Boulder b;
 
-	public GameScreen(SpriteBatch batch, MainGame game, int difficulty,int timeSeconds) {
+	public GameScreen(SpriteBatch batch, MainGame game,String name, int difficulty,int timeSeconds) {
 		this.batch = batch;
 		this.game = game;
 		this.difficulty = difficulty;
@@ -531,19 +532,6 @@ public class GameScreen implements Screen {
 		camera.update();
 
 		batch.begin();
-		
-		// draw boulders
-		if (!paused){
-			for (int x = 0; x < boulderArr.size(); x++) {
-				System.out.println("direction: "+directionArr.get(x));
-				System.out.println("distance: "+distanceArr.get(x));
-				b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
-				System.out.println ("x coord "+x+": "+boulderXArr.get(x));
-				System.out.println("y coord "+x+": "+boulderYArr.get(x));
-				boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
-				boulder1Sprite.draw(batch);
-			}
-		}
 
 		if (!paused && !gameEnded) {
 			gameUpdate();
@@ -553,6 +541,16 @@ public class GameScreen implements Screen {
 			pauseTextSprite.draw(batch);
 			darkBackSprite.draw(batch);
 			darkQuitSprite.draw(batch);
+			
+			for (int x = 0; x < boulderArr.size(); x++) {
+				//System.out.println("direction: "+directionArr.get(x));
+				//System.out.println("distance: "+distanceArr.get(x));
+				//b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
+				//System.out.println ("x coord "+x+": "+boulderXArr.get(x));
+				//System.out.println("y coord "+x+": "+boulderYArr.get(x));
+				//boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
+				boulder1Sprite.draw(batch);
+			}
 
 			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY())) {
 				quitSprite.draw(batch);
@@ -600,6 +598,18 @@ public class GameScreen implements Screen {
 		interpY = indianaY;
 		priority = false;
 		direction = "none";
+		
+		//boulder draw
+		for (int x = 0; x < boulderArr.size(); x++) {
+			System.out.println("direction: "+directionArr.get(x));
+			System.out.println("distance: "+distanceArr.get(x));
+			b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
+			System.out.println ("x coord "+x+": "+boulderXArr.get(x));
+			System.out.println("y coord "+x+": "+boulderYArr.get(x));
+			boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
+			boulder1Sprite.draw(batch);
+		}
+		
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Gdx.input.setCursorCatched(!catched);
 			catched = !catched;
@@ -771,41 +781,37 @@ public class GameScreen implements Screen {
 	}
 
 	private void endCheck() {
-		if (mapEnds() && difficulty % 2 == 0) {
+		if(mapEnds()){
+			
+		if (difficulty % 2 == 0) {
 			difficulty++;
 			setCurrentMap(difficulty);
-			b = new Boulder (currentMap);
 			boulder1.dispose();
+			b = new Boulder (currentMap);
 			createMap();
 			System.out.println("stage end");
-		} else if (mapEnds() && difficulty % 2 != 0) {
+		} 
+		else {
 			System.out.println("level complete");
 			gameEnded = true;
 		saveGame();
 		
+		game.getSaveManager().setSave(new Save(name,difficulty,timeSeconds+(int)totalTime));
+	//	highScoreWrite(saveGame())
+		}
 		}
 	}
 	
-	public void saveGame(){
-		String inputName="No Name";
-		while(true){
-		inputName=JOptionPane.showInputDialog(null,"Enter your full name.","Input",2)
-	if(inputName.isEmpty()){
-	JOptionPane.showMessageDialog(null, "Name cannot be blank.","ATTENTION",JOptionPane.ERROR_MESSAGE);	
-	}
-	else if(inputName.length()>25){
-		JOptionPane.showMessageDialog(null, "Name must be under 25 Characters.","ATTENTION",JOptionPane.ERROR_MESSAGE);
-	}
-	else{
-	break;	
-	}
-		}
-	
-				game.getSaveManager().getSave().setName(inputName);
-		game.getSaveManager().getSave().setDifficulty(difficulty);
-		game.getSaveManager().getSave().setTimeSeconds(timeSeconds+(int)totalTime);	
+	public Save saveGame(){
+		game.getSaveManager().writeSave();
+	return new Save();
 	}
 
+	public void highScoreWrite(Save newSave){
+		
+		
+	}
+	
 	private void drawOverlay() {
 		Gdx.input.setCursorCatched(false);
 

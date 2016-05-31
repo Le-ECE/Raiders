@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import javax.swing.JOptionPane;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -63,8 +65,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  */
 public class MainMenu implements Screen {
 	MainGame game;
-	
-	
+
+
 
 	Stage stage;
 
@@ -72,12 +74,13 @@ public class MainMenu implements Screen {
 
 	Texture bg;
 	Texture pB;
+	Texture lB;
 	Texture qB;
 	Texture title;
-	
+
 
 	Image bG;
-	
+
 	Image ttl;
 
 	Skin skin;
@@ -99,14 +102,15 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void show() {
-		
+
 		if (!MainGame.mainMusic.isPlaying()){
 			MainGame.mainMusic.play();
 			MainGame.mainMusic.setPosition (14f);
 		}
-		
+
 		stage = new Stage();
 		bg = new Texture("splash.png");
+		lB=new Texture("load.png");
 		pB = new Texture("playbutton.png");
 		qB = new Texture("quit.png");
 		skin = new Skin();
@@ -115,34 +119,36 @@ public class MainMenu implements Screen {
 		title = new Texture("title_new.png");
 		ttl = new Image (title);
 		ttl.setPosition(0, 720 - title.getHeight());
-				
-//		Tween.set(ttl, SpriteManager.ALPHA).target(0f).start(tweenManager);
-//		Tween.to(ttl, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f).start (tweenManager);
-		
+
+		//		Tween.set(ttl, SpriteManager.ALPHA).target(0f).start(tweenManager);
+		//		Tween.to(ttl, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f).start (tweenManager);
+
 		bG = new Image(bg);
 		bG.setPosition(0, 0);
 		bG.setWidth(1200);
 		bG.setHeight(768);
 
 		ttl.setColor(ttl.getColor().r,ttl.getColor().g,ttl.getColor().b,0);
-		
+
 		ttl.addAction (Actions.fadeIn(2f));
-		
+
 		stage.addActor(bG);
-		
+
 		stage.addActor(ttl);
 
 
 		Gdx.input.setInputProcessor(stage);
 
 		skin.add("red", pB);
+		skin.add("load", lB);
 		skin.add("overlay", qB);
 		skin.add("pb", new Texture("playbutton.png"));
+		skin.add("lb", new Texture("load.png"));
 		skin.add("qover", new Texture("quit.png"));
 
 		TextButtonStyle tb = new TextButtonStyle();
 		TextButtonStyle tb1 = new TextButtonStyle();
-
+		TextButtonStyle tb2 = new TextButtonStyle();
 		tb.up = skin.newDrawable("red", Color.LIGHT_GRAY);
 		tb.down = skin.newDrawable("red", Color.DARK_GRAY);
 		tb.over = skin.newDrawable("pb");
@@ -153,29 +159,83 @@ public class MainMenu implements Screen {
 		tb1.over = skin.newDrawable("qover");
 		tb1.font = new BitmapFont();
 
+		tb2.up = skin.newDrawable("load", Color.LIGHT_GRAY);
+		tb2.down = skin.newDrawable("load", Color.DARK_GRAY);
+		tb2.over = skin.newDrawable("lb");
+		tb2.font = new BitmapFont();
+
 		final TextButton playButton = new TextButton("", tb);
+		final TextButton loadButton = new TextButton("", tb2);
 		final TextButton quitButton = new TextButton("", tb1);
 
-		playButton.setPosition(475, 300);
+		playButton.setPosition(475, 400);
 		playButton.setWidth(250f);
 		playButton.setHeight(105f);
 		playButton.setColor(playButton.getColor().r,playButton.getColor().g,playButton.getColor().b, 0);
 
 		playButton.addAction(Actions.fadeIn (1.5f));
-		
-		quitButton.setPosition(475, 150);
+
+		loadButton.setPosition(475, 250);
+		loadButton.setWidth(250f);
+		loadButton.setHeight(105f);
+		loadButton.setColor(loadButton.getColor().r,loadButton.getColor().g,loadButton.getColor().b, 0);
+
+		loadButton.addAction(Actions.fadeIn (1.5f));
+
+		quitButton.setPosition(475, 100);
 		quitButton.setWidth(250f);
 		quitButton.setHeight(105f);
 		quitButton.setColor(quitButton.getColor().r,quitButton.getColor().g,quitButton.getColor().b, 0);
 
 		quitButton.addAction(Actions.fadeIn(1.5f));
-		
 
-		playButton.addCaptureListener(new ChangeListener() {
+
+		playButton.addCaptureListener(new ChangeListener(){
+			public void changed(ChangeEvent event, Actor actor) {
+				String inputName="No Name";
+				//redo in libgdx
+				// fix error with cancelling and exiting box
+				while(true){
+					inputName=JOptionPane.showInputDialog(null,"Enter your full name.","Input",2);
+					if(inputName==null){
+						return;
+					}
+							if(inputName.isEmpty()){
+						JOptionPane.showMessageDialog(null, "Name cannot be blank.","Attention",JOptionPane.ERROR_MESSAGE);	
+					}
+					else if(inputName.length()>0&&inputName.length()<25){
+						break;	
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Name must be under 25 Characters.","Attention",JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				   char currentChar=' ';
+				    String formatString="";
+				      String[] arrayString=inputName.split("\\s+");
+				      
+				      for(int a=0;a<arrayString.length;a++){     
+				          currentChar=arrayString[a].charAt(0);
+				          if(currentChar>='a'&&currentChar<='z'){
+				          currentChar=Character.toUpperCase(currentChar);
+				          }
+				         formatString=formatString+currentChar+arrayString[a].substring(1)+" ";       
+				     
+				      }
+				      inputName=formatString.trim();
+				dispose();
+				game.setSaveManager(new SaveManager());
+				game.setScreen(new Difficulty(batch, game,inputName));
+
+			}
+		});
+
+		loadButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				dispose();
-				game.setScreen(new Difficulty(batch, game));
 				game.setSaveManager(new SaveManager());
+				game.setScreen(new LoadSave(batch,game));
+
 			}
 		});
 
@@ -188,6 +248,7 @@ public class MainMenu implements Screen {
 		});
 
 		stage.addActor(playButton);
+		stage.addActor(loadButton);
 		stage.addActor(quitButton);
 	}
 
@@ -200,10 +261,10 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void render(float delta) {
-				
+
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		stage.act();
 		stage.draw();
 		ttl.act(delta);

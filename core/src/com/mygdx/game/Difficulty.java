@@ -122,7 +122,8 @@ import com.badlogic.gdx.math.Rectangle;
 public class Difficulty implements Screen {
 
 	private int difficulty = -1;
-
+	private String name;
+	
 	private boolean drawDarkEasy = true;
 	private boolean drawDarkMedium = true;
 	private boolean drawDarkHard = true;
@@ -174,7 +175,8 @@ public class Difficulty implements Screen {
 	 * @param game
 	 *            MainGame used to change game screens.
 	 */
-	public Difficulty(SpriteBatch batch, MainGame game) {
+	public Difficulty(SpriteBatch batch, MainGame game,String name) {
+		this.name=name;
 		this.batch = batch;
 		this.game = game;
 	}
@@ -371,7 +373,7 @@ public class Difficulty implements Screen {
 			if (difficulty > -1) {
 				goSprite.draw(batch);
 				if (Gdx.input.justTouched()) {
-					game.setScreen(new GameScreen(batch, game, difficulty,0));//add current time from save
+					game.setScreen(new GameScreen(batch, game,name, difficulty,0));//add current time from save
 					dispose();
 				}
 			}
