@@ -162,8 +162,10 @@ public class GameScreen implements Screen {
 
 	ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
 	ArrayList<Rectangle> boulderArr = new ArrayList<Rectangle>();
-	ArrayList<Integer>boulderXArr=new ArrayList<Integer>();
-	ArrayList<Integer>boulderYArr=new ArrayList<Integer>();
+	public static ArrayList<Integer>boulderXArr;
+	public static ArrayList<Integer>boulderYArr;
+	ArrayList <Integer> distanceArr;
+	ArrayList <String> directionArr;
 
 	ArrayList<TiledMap> mapList = new ArrayList<TiledMap>();
 
@@ -213,6 +215,10 @@ public class GameScreen implements Screen {
 
 	private int difficulty;
 	private int timeSeconds;
+	private int boulderX;
+	private int boulderY;
+	
+	Boulder b;
 
 	public GameScreen(SpriteBatch batch, MainGame game, int difficulty,int timeSeconds) {
 		this.batch = batch;
@@ -246,13 +252,7 @@ public class GameScreen implements Screen {
 		iceMusic = Gdx.audio.newMusic(Gdx.files.internal("ice_theme.mp3"));
 		iceMusic.setLooping(true);
 
-		if (difficulty == 0) {
-			desertMusic.play();
-		} else if (difficulty == 2) {
-			earthMusic.play();
-		} else {
-			iceMusic.play();
-		}
+		musicPlay();
 
 		// set accessor
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
@@ -312,6 +312,21 @@ public class GameScreen implements Screen {
 
 		// sets current map based on difficulty
 		setCurrentMap(difficulty);
+		
+		// create boulder object
+		b = new Boulder (currentMap);
+		
+		//occupy x array
+		boulderXArr = b.getStartX();
+		
+		//occupy y array
+		boulderYArr = b.getStartY();
+		
+		//occupy distance array
+		distanceArr = b.getDistance();
+		
+		//occupy direction array
+		directionArr = b.getDirection();
 
 		// create game over text
 		gameOverText = new Texture("gameover_text.png");
@@ -414,6 +429,7 @@ public class GameScreen implements Screen {
 		Tween.to(successSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
 				.start(tweenManager);
 
+		
 		// for (MapObject object :
 		// currentMap.getLayers().get("collision").getObjects()) {
 		// if (object instanceof RectangleMapObject) {
@@ -421,6 +437,11 @@ public class GameScreen implements Screen {
 		// }
 		// }
 
+//		Boulder b = new Boulder(currentMap);
+//		ArrayList <Integer> arrList = b.getDistance();
+//		for (int x : arrList){
+//			System.out.println("integers: "+x);
+//		}
 	}
 
 	/**
@@ -485,6 +506,8 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
+		Gdx.input.setCursorCatched(catched);
+		
 		tweenManager.update(delta);
 
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
@@ -506,11 +529,18 @@ public class GameScreen implements Screen {
 		camera.update();
 
 		batch.begin();
-
-		// boulder1 draw
-		for (int x = 0; x < boulderArr.size(); x++) {
-			boulder1Sprite.setPosition(boulderArr.get(x).x, boulderArr.get(x).y);
-			boulder1Sprite.draw(batch);
+		
+		// draw boulders
+		if (!paused){
+			for (int x = 0; x < boulderArr.size(); x++) {
+				System.out.println("direction: "+directionArr.get(x));
+				System.out.println("distance: "+distanceArr.get(x));
+				b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
+				System.out.println ("x coord "+x+": "+boulderXArr.get(x));
+				System.out.println("y coord "+x+": "+boulderYArr.get(x));
+				boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
+				boulder1Sprite.draw(batch);
+			}
 		}
 
 		if (!paused && !gameEnded) {
@@ -548,14 +578,14 @@ public class GameScreen implements Screen {
 		batch.end();
 	}
 
-	private void drawBoulder(int boulderNum,String direction, int distance,String rotation){
-	if (direction.equals("up"))
-			batch.draw(boulder1, (int) boulderXArr.get(boulderNum),(int)boulderYArr.get(boulderNum),64f,64f);
-	}
+//	private void drawBoulder(int boulderNum,String direction, int distance,String rotation){
+//	if (direction.equals("up"))
+//			batch.draw(boulder1, (int) boulderXArr.get(boulderNum),(int)boulderYArr.get(boulderNum),64f,64f);
+//	}
 	
-	private boolean boulderCheck() {
-		return true;
-	}
+//	private boolean boulderCheck() {
+//		return true;
+//	}
 
 	/**
 	 * The gameUpdate method takes in user input and updates the player's
@@ -742,6 +772,7 @@ public class GameScreen implements Screen {
 		if (mapEnds() && difficulty % 2 == 0) {
 			difficulty++;
 			setCurrentMap(difficulty);
+			b = new Boulder (currentMap);
 			boulder1.dispose();
 			createMap();
 			System.out.println("stage end");
@@ -777,6 +808,7 @@ public class GameScreen implements Screen {
 				difficulty++;
 				gameEnded = false;
 				setCurrentMap(difficulty);
+				musicPlay();
 				createMap();
 			}
 		}
@@ -784,12 +816,22 @@ public class GameScreen implements Screen {
 
 	private void createMap() {
 
+		b = new Boulder (currentMap);
+		
 		tmRender = new OrthogonalTiledMapRenderer(currentMap);
 
-		boulderArr = new ArrayList<Rectangle>();
-
+		boulderArr.clear();
+		
+		boulderXArr.clear();
+		
+		boulderYArr.clear();
+		
+		distanceArr.clear();
+		
+		directionArr.clear();
+		
 		collisionArray = new ArrayList<Rectangle>();
-
+		
 		// set collision
 		for (MapObject object : currentMap.getLayers().get("collision").getObjects()) {
 			if (object instanceof RectangleMapObject) {
@@ -797,12 +839,16 @@ public class GameScreen implements Screen {
 			}
 		}
 
-		// boulder1 create
-		for (MapObject object : currentMap.getLayers().get("properties").getObjects()) {
-			if (object instanceof RectangleMapObject) {
-				boulderArr.add(((RectangleMapObject) object).getRectangle());
-			}
-		}
+		boulderArr = b.getBoulders();
+		
+		boulderXArr = b.getStartX();
+		
+		boulderYArr = b.getStartY();
+		
+		distanceArr = b.getDistance();
+		
+		directionArr = b.getDirection();
+
 		boulder1 = new Texture("boulder_1.png");
 		boulder1Sprite = new Sprite(boulder1);
 		boulder1Sprite.setSize(64f, 64f);
@@ -826,6 +872,22 @@ public class GameScreen implements Screen {
 		indianaX = start.x;
 		indianaY = start.y;
 
+	}
+	
+	public void musicPlay(){
+		if (difficulty == 0) {
+			desertMusic.play();
+			earthMusic.stop();
+			iceMusic.stop();
+		} else if (difficulty == 2) {
+			earthMusic.play();
+			desertMusic.stop();
+			iceMusic.stop();
+		} else {
+			iceMusic.play();
+			earthMusic.stop();
+			desertMusic.stop();
+		}
 	}
 
 }
