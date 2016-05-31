@@ -1,3 +1,11 @@
+/Signs0.png
+/Signs1.png
+/Signs2.png
+/Signs3.png
+/Signs4.png
+/Signs5.png
+/Signs6.png
+/Signs7.png
 /Tilesets/
 /back_dark.png
 /backbutton.png
@@ -7,6 +15,7 @@
 /boulder_2.png
 /boulder_3.png
 /column.png
+/com/
 /cursor.png
 /desert_music.mp3
 /difficulty_title.png
@@ -60,7 +69,6 @@
 /signs6 (2).png
 /signs7 (2).png
 /snow text/
-/com/
 /snow_map.tmx
 /snow_map2.tmx
 /splash.png

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="38" height="24" tilewidth="32" tileheight="32" nextobjectid="29">
+ <properties>
+  <property name="numOfBoulders" type="int" value="5"/>
+ </properties>
  <tileset firstgid="1" name="sheet (1)" tilewidth="32" tileheight="32" tilecount="72" columns="12">
   <image source="dirt text/sheet (1).png" trans="ffffff" width="384" height="192"/>
  </tileset>
@@ -127,7 +130,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="collision">
+ <objectgroup name="collision" visible="0">
   <object id="1" x="10.6667" y="489.333" width="325.333" height="278.667"/>
   <object id="3" x="2.66667" y="1.33333" width="333.333" height="320"/>
   <object id="5" x="337.333" y="2.66667" width="876" height="28"/>
@@ -138,7 +141,7 @@
   <object id="16" x="1089.33" y="373.333" width="61.3333" height="72"/>
   <object id="17" x="1205.33" y="606.667"/>
  </objectgroup>
- <objectgroup name="start_end">
+ <objectgroup name="start_end" visible="0">
   <object id="13" x="40" y="381.333" width="62.6667" height="62.6667">
    <ellipse/>
   </object>
@@ -148,32 +151,32 @@
   <object id="23" name="boulder1" x="392" y="94.6667" width="65.3333" height="54.6667">
    <properties>
     <property name="direction" value="down"/>
-    <property name="distance" type="float" value="500"/>
+    <property name="distance" type="int" value="550"/>
     <property name="string_prop" value="jesus christ help me"/>
    </properties>
   </object>
   <object id="24" name="boulder2" x="534.667" y="669.333" width="53.3333" height="54.6667">
    <properties>
     <property name="direction" value="up"/>
-    <property name="distance" type="float" value="500"/>
+    <property name="distance" type="int" value="550"/>
    </properties>
   </object>
   <object id="25" name="boulder3" x="670.667" y="97.3333" width="78.6667" height="50.6667">
    <properties>
     <property name="direction" value="down"/>
-    <property name="distance" type="float" value="500"/>
+    <property name="distance" type="int" value="550"/>
    </properties>
   </object>
   <object id="26" name="boulder4" x="837.333" y="669.333" width="86.6667" height="54.6667">
    <properties>
     <property name="direction" value="up"/>
-    <property name="distance" type="float" value="500"/>
+    <property name="distance" type="int" value="550"/>
    </properties>
   </object>
   <object id="27" name="boulder5" x="990.667" y="98.6667" width="61.3333" height="57.3333">
    <properties>
     <property name="direction" value="down"/>
-    <property name="distance" type="float" value="500"/>
+    <property name="distance" type="int" value="550"/>
    </properties>
   </object>
  </objectgroup>
