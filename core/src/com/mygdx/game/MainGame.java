@@ -25,7 +25,7 @@ public class MainGame extends Game {
 	public static Music mainMusic;
 
 	Pixmap pm;
-
+private SaveManager mainSaveManager;
 	/**
 	 * create() is an overridden method that is responsible for setting the
 	 * cursor of the game to a custom texture, as well as initializing the batch
@@ -43,8 +43,17 @@ public class MainGame extends Game {
 		pm = new Pixmap(Gdx.files.internal("cursor.png"));
 		Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
 		pm.dispose();
-
+mainSaveManager = new SaveManager();
 		splashScreen();
+		
+	}
+	
+	public SaveManager getSaveManager(){
+		return this.mainSaveManager;
+	}
+	
+	public void setSaveManager(SaveManager passSaveManager){
+		this.mainSaveManager=passSaveManager;
 	}
 
 	/**

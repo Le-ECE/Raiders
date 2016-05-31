@@ -119,7 +119,7 @@ public class GameScreen implements Screen {
 	Animation animation_left;
 	Animation animation_up;
 	Animation animation_down;
-	
+
 	Music desertMusic;
 	Music earthMusic;
 	Music iceMusic;
@@ -144,14 +144,26 @@ public class GameScreen implements Screen {
 	Sprite darkBackSprite;
 	Sprite darkQuitSprite;
 	Sprite boulder1Sprite;
+	Sprite gameOverSprite;
+	Sprite successSprite;
+	Sprite scoreSprite;
+	Sprite menuDarkSprite;
+	Sprite menuSprite;
+	Sprite goDarkSprite;
+	Sprite goSprite;
 
 	Rectangle body;
 	Rectangle interp;
 	Rectangle backRect;
 	Rectangle quitRect;
+	Rectangle endRect;
+	Rectangle menuRect;
+	Rectangle goRect;
 
 	ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
 	ArrayList<Rectangle> boulderArr = new ArrayList<Rectangle>();
+	ArrayList<Integer>boulderXArr=new ArrayList<Integer>();
+	ArrayList<Integer>boulderYArr=new ArrayList<Integer>();
 
 	ArrayList<TiledMap> mapList = new ArrayList<TiledMap>();
 
@@ -167,6 +179,13 @@ public class GameScreen implements Screen {
 	Texture backDark;
 	Texture quitDark;
 	Texture boulder1;
+	Texture gameOverText;
+	Texture successText;
+	Texture scoreText;
+	Texture menuDarkText;
+	Texture menuText;
+	Texture goText;
+	Texture goDarkText;
 
 	Ellipse start;
 
@@ -181,6 +200,7 @@ public class GameScreen implements Screen {
 	float indianaY;
 	float speed;
 	float time;
+	float totalTime;
 	float interpY;
 
 	String direction;
@@ -189,13 +209,16 @@ public class GameScreen implements Screen {
 	boolean paused = false;
 	boolean mapCollide = false;
 	boolean priority;
+	boolean gameEnded;
 
 	private int difficulty;
+	private int timeSeconds;
 
-	public GameScreen(SpriteBatch batch, MainGame game, int difficulty) {
+	public GameScreen(SpriteBatch batch, MainGame game, int difficulty,int timeSeconds) {
 		this.batch = batch;
 		this.game = game;
 		this.difficulty = difficulty;
+		this.timeSeconds=timeSeconds;
 		create();
 	}
 
@@ -210,24 +233,27 @@ public class GameScreen implements Screen {
 	public void create() {
 
 		sr = new ShapeRenderer();
-		
-		MainGame.mainMusic.dispose();
-		
-		//set music
-		desertMusic = Gdx.audio.newMusic(Gdx.files.internal("desert_music.mp3"));
-		earthMusic = Gdx.audio.newMusic(Gdx.files.internal("grass_theme.mp3"));
-		iceMusic = Gdx.audio.newMusic(Gdx.files.internal("ice_theme.mp3"));
 
-		if (difficulty ==0){
+		MainGame.mainMusic.dispose();
+
+		// set music
+		desertMusic = Gdx.audio.newMusic(Gdx.files.internal("desert_music.mp3"));
+		desertMusic.setLooping(true);
+
+		earthMusic = Gdx.audio.newMusic(Gdx.files.internal("grass_theme.mp3"));
+		earthMusic.setLooping(true);
+
+		iceMusic = Gdx.audio.newMusic(Gdx.files.internal("ice_theme.mp3"));
+		iceMusic.setLooping(true);
+
+		if (difficulty == 0) {
 			desertMusic.play();
-		}
-		else if (difficulty == 1){
+		} else if (difficulty == 2) {
 			earthMusic.play();
-		}
-		else{
+		} else {
 			iceMusic.play();
 		}
-		
+
 		// set accessor
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
 
@@ -277,55 +303,69 @@ public class GameScreen implements Screen {
 
 		// tiledmap renderer
 		// fills array with maps
-		occupyArray ("dust_map.tmx");
-		occupyArray ("dust_map2.tmx");
+		occupyArray("dust_map.tmx");
+		occupyArray("dust_map2.tmx");
 		occupyArray("earth_map.tmx");
-		occupyArray ("earth_map2.tmx");
+		occupyArray("earth_map2.tmx");
 		occupyArray("snow_map.tmx");
 		occupyArray("snow_map2.tmx");
-		
+
 		// sets current map based on difficulty
 		setCurrentMap(difficulty);
-		
-		
 
-		// System.out.print("Property test: ");
+		// create game over text
+		gameOverText = new Texture("gameover_text.png");
 
-		// System.out.println
-		// (currentMap.getLayers().get("properties").getObjects().get
-		// ("boulder1").getProperties().get("string_prop",String.class));
+		gameOverSprite = new Sprite(gameOverText);
 
-		tmRender = new OrthogonalTiledMapRenderer(currentMap);
+		// create success text
+		successText = new Texture("levelcomplete_text.png");
 
-		// boulder1 create
-		for (MapObject object : currentMap.getLayers().get("properties").getObjects()) {
-			if (object instanceof RectangleMapObject) {
-				boulderArr.add(((RectangleMapObject) object).getRectangle());
-			}
-		}
-		boulder1 = new Texture("boulder_1.png");
-		boulder1Sprite = new Sprite(boulder1);
-		boulder1Sprite.setSize(64f, 64f);
+		successSprite = new Sprite(successText);
+		successSprite.setPosition(0, Gdx.graphics.getHeight() - (successSprite.getHeight() - 85));
 
-		// set player start position
-		for (MapObject object : currentMap.getLayers().get("start_end").getObjects()) {
-			if (object instanceof EllipseMapObject) {
-				start = ((EllipseMapObject) object).getEllipse();
-			}
-		}
+		// create scoreboard
+		scoreText = new Texture("score_panel.png");
 
-		// camera
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 1216, 768);
-		camera.update();
+		scoreSprite = new Sprite(scoreText);
+		scoreSprite.setPosition((Gdx.graphics.getWidth() / 2) - (scoreSprite.getWidth() / 2), 120);
+
+		// create menu button
+		menuDarkText = new Texture("menu_dark.png");
+		menuText = new Texture("menu.png");
+
+		menuDarkSprite = new Sprite(menuDarkText);
+		menuDarkSprite.setPosition((Gdx.graphics.getWidth() / 5) - (menuDarkSprite.getWidth() / 2), 5);
+		menuDarkSprite.setSize(290f, 110f);
+
+		menuSprite = new Sprite(menuText);
+		menuSprite.setPosition((Gdx.graphics.getWidth() / 5) - (menuSprite.getWidth() / 2), 5);
+		menuSprite.setSize(290f, 110f);
+
+		menuRect = menuDarkSprite.getBoundingRectangle();
+
+		// create go button
+		goDarkText = new Texture("go_dark.png");
+		goText = new Texture("go.png");
+
+		goDarkSprite = new Sprite(goDarkText);
+		goDarkSprite.setPosition((3 * Gdx.graphics.getWidth() / 5), 5);
+		goDarkSprite.setSize(290f, 110f);
+
+		goSprite = new Sprite(goText);
+		goSprite.setPosition((3 * Gdx.graphics.getWidth() / 5), 5);
+		goSprite.setSize(290f, 110f);
+
+		goRect = goDarkSprite.getBoundingRectangle();
 
 		indianaText = new Texture("indianajones.png");
 		indianaJones = new Sprite(indianaText);
 
 		indianaJones.setSize(32f, 64f);
 
-		indianaX = start.x;
-		indianaY = start.y;
+		// indianaX = start.x;
+		// indianaY = start.y;
+		createMap();
 
 		body = indianaJones.getBoundingRectangle();
 		interp = new Rectangle(body.x, body.y, body.width, body.height - 25);
@@ -367,12 +407,19 @@ public class GameScreen implements Screen {
 		// pause text animation
 		Tween.set(pauseTextSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(pauseTextSprite, SpriteManager.ALPHA, 0.5f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-		.start(tweenManager);
-		for (MapObject object : currentMap.getLayers().get("collision").getObjects()) {
-			if (object instanceof RectangleMapObject) {
-				collisionArray.add(((RectangleMapObject) object).getRectangle());
-			}
-		}
+				.start(tweenManager);
+
+		// success animation
+		Tween.set(successSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
+		Tween.to(successSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
+				.start(tweenManager);
+
+		// for (MapObject object :
+		// currentMap.getLayers().get("collision").getObjects()) {
+		// if (object instanceof RectangleMapObject) {
+		// collisionArray.add(((RectangleMapObject) object).getRectangle());
+		// }
+		// }
 
 	}
 
@@ -444,9 +491,12 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		body.setPosition(indianaX, indianaY);
-
+		float tempTime = time;
 		// keep track of elapsed time
-		time += Gdx.graphics.getDeltaTime();
+		if (!paused)
+			time += Gdx.graphics.getDeltaTime();
+		if ((int) tempTime != (int) time)
+			System.out.println((int) time);
 
 		// set camera view
 		tmRender.setView(camera);
@@ -463,10 +513,9 @@ public class GameScreen implements Screen {
 			boulder1Sprite.draw(batch);
 		}
 
-		if (!paused)
+		if (!paused && !gameEnded) {
 			gameUpdate();
-		else {
-
+		} else if (paused) {
 			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
 			batch.draw(pauseOverlay, 0, 0);
 			pauseTextSprite.draw(batch);
@@ -492,11 +541,20 @@ public class GameScreen implements Screen {
 				Gdx.input.setCursorCatched(!catched);
 				catched = !catched;
 			}
+		} else {
+			drawOverlay();
 		}
+
 		batch.end();
 	}
 
-	public void boulderUpdate() {
+	private void drawBoulder(int boulderNum,String direction, int distance,String rotation){
+	if (direction.equals("up"))
+			batch.draw(boulder1, (int) boulderXArr.get(boulderNum),(int)boulderYArr.get(boulderNum),64f,64f);
+	}
+	
+	private boolean boulderCheck() {
+		return true;
 	}
 
 	/**
@@ -521,6 +579,7 @@ public class GameScreen implements Screen {
 			if (!collidesWithMap()) {
 				indianaX += Gdx.graphics.getDeltaTime() * speed;
 			}
+			endCheck();
 
 			interp.setPosition(indianaX, interpY);
 
@@ -539,6 +598,7 @@ public class GameScreen implements Screen {
 			if (!collidesWithMap()) {
 				indianaX -= Gdx.graphics.getDeltaTime() * speed;
 			}
+			endCheck();
 
 			interp.setPosition(indianaX, interpY);
 
@@ -557,6 +617,7 @@ public class GameScreen implements Screen {
 			if (!collidesWithMap()) {
 				indianaY -= Gdx.graphics.getDeltaTime() * speed;
 			}
+			endCheck();
 
 			interp.setPosition(indianaX, interpY);
 
@@ -575,6 +636,7 @@ public class GameScreen implements Screen {
 			if (!collidesWithMap()) {
 				indianaY += Gdx.graphics.getDeltaTime() * speed;
 			}
+			endCheck();
 
 			interp.setPosition(indianaX, interpY);
 
@@ -590,6 +652,11 @@ public class GameScreen implements Screen {
 				direction = "none";
 			priority = true;
 
+		}
+		if (gameEnded) {
+			totalTime = time;
+			System.out.println("total time: "+totalTime);
+			drawOverlay();
 		}
 		priorityDraw();
 	}
@@ -608,6 +675,14 @@ public class GameScreen implements Screen {
 				result = true;
 				break;
 			}
+		}
+		return result;
+	}
+
+	private boolean mapEnds() {
+		boolean result = false;
+		if (interp.overlaps(endRect)) {
+			result = true;
 		}
 		return result;
 	}
@@ -661,6 +736,96 @@ public class GameScreen implements Screen {
 	 */
 	private void setCurrentMap(int index) {
 		currentMap = mapList.get(index);
+	}
+
+	private void endCheck() {
+		if (mapEnds() && difficulty % 2 == 0) {
+			difficulty++;
+			setCurrentMap(difficulty);
+			boulder1.dispose();
+			createMap();
+			System.out.println("stage end");
+		} else if (mapEnds() && difficulty % 2 != 0) {
+			System.out.println("level complete");
+			gameEnded = true;
+			game.getSaveManager().getSave().setName("let user input name here");
+			game.getSaveManager().getSave().setDifficulty(difficulty);
+			game.getSaveManager().getSave().setTimeSeconds(timeSeconds+(int)totalTime);
+		}
+	}
+
+	private void drawOverlay() {
+		Gdx.input.setCursorCatched(false);
+
+		batch.draw(pauseOverlay, 0, 0);
+		successSprite.draw(batch);
+		scoreSprite.draw(batch);
+		menuDarkSprite.draw(batch);
+		goDarkSprite.draw(batch);
+
+		if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610)) {
+			menuSprite.draw(batch);
+			if (Gdx.input.justTouched()) {
+				game.setScreen(new MainMenu(batch, game));
+			}
+		}
+
+		if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610)) {
+			goSprite.draw(batch);
+			if (Gdx.input.justTouched()) {
+				catched = true;
+				difficulty++;
+				gameEnded = false;
+				setCurrentMap(difficulty);
+				createMap();
+			}
+		}
+	}
+
+	private void createMap() {
+
+		tmRender = new OrthogonalTiledMapRenderer(currentMap);
+
+		boulderArr = new ArrayList<Rectangle>();
+
+		collisionArray = new ArrayList<Rectangle>();
+
+		// set collision
+		for (MapObject object : currentMap.getLayers().get("collision").getObjects()) {
+			if (object instanceof RectangleMapObject) {
+				collisionArray.add(((RectangleMapObject) object).getRectangle());
+			}
+		}
+
+		// boulder1 create
+		for (MapObject object : currentMap.getLayers().get("properties").getObjects()) {
+			if (object instanceof RectangleMapObject) {
+				boulderArr.add(((RectangleMapObject) object).getRectangle());
+			}
+		}
+		boulder1 = new Texture("boulder_1.png");
+		boulder1Sprite = new Sprite(boulder1);
+		boulder1Sprite.setSize(64f, 64f);
+
+		// set player start position
+		for (MapObject object : currentMap.getLayers().get("start_end").getObjects()) {
+			if (object instanceof EllipseMapObject) {
+				start = ((EllipseMapObject) object).getEllipse();
+			}
+			if (object instanceof RectangleMapObject) {
+				endRect = ((RectangleMapObject) object).getRectangle();
+			}
+		}
+
+		// camera
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 1200, 768);
+		camera.update();
+
+		// set start position
+		indianaX = start.x;
+		indianaY = start.y;
+
 	}
 
 }

@@ -99,7 +99,12 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void show() {
-						
+		
+		if (!MainGame.mainMusic.isPlaying()){
+			MainGame.mainMusic.play();
+			MainGame.mainMusic.setPosition (14f);
+		}
+		
 		stage = new Stage();
 		bg = new Texture("splash.png");
 		pB = new Texture("playbutton.png");
@@ -170,6 +175,7 @@ public class MainMenu implements Screen {
 			public void changed(ChangeEvent event, Actor actor) {
 				dispose();
 				game.setScreen(new Difficulty(batch, game));
+				game.setSaveManager(new SaveManager());
 			}
 		});
 

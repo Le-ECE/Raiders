@@ -371,7 +371,7 @@ public class Difficulty implements Screen {
 			if (difficulty > -1) {
 				goSprite.draw(batch);
 				if (Gdx.input.justTouched()) {
-					game.setScreen(new GameScreen(batch, game, difficulty));
+					game.setScreen(new GameScreen(batch, game, difficulty,0));//add current time from save
 					dispose();
 				}
 			}
