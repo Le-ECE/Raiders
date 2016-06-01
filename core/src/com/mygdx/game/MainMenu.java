@@ -200,6 +200,7 @@ public class MainMenu implements Screen {
 					if(inputName==null){
 						return;
 					}
+					inputName=inputName.trim();
 							if(inputName.isEmpty()){
 						JOptionPane.showMessageDialog(null, "Name cannot be blank.","Attention",JOptionPane.ERROR_MESSAGE);	
 					}
@@ -212,6 +213,7 @@ public class MainMenu implements Screen {
 				}
 				   char currentChar=' ';
 				    String formatString="";
+				    
 				      String[] arrayString=inputName.split("\\s+");
 				      
 				      for(int a=0;a<arrayString.length;a++){     

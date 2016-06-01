@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import javax.swing.JOptionPane;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -44,6 +46,7 @@ private SaveManager mainSaveManager;
 		Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
 		pm.dispose();
 mainSaveManager = new SaveManager();
+
 		splashScreen();
 		
 	}

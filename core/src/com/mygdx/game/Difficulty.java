@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -334,9 +335,9 @@ public class Difficulty implements Screen {
 			hardSprite.draw(batch);
 		}
 
-		if (backRect.contains(Gdx.input.getX(), Gdx.input.getY() - 600)) {
+		if (backRect.contains(Gdx.input.getX(), Gdx.input.getY() - 600) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			backSprite.draw(batch);
-			if (Gdx.input.justTouched()) {
+			if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 				game.setScreen(new MainMenu(batch, game));
 			}
 		}
@@ -369,10 +370,10 @@ public class Difficulty implements Screen {
 				hardSprite.draw(batch);
 			}
 		}
-		if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 625)) {
+		if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 625)|| Gdx.input.isKeyPressed(Keys.ENTER)) {
 			if (difficulty > -1) {
 				goSprite.draw(batch);
-				if (Gdx.input.justTouched()) {
+				if (Gdx.input.justTouched()||Gdx.input.isKeyPressed(Keys.ENTER)) {
 					game.setScreen(new GameScreen(batch, game,name, difficulty,0));//add current time from save
 					dispose();
 				}

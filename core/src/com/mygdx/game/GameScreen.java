@@ -522,8 +522,8 @@ public class GameScreen implements Screen {
 		// keep track of elapsed time
 		if (!paused)
 			time += Gdx.graphics.getDeltaTime();
-		if ((int) tempTime != (int) time)
-			System.out.println((int) time);
+		//if ((int) tempTime != (int) time)
+			//System.out.println((int) time);
 
 		// set camera view
 		tmRender.setView(camera);
@@ -598,11 +598,11 @@ public class GameScreen implements Screen {
 		
 		//boulder draw
 		for (int x = 0; x < boulderArr.size(); x++) {
-			System.out.println("direction: "+directionArr.get(x));
-			System.out.println("distance: "+distanceArr.get(x));
+			//System.out.println("direction: "+directionArr.get(x));
+			//System.out.println("distance: "+distanceArr.get(x));
 			b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
-			System.out.println ("x coord "+x+": "+boulderXArr.get(x));
-			System.out.println("y coord "+x+": "+boulderYArr.get(x));
+			//System.out.println ("x coord "+x+": "+boulderXArr.get(x));
+			//System.out.println("y coord "+x+": "+boulderYArr.get(x));
 			boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
 			boulder1Sprite.draw(batch);
 		}
@@ -694,8 +694,10 @@ public class GameScreen implements Screen {
 		}
 		if (gameEnded) {
 			totalTime = time;
-			System.out.println("total time: "+totalTime);
-			drawOverlay();
+			saveGame();
+			time=0;
+			direction="none";
+			//System.out.println("total time: "+totalTime);
 		}
 		priorityDraw();
 	}
@@ -791,7 +793,7 @@ public class GameScreen implements Screen {
 		else {
 			System.out.println("level complete");
 			gameEnded = true;
-		saveGame();
+		drawOverlay();
 		
 		
 	//	highScoreWrite(saveGame())
@@ -802,9 +804,6 @@ public class GameScreen implements Screen {
 	//fix uneven menu buttons
 	
 	public void saveGame(){
-		JOptionPane.showMessageDialog(null, timeSeconds,"shit",JOptionPane.ERROR_MESSAGE);
-		JOptionPane.showMessageDialog(null, (int)totalTime,"shit",JOptionPane.ERROR_MESSAGE);
-		JOptionPane.showMessageDialog(null, timeSeconds+(int)totalTime,"shit",JOptionPane.ERROR_MESSAGE);
 		game.getSaveManager().setSave(new Save(name,difficulty,timeSeconds+(int)totalTime));
 		game.getSaveManager().writeSave();
 	}
@@ -822,8 +821,6 @@ public class GameScreen implements Screen {
 		scoreSprite.draw(batch);
 		menuDarkSprite.draw(batch);
 		goDarkSprite.draw(batch);
-		System.out.println();
-		System.out.println(game.getSaveManager().getSave().getName());
 
 		if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			menuSprite.draw(batch);
@@ -835,12 +832,23 @@ public class GameScreen implements Screen {
 		if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyPressed(Keys.ENTER)) {
 			goSprite.draw(batch);
 			if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ENTER)) {
+				if(difficulty<5){
 				catched = true;
 				difficulty++;
 				gameEnded = false;
 				setCurrentMap(difficulty);
 				musicPlay();
+				time=0;
+				direction="none";
 				createMap();
+				
+			}
+				else{
+				//fix this shit
+					JOptionPane.showMessageDialog(null,"put prompt for congrats or go to highscores","good shit",JOptionPane.ERROR_MESSAGE);
+					game.setScreen(new MainMenu(batch,game));
+				}
+				
 			}
 		}
 	}
@@ -850,7 +858,7 @@ public class GameScreen implements Screen {
 		b = new Boulder (currentMap);
 		
 		tmRender = new OrthogonalTiledMapRenderer(currentMap);
-
+		
 		boulderArr.clear();
 		
 		boulderXArr.clear();

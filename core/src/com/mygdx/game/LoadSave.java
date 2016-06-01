@@ -25,6 +25,7 @@ public LoadSave(SpriteBatch batch,MainGame game){
 	 public void fileRead(){
 		 try{
 			 BufferedReader firstRead=new BufferedReader(new FileReader("//"+choose.getCurrentDirectory()+"//"));
+		firstRead.close();
 		 }
 		 catch(IOException e)
 		 {
