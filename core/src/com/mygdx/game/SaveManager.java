@@ -1,12 +1,23 @@
 package com.mygdx.game;
 import java.io.*;
 import java.util.*;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 public class SaveManager{
 
+JFileChooser choose = new JFileChooser();
 private Save loadedSave;
+static final String EXT=".sav";
 
 public SaveManager(){
 this.loadedSave=new Save("No Name",0,0);
+
+if(!(new File(System.getProperty("user.dir")+"//saves").exists())){
+	new File(System.getProperty("user.dir")+"//saves").mkdirs();
+}
+choose.setCurrentDirectory(new File(System.getProperty("user.dir")+"//saves")); 
+
 }
 
 public void setSave(Save newSave){
@@ -14,14 +25,27 @@ public void setSave(Save newSave){
 }
 
 public Save getSave(){
-return this.loadedSave;
+	return this.loadedSave;
 }
 
 
 public void writeSave(){
-	String saveName="";
-	Calendar newCalendar=Calendar.getInstance();
-	newCalendar.setTimeInMillis(System.currentTimeMillis());
-	saveName=newCalendar.toString();
+	JOptionPane.showMessageDialog(null, loadedSave.getName()+" "+loadedSave.getDifficulty()+" "+loadedSave.getTimeSeconds(),"shit",JOptionPane.ERROR_MESSAGE);
+//	String saveName="";
+//	PrintWriter saveWriter;
+	//Calendar newCalendar=Calendar.getInstance();
+	//newCalendar.setTimeInMillis(System.currentTimeMillis());
+	//saveName=newCalendar.toString();
+	//String writeName=loadedSave.getName()+" "+saveName+EXT;
+	//try{
+	//	saveWriter=new PrintWriter(new FileWriter("//"+choose.getCurrentDirectory()+"//"+writeName));
+	//	saveWriter.println(loadedSave.getName());
+//		saveWriter.println(loadedSave.getDifficulty());
+//		saveWriter.println(loadedSave.getTimeSeconds());
+//		saveWriter.close();
+//	}
+//	catch(IOException e){
+//		JOptionPane.showMessageDialog(null, "Error saving your gamestate.","Attention",JOptionPane.ERROR_MESSAGE);
+//	}
 }
 }

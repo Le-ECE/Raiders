@@ -226,6 +226,7 @@ public class GameScreen implements Screen {
 	public GameScreen(SpriteBatch batch, MainGame game,String name, int difficulty,int timeSeconds) {
 		this.batch = batch;
 		this.game = game;
+		this.name=name;
 		this.difficulty = difficulty;
 		this.timeSeconds=timeSeconds;
 		create();
@@ -536,21 +537,17 @@ public class GameScreen implements Screen {
 		if (!paused && !gameEnded) {
 			gameUpdate();
 		} else if (paused) {
+			for (int x = 0; x < boulderArr.size(); x++) {
+				boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
+				boulder1Sprite.draw(batch);
+			}
 			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
 			batch.draw(pauseOverlay, 0, 0);
 			pauseTextSprite.draw(batch);
 			darkBackSprite.draw(batch);
 			darkQuitSprite.draw(batch);
 			
-			for (int x = 0; x < boulderArr.size(); x++) {
-				//System.out.println("direction: "+directionArr.get(x));
-				//System.out.println("distance: "+distanceArr.get(x));
-				//b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
-				//System.out.println ("x coord "+x+": "+boulderXArr.get(x));
-				//System.out.println("y coord "+x+": "+boulderYArr.get(x));
-				//boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
-				boulder1Sprite.draw(batch);
-			}
+			
 
 			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY())) {
 				quitSprite.draw(batch);
@@ -796,15 +793,20 @@ public class GameScreen implements Screen {
 			gameEnded = true;
 		saveGame();
 		
-		game.getSaveManager().setSave(new Save(name,difficulty,timeSeconds+(int)totalTime));
+		
 	//	highScoreWrite(saveGame())
 		}
 		}
 	}
 	
-	public Save saveGame(){
+	//fix uneven menu buttons
+	
+	public void saveGame(){
+		JOptionPane.showMessageDialog(null, timeSeconds,"shit",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, (int)totalTime,"shit",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, timeSeconds+(int)totalTime,"shit",JOptionPane.ERROR_MESSAGE);
+		game.getSaveManager().setSave(new Save(name,difficulty,timeSeconds+(int)totalTime));
 		game.getSaveManager().writeSave();
-	return new Save();
 	}
 
 	public void highScoreWrite(Save newSave){
@@ -823,16 +825,16 @@ public class GameScreen implements Screen {
 		System.out.println();
 		System.out.println(game.getSaveManager().getSave().getName());
 
-		if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610)) {
+		if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			menuSprite.draw(batch);
-			if (Gdx.input.justTouched()) {
+			if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 				game.setScreen(new MainMenu(batch, game));
 			}
 		}
 
-		if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610)) {
+		if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyPressed(Keys.ENTER)) {
 			goSprite.draw(batch);
-			if (Gdx.input.justTouched()) {
+			if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ENTER)) {
 				catched = true;
 				difficulty++;
 				gameEnded = false;
