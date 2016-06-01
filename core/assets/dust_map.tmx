@@ -104,6 +104,7 @@
     <property name="direction" value="down"/>
     <property name="distance" value="300"/>
     <property name="rotation" value="none"/>
+    <property name="yoyo" type="bool" value="true"/>
    </properties>
   </object>
   <object id="90" name="boulder2" x="899" y="171" width="40" height="40">
@@ -111,6 +112,7 @@
     <property name="direction" value="down"/>
     <property name="distance" value="300"/>
     <property name="rotation" value="none"/>
+    <property name="yoyo" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
