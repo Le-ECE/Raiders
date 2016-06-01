@@ -88,6 +88,8 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
@@ -213,12 +215,15 @@ public class GameScreen implements Screen {
 	boolean priority;
 	boolean gameEnded;
 
+	private String name;
 	private int difficulty;
 	private int timeSeconds;
+	private int boulderX;
+	private int boulderY;
 	
 	Boulder b;
 
-	public GameScreen(SpriteBatch batch, MainGame game, int difficulty,int timeSeconds) {
+	public GameScreen(SpriteBatch batch, MainGame game,String name, int difficulty,int timeSeconds) {
 		this.batch = batch;
 		this.game = game;
 		this.difficulty = difficulty;
@@ -294,6 +299,8 @@ public class GameScreen implements Screen {
 
 		// quit rectangle
 		quitRect = new Rectangle(quitSprite.getX(), quitSprite.getY(), quitSprite.getWidth(), quitSprite.getHeight());
+
+		// stage = new Stage();
 
 		Gdx.input.setCursorCatched(catched);
 
@@ -525,19 +532,6 @@ public class GameScreen implements Screen {
 		camera.update();
 
 		batch.begin();
-		
-		// draw boulders
-		if (!paused){
-			for (int x = 0; x < boulderArr.size(); x++) {
-				System.out.println("direction: "+directionArr.get(x));
-				System.out.println("distance: "+distanceArr.get(x));
-				b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
-				System.out.println ("x coord "+x+": "+boulderXArr.get(x));
-				System.out.println("y coord "+x+": "+boulderYArr.get(x));
-				boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
-				boulder1Sprite.draw(batch);
-			}
-		}
 
 		if (!paused && !gameEnded) {
 			gameUpdate();
@@ -547,6 +541,16 @@ public class GameScreen implements Screen {
 			pauseTextSprite.draw(batch);
 			darkBackSprite.draw(batch);
 			darkQuitSprite.draw(batch);
+			
+			for (int x = 0; x < boulderArr.size(); x++) {
+				//System.out.println("direction: "+directionArr.get(x));
+				//System.out.println("distance: "+distanceArr.get(x));
+				//b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
+				//System.out.println ("x coord "+x+": "+boulderXArr.get(x));
+				//System.out.println("y coord "+x+": "+boulderYArr.get(x));
+				//boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
+				boulder1Sprite.draw(batch);
+			}
 
 			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY())) {
 				quitSprite.draw(batch);
@@ -594,6 +598,18 @@ public class GameScreen implements Screen {
 		interpY = indianaY;
 		priority = false;
 		direction = "none";
+		
+		//boulder draw
+		for (int x = 0; x < boulderArr.size(); x++) {
+			System.out.println("direction: "+directionArr.get(x));
+			System.out.println("distance: "+distanceArr.get(x));
+			b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
+			System.out.println ("x coord "+x+": "+boulderXArr.get(x));
+			System.out.println("y coord "+x+": "+boulderYArr.get(x));
+			boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
+			boulder1Sprite.draw(batch);
+		}
+		
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Gdx.input.setCursorCatched(!catched);
 			catched = !catched;
@@ -765,22 +781,37 @@ public class GameScreen implements Screen {
 	}
 
 	private void endCheck() {
-		if (mapEnds() && difficulty % 2 == 0) {
+		if(mapEnds()){
+			
+		if (difficulty % 2 == 0) {
 			difficulty++;
 			setCurrentMap(difficulty);
-			b = new Boulder (currentMap);
 			boulder1.dispose();
+			b = new Boulder (currentMap);
 			createMap();
 			System.out.println("stage end");
-		} else if (mapEnds() && difficulty % 2 != 0) {
+		} 
+		else {
 			System.out.println("level complete");
 			gameEnded = true;
-			game.getSaveManager().getSave().setName("let user input name here");
-			game.getSaveManager().getSave().setDifficulty(difficulty);
-			game.getSaveManager().getSave().setTimeSeconds(timeSeconds+(int)totalTime);
+		saveGame();
+		
+		game.getSaveManager().setSave(new Save(name,difficulty,timeSeconds+(int)totalTime));
+	//	highScoreWrite(saveGame())
+		}
 		}
 	}
+	
+	public Save saveGame(){
+		game.getSaveManager().writeSave();
+	return new Save();
+	}
 
+	public void highScoreWrite(Save newSave){
+		
+		
+	}
+	
 	private void drawOverlay() {
 		Gdx.input.setCursorCatched(false);
 
@@ -789,6 +820,8 @@ public class GameScreen implements Screen {
 		scoreSprite.draw(batch);
 		menuDarkSprite.draw(batch);
 		goDarkSprite.draw(batch);
+		System.out.println();
+		System.out.println(game.getSaveManager().getSave().getName());
 
 		if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610)) {
 			menuSprite.draw(batch);
