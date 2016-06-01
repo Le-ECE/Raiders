@@ -29,8 +29,6 @@ public void writeSave(){
 		new File(System.getProperty("user.dir")+"//saves").mkdirs();
 	}
 	choose.setCurrentDirectory(new File(System.getProperty("user.dir")+"//saves")); 
-
-	//JOptionPane.showMessageDialog(null, loadedSave.getName()+" "+loadedSave.getDifficulty()+" "+loadedSave.getTimeSeconds(),"shit",JOptionPane.ERROR_MESSAGE);
 	
 	String saveName="";
 	
