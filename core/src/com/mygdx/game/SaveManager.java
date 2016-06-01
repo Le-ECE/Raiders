@@ -37,8 +37,8 @@ public void writeSave(){
 	Calendar newCalendar=Calendar.getInstance();
 	newCalendar.setTimeInMillis(System.currentTimeMillis());
 	//saveName=newCalendar.getTime().toString();
-	
-	saveName=newCalendar.get(Calendar.DAY_OF_MONTH)+"-"+newCalendar.get(Calendar.MONTH)+"-"+newCalendar.get(Calendar.YEAR);
+	//saveName.replace('/', '-');
+	saveName=newCalendar.get(Calendar.DAY_OF_MONTH)+"~"+newCalendar.get(Calendar.MONTH)+"~"+newCalendar.get(Calendar.YEAR)+" "+newCalendar.get(Calendar.HOUR)+"«"+newCalendar.get(Calendar.MINUTE)+"«"+newCalendar.get(Calendar.SECOND);
 	String writeName=loadedSave.getName()+" "+saveName+EXT;
 	System.out.println(writeName);
 	try{
@@ -50,6 +50,7 @@ public void writeSave(){
 		saveWriter.close();
 	}
 	catch(IOException e){
+	// fix the goddamn cursor lock when switching 
 		JOptionPane.showMessageDialog(null, "Error saving your gamestate.","Attention",JOptionPane.ERROR_MESSAGE);
 	}
 	}
