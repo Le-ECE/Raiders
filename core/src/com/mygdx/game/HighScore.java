@@ -11,16 +11,35 @@ public class HighScore implements Screen {
  ArrayList<Save> listSave = new ArrayList<Save>();
  String currentName;
  Save currentFile;
-
+JFileChooser choose=new JFileChooser();
 
  
 	public void printer(){
 
 	}
 
+	public void scoreRead(){
+		PrintWriter emptyWrite;
+        BufferedReader scoreReader;
+		try{
+		if(!(new File("//"+choose.getCurrentDirectory()+"//"+"HighScore"+MainGame.EXT).isFile())){
+			emptyWrite=new PrintWriter(new FileWriter("//"+choose.getCurrentDirectory()+"//"+"HighScore"+MainGame.EXT));
+				emptyWrite.close();
+			}
+		}
+			catch(IOException e){
+				// should not throw io exception, make a promt anyways
+			}
+		}
+	
+	
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+			if(!(new File(System.getProperty("user.dir")+"//highscore").exists())){
+				new File(System.getProperty("user.dir")+"//highscore").mkdirs();
+			}
+			choose.setCurrentDirectory(new File(System.getProperty("user.dir")+"//highscore")); 
+			
 		
 	}
 

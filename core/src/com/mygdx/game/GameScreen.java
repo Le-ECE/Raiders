@@ -123,12 +123,12 @@ public class GameScreen implements Screen {
 	Animation animation_left;
 	Animation animation_up;
 	Animation animation_down;
-	
-	BitmapFont timerFont;
 
 	Music desertMusic;
 	Music earthMusic;
 	Music iceMusic;
+
+	BitmapFont timerFont;
 
 	TextureRegion[] frames_right;
 	TextureRegion[] frames_left;
@@ -227,8 +227,7 @@ public class GameScreen implements Screen {
 	private String name;
 	private int difficulty;
 	private int timeSeconds;
-	private int boulderX;
-	private int boulderY;
+	private int currentTime;
 
 	Boulder b;
 
@@ -271,7 +270,7 @@ public class GameScreen implements Screen {
 
 		//create font
 		timerFont = new BitmapFont (Gdx.files.internal("8bit_bitmap.fnt"),Gdx.files.internal("8bit_bitmap_0.png"),false);
-		
+
 		// set accessor
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
 
@@ -318,15 +317,9 @@ public class GameScreen implements Screen {
 		//create treasure
 		treasureText = new Texture ("Oscar.png");
 		treasureSprite = new Sprite (treasureText);
-		
+
 		treasureSprite.setPosition(900f, 100f);
-		
-		//create treasure overlay
-		treasureOverlayText = new Texture ("treasure_overlay.png");
-		treasureOverlaySprite = new Sprite (treasureOverlayText);
-		
-		treasureOverlaySprite.setPosition(0f, 0f);
-		
+
 		Gdx.input.setCursorCatched(catched);
 
 		// tiledmap renderer
@@ -459,7 +452,7 @@ public class GameScreen implements Screen {
 		Tween.set(successSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(successSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
 		.start(tweenManager);
-		
+
 		//treasure animation
 		Tween.set(treasureSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(treasureSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
@@ -550,13 +543,21 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		body.setPosition(indianaX, indianaY);
-		float tempTime = time;
+		//	float tempTime = time;
 		// keep track of elapsed time
+
+
+		if((Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)||Gdx.input.isKeyPressed(Keys.CONTROL_LEFT))&&Gdx.input.isKeyPressed(Keys.S)&&!gameEnded){
+			saveGame();
+		}
+
+
+
 		if (!paused)
 			time += Gdx.graphics.getDeltaTime();
 		//if ((int) tempTime != (int) time)
 		//System.out.println((int) time);
-
+		
 		// set camera view
 		tmRender.setView(camera);
 		// render tile map
@@ -565,20 +566,18 @@ public class GameScreen implements Screen {
 		camera.update();
 
 		batch.begin();
-		
+
 		//draw font
 		timerFont.setColor(Color.BLACK);
-		timerFont.draw(batch, "Time [ "+(int)time+" ]", 100f, 700f);
+		timerFont.draw(batch, "Time [ "+(timeSeconds+(int)time)+" ]", 100f, 700f);
 		timerFont.setColor(Color.WHITE);
-		timerFont.draw(batch, "Time [ "+(int)time+" ]", 105f, 705f);
-		
+		timerFont.draw(batch, "Time [ "+(timeSeconds+(int)time)+" ]", 105f, 705f);
+
 		if (!paused && !gameEnded) {
 			gameUpdate();
-			
 		} else if (paused) {
 			for (int x = 0; x < boulderArr.size(); x++) {
 				boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
-				//boulderCollision[x] = boulder1Sprite.getBoundingRectangle();
 				boulder1Sprite.draw(batch);
 			}
 			batch.draw(indianaJones, (int) indianaX, (int) indianaY, 48f, 96f);
@@ -616,12 +615,8 @@ public class GameScreen implements Screen {
 		if (Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure", String.class))&&!retrieved){
 			treasureSprite.draw(batch);
 		}
-		
+
 		batch.end();
-//		sr.begin (ShapeType.Filled);
-//		sr.rect(boulderCollision[0].x, boulderCollision[0].y, boulderCollision[0].width, boulderCollision [0].height);
-//		sr.rect(boulderCollision[1].x, boulderCollision[1].y, boulderCollision[1].width, boulderCollision [1].height);
-//		sr.end();
 	}
 
 	//	private void drawBoulder(int boulderNum,String direction, int distance,String rotation){
@@ -649,21 +644,14 @@ public class GameScreen implements Screen {
 		for (int x = 0; x < boulderArr.size(); x++) {
 			b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
 			boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
-			//System.out.println(" "+boulder1Sprite.getX()+" "+boulder1Sprite.getY()+" "+boulder1Sprite.getWidth()+" "+boulder1Sprite.getHeight());
+
 			boulderCollision[x] = new Rectangle (boulderXArr.get(x),boulderYArr.get(x),64,64);
-			//System.out.println(" "+boulderCollision[x].getX()+" "+boulderCollision[x].getY()+" "+boulderCollision[x].getWidth()+" "+boulderCollision[x].getHeight());
-			System.out.println("0 "+boulderCollision[0].getX()+" "+boulderCollision[0].getY()+" "+boulderCollision[0].getWidth()+" "+boulderCollision[0].getHeight());
-			
-			if (x==1)System.out.println("1 "+boulderCollision[1].getX()+" "+boulderCollision[1].getY()+" "+boulderCollision[1].getWidth()+" "+boulderCollision[1].getHeight());
+
 			boulder1Sprite.draw(batch);
 		}
-		System.out.println("*p2*");
-		System.out.println("0 "+boulderCollision[0].getX()+" "+boulderCollision[0].getY()+" "+boulderCollision[0].getWidth()+" "+boulderCollision[0].getHeight());
-		System.out.println("1 "+boulderCollision[1].getX()+" "+boulderCollision[1].getY()+" "+boulderCollision[1].getWidth()+" "+boulderCollision[1].getHeight());
-		System.out.println("*p1*");
-		
+
 		endCheck();
-		
+
 		if (collidesWithBoulders()){
 			indianaX = start.x;
 			indianaY = start.y;
@@ -673,7 +661,7 @@ public class GameScreen implements Screen {
 		if (treasureRetrieved()){
 			retrieved = true;
 		}
-		
+
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Gdx.input.setCursorCatched(!catched);
 			catched = !catched;
@@ -682,7 +670,6 @@ public class GameScreen implements Screen {
 
 		if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
 			interp.setPosition(indianaX + 4, interpY);
-
 			if (!collidesWithMap()) {
 				indianaX += Gdx.graphics.getDeltaTime() * speed;
 			}
@@ -761,8 +748,8 @@ public class GameScreen implements Screen {
 
 		}
 		if (gameEnded) {
-			totalTime = time;
 			saveGame();
+			timeSeconds=0;
 			time=0;
 			direction="none";
 			//System.out.println("total time: "+totalTime);
@@ -849,6 +836,7 @@ public class GameScreen implements Screen {
 
 	private void endCheck() {
 		if(mapEnds()){
+
 			if (difficulty % 2 == 0) {
 				difficulty++;
 				setCurrentMap(difficulty);
@@ -866,6 +854,8 @@ public class GameScreen implements Screen {
 				else{
 					treasureOverlaySprite.draw (batch);
 				}
+				saveGame();
+				//highScoreWrite ();		
 			}
 		}
 	}
@@ -873,6 +863,7 @@ public class GameScreen implements Screen {
 	//fix uneven menu buttons
 
 	public void saveGame(){
+		totalTime = time;
 		game.getSaveManager().setSave(new Save(name,difficulty,timeSeconds+(int)totalTime));
 		game.getSaveManager().writeSave();
 	}
@@ -890,7 +881,7 @@ public class GameScreen implements Screen {
 		scoreSprite.draw(batch);
 		menuDarkSprite.draw(batch);
 		goDarkSprite.draw(batch);
-		
+
 		//timerFont.
 		timerFont.setColor(Color.BLACK);
 		timerFont.draw(batch, ""+(int)totalTime+" Seconds", 685f, 470f);
@@ -913,6 +904,7 @@ public class GameScreen implements Screen {
 					gameEnded = false;
 					setCurrentMap(difficulty);
 					musicPlay();
+					timeSeconds=0;
 					time=0;
 					direction="none";
 					createMap();
@@ -988,11 +980,11 @@ public class GameScreen implements Screen {
 		// set start position
 		indianaX = start.x;
 		indianaY = start.y;
-		
+
 		if (Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure",String.class))){
 			retrieved = false;
 		}
-		
+
 	}
 
 	public void musicPlay(){
@@ -1024,11 +1016,11 @@ public class GameScreen implements Screen {
 		}
 		return result;
 	}
-	
+
 	private boolean treasureRetrieved(){
 		Rectangle treasureRect = treasureSprite.getBoundingRectangle();
 		boolean result = false;
-		
+
 		if (interp.overlaps(treasureRect)){
 			result = true;
 		}

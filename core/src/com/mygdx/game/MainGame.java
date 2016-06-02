@@ -21,11 +21,11 @@ import com.badlogic.gdx.graphics.Pixmap;
  *
  */
 public class MainGame extends Game {
-	
-	public static Music mainMusic;
 
+	public static Music mainMusic;
+	public static final String EXT=".sav";
 	Pixmap pm;
-private SaveManager mainSaveManager;
+	private SaveManager mainSaveManager;
 	/**
 	 * create() is an overridden method that is responsible for setting the
 	 * cursor of the game to a custom texture, as well as initializing the batch
@@ -33,26 +33,26 @@ private SaveManager mainSaveManager;
 	 */
 	@Override
 	public void create() {
-		
+
 		//set music
 		mainMusic = Gdx.audio.newMusic(Gdx.files.internal("main_music.mp3"));
 		mainMusic.setLooping(true);
 		mainMusic.play();
-		
+
 		// sets the cursor to a custom image
 		pm = new Pixmap(Gdx.files.internal("cursor.png"));
 		Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
 		pm.dispose();
-mainSaveManager = new SaveManager();
+		mainSaveManager = new SaveManager();
 
 		splashScreen();
-		
+
 	}
-	
+
 	public SaveManager getSaveManager(){
 		return this.mainSaveManager;
 	}
-	
+
 	public void setSaveManager(SaveManager passSaveManager){
 		this.mainSaveManager=passSaveManager;
 	}
