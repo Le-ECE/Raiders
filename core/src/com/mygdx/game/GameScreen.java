@@ -518,8 +518,16 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		body.setPosition(indianaX, indianaY);
-		float tempTime = time;
+	//	float tempTime = time;
 		// keep track of elapsed time
+		
+		
+		if((Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)||Gdx.input.isKeyPressed(Keys.CONTROL_LEFT))&&Gdx.input.isKeyPressed(Keys.S)&&!gameEnded){
+			saveGame();
+		}
+			
+		
+		
 		if (!paused)
 			time += Gdx.graphics.getDeltaTime();
 		//if ((int) tempTime != (int) time)
@@ -693,8 +701,8 @@ public class GameScreen implements Screen {
 
 		}
 		if (gameEnded) {
-			totalTime = time;
 			saveGame();
+			timeSeconds=0;
 			time=0;
 			direction="none";
 			//System.out.println("total time: "+totalTime);
@@ -804,6 +812,7 @@ public class GameScreen implements Screen {
 	//fix uneven menu buttons
 	
 	public void saveGame(){
+		totalTime = time;
 		game.getSaveManager().setSave(new Save(name,difficulty,timeSeconds+(int)totalTime));
 		game.getSaveManager().writeSave();
 	}
@@ -838,6 +847,7 @@ public class GameScreen implements Screen {
 				gameEnded = false;
 				setCurrentMap(difficulty);
 				musicPlay();
+				timeSeconds=0;
 				time=0;
 				direction="none";
 				createMap();

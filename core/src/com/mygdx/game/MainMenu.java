@@ -193,38 +193,53 @@ public class MainMenu implements Screen {
 		playButton.addCaptureListener(new ChangeListener(){
 			public void changed(ChangeEvent event, Actor actor) {
 				String inputName="No Name";
+				char[]illegalChar={47,92,58,42,63,34,60,62};
+				boolean illegalTrue;
 				//redo in libgdx
 				// fix error with cancelling and exiting box
 				while(true){
+					 illegalTrue=false;
 					inputName=JOptionPane.showInputDialog(null,"Enter your full name.","Input",2);
 					if(inputName==null){
 						return;
 					}
 					inputName=inputName.trim();
-							if(inputName.isEmpty()){
+					
+					if(inputName.isEmpty()){
 						JOptionPane.showMessageDialog(null, "Name cannot be blank.","Attention",JOptionPane.ERROR_MESSAGE);	
 					}
-					else if(inputName.length()>0&&inputName.length()<25){
-						break;	
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "Name must be under 25 Characters.","Attention",JOptionPane.ERROR_MESSAGE);
-					}
+					
+							else if(inputName.length()>0&&inputName.length()<25){
+								for(int a=0;a<inputName.length();a++){
+									for(int b=0;b<illegalChar.length;b++){
+									if(inputName.charAt(a)==illegalChar[b]){
+										illegalTrue=true;
+									}
+									}
+								}
+								if(illegalTrue)
+								JOptionPane.showMessageDialog(null, "Name cannot contain special characters.","Attention",JOptionPane.ERROR_MESSAGE);
+								else
+								break;	
+							}
+							else{
+								JOptionPane.showMessageDialog(null, "Name must be under 25 Characters.","Attention",JOptionPane.ERROR_MESSAGE);
+							}
 				}
-				   char currentChar=' ';
-				    String formatString="";
-				    
-				      String[] arrayString=inputName.split("\\s+");
-				      
-				      for(int a=0;a<arrayString.length;a++){     
-				          currentChar=arrayString[a].charAt(0);
-				          if(currentChar>='a'&&currentChar<='z'){
-				          currentChar=Character.toUpperCase(currentChar);
-				          }
-				         formatString=formatString+currentChar+arrayString[a].substring(1)+" ";       
-				     
-				      }
-				      inputName=formatString.trim();
+				char currentChar=' ';
+				String formatString="";
+
+				String[] arrayString=inputName.split("\\s+");
+
+				for(int a=0;a<arrayString.length;a++){     
+					currentChar=arrayString[a].charAt(0);
+					if(currentChar>='a'&&currentChar<='z'){
+						currentChar=Character.toUpperCase(currentChar);
+					}
+					formatString=formatString+currentChar+arrayString[a].substring(1)+" ";       
+
+				}
+				inputName=formatString.trim();
 				dispose();
 				game.setSaveManager(new SaveManager());
 				game.setScreen(new Difficulty(batch, game,inputName));
@@ -232,26 +247,26 @@ public class MainMenu implements Screen {
 			}
 		});
 
-		loadButton.addCaptureListener(new ChangeListener() {
-			public void changed(ChangeEvent event, Actor actor) {
-				dispose();
-				game.setSaveManager(new SaveManager());
-				game.setScreen(new LoadSave(batch,game));
+					loadButton.addCaptureListener(new ChangeListener() {
+						public void changed(ChangeEvent event, Actor actor) {
+							dispose();
+							game.setSaveManager(new SaveManager());
+							game.setScreen(new LoadSave(batch,game));
 
-			}
-		});
+						}
+					});
 
-		quitButton.addCaptureListener(new ChangeListener() {
-			public void changed(ChangeEvent event, Actor actor) {
-				batch.dispose();
-				dispose();
-				Gdx.app.exit();
-			}
-		});
+					quitButton.addCaptureListener(new ChangeListener() {
+						public void changed(ChangeEvent event, Actor actor) {
+							batch.dispose();
+							dispose();
+							Gdx.app.exit();
+						}
+					});
 
-		stage.addActor(playButton);
-		stage.addActor(loadButton);
-		stage.addActor(quitButton);
+					stage.addActor(playButton);
+					stage.addActor(loadButton);
+					stage.addActor(quitButton);
 	}
 
 	/**
