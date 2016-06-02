@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="38" height="24" tilewidth="32" tileheight="32" nextobjectid="70">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="38" height="24" tilewidth="32" tileheight="32" nextobjectid="76">
  <properties>
   <property name="numOfBoulders" type="int" value="3"/>
  </properties>
@@ -101,22 +101,25 @@
   <object id="69" x="830.235" y="571.389" width="57.8273" height="33.0442"/>
  </objectgroup>
  <objectgroup name="properties">
-  <object id="28" name="boulder1" x="192.758" y="604.433" width="63.3347" height="63.3347">
+  <object id="72" name="boulder1" x="225.333" y="616" width="96" height="66.6667">
    <properties>
     <property name="direction" value="up"/>
     <property name="distance" type="int" value="400"/>
+    <property name="yoyo" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="31" name="boulder2" x="637.478" y="541.099" width="66.0884" height="64.7116">
-   <properties>
-    <property name="direction" value="up"/>
-    <property name="distance" type="int" value="400"/>
-   </properties>
-  </object>
-  <object id="32" name="boulder3" x="542.476" y="126.669" width="63.3347" height="60.581">
+  <object id="73" name="boulder2" x="570.667" y="137.333" width="61.3333" height="52">
    <properties>
     <property name="direction" value="right"/>
-    <property name="distance" type="int" value="400"/>
+    <property name="distance" type="int" value="350"/>
+    <property name="yoyo" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="75" name="boulder3" x="676" y="602.667" width="60" height="58.6667">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="distance" type="int" value="250"/>
+    <property name="yoyo" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

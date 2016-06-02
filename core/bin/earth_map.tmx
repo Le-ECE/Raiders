@@ -153,30 +153,35 @@
     <property name="direction" value="down"/>
     <property name="distance" type="int" value="550"/>
     <property name="string_prop" value="jesus christ help me"/>
+    <property name="yoyo" type="bool" value="true"/>
    </properties>
   </object>
   <object id="24" name="boulder2" x="534.667" y="669.333" width="53.3333" height="54.6667">
    <properties>
     <property name="direction" value="up"/>
     <property name="distance" type="int" value="550"/>
+    <property name="yoyo" type="bool" value="true"/>
    </properties>
   </object>
   <object id="25" name="boulder3" x="670.667" y="97.3333" width="78.6667" height="50.6667">
    <properties>
     <property name="direction" value="down"/>
     <property name="distance" type="int" value="550"/>
+    <property name="yoyo" type="bool" value="true"/>
    </properties>
   </object>
   <object id="26" name="boulder4" x="837.333" y="669.333" width="86.6667" height="54.6667">
    <properties>
     <property name="direction" value="up"/>
     <property name="distance" type="int" value="550"/>
+    <property name="yoyo" type="bool" value="true"/>
    </properties>
   </object>
   <object id="27" name="boulder5" x="990.667" y="98.6667" width="61.3333" height="57.3333">
    <properties>
     <property name="direction" value="down"/>
     <property name="distance" type="int" value="550"/>
+    <property name="yoyo" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
