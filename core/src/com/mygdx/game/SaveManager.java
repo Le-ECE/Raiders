@@ -29,16 +29,14 @@ public void writeSave(){
 		new File(System.getProperty("user.dir")+"//saves").mkdirs();
 	}
 	choose.setCurrentDirectory(new File(System.getProperty("user.dir")+"//saves")); 
-
-	//JOptionPane.showMessageDialog(null, loadedSave.getName()+" "+loadedSave.getDifficulty()+" "+loadedSave.getTimeSeconds(),"shit",JOptionPane.ERROR_MESSAGE);
 	
 	String saveName="";
 	
 	Calendar newCalendar=Calendar.getInstance();
 	newCalendar.setTimeInMillis(System.currentTimeMillis());
 	//saveName=newCalendar.getTime().toString();
-	
-	saveName=newCalendar.get(Calendar.DAY_OF_MONTH)+"-"+newCalendar.get(Calendar.MONTH)+"-"+newCalendar.get(Calendar.YEAR);
+	//saveName.replace('/', '-');
+	saveName=newCalendar.get(Calendar.DAY_OF_MONTH)+"~"+newCalendar.get(Calendar.MONTH)+"~"+newCalendar.get(Calendar.YEAR)+" "+newCalendar.get(Calendar.HOUR)+"«"+newCalendar.get(Calendar.MINUTE)+"«"+newCalendar.get(Calendar.SECOND);
 	String writeName=loadedSave.getName()+" "+saveName+EXT;
 	System.out.println(writeName);
 	try{
@@ -50,6 +48,7 @@ public void writeSave(){
 		saveWriter.close();
 	}
 	catch(IOException e){
+	// fix the goddamn cursor lock when switching 
 		JOptionPane.showMessageDialog(null, "Error saving your gamestate.","Attention",JOptionPane.ERROR_MESSAGE);
 	}
 	}

@@ -11,8 +11,8 @@ public class HighScore implements Screen {
  ArrayList<Save> listSave = new ArrayList<Save>();
  String currentName;
  Save currentFile;
-// https://docs.oracle.com/javase/tutorial/essential/io/dirs.html
- // ^ directory listing
+
+
  
 	public void printer(){
 
