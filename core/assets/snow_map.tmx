@@ -100,40 +100,40 @@
   <object id="28" name="boulder1" x="470.667" y="510.666" width="32" height="34.6667">
    <properties>
     <property name="direction" value="down"/>
-    <property name="distance" type="int" value="150"/>
+    <property name="distance" type="int" value="210"/>
    </properties>
   </object>
   <object id="29" name="boulder2" x="693.334" y="716" width="30.6667" height="36">
    <properties>
     <property name="direction" value="up"/>
-    <property name="distance" type="int" value="150"/>
+    <property name="distance" type="int" value="210"/>
    </properties>
   </object>
   <object id="30" name="boulder3" x="910.667" y="501.333" width="34.6667" height="30.6667">
    <properties>
     <property name="direction" value="down"/>
-    <property name="distance" type="int" value="150"/>
+    <property name="distance" type="int" value="210"/>
    </properties>
   </object>
-  <object id="34" name="boulder4" x="717.334" y="349.333" width="14.6667" height="20">
+  <object id="34" name="boulder4" x="700" y="350" width="14.6667" height="20">
    <properties>
     <property name="direction" value="right"/>
-    <property name="distance" type="int" value="200"/>
+    <property name="distance" type="int" value="400"/>
    </properties>
   </object>
-  <object id="29" name="boulder5" x="1108.67" y="353.667" width="30.6667" height="36">
+  <object id="29" name="boulder5" x="1111" y="350" width="30.6667" height="36">
    <properties>
     <property name="direction" value="up"/>
-    <property name="distance" type="int" value="150"/>
+    <property name="distance" type="int" value="300"/>
    </properties>
   </object>
-  <object id="36" name="boulder6" x="1110.67" y="98.6666" width="26.6667" height="16">
+  <object id="36" name="boulder6" x="1111" y="100" width="26.6667" height="16">
    <properties>
     <property name="direction" value="left"/>
-    <property name="distance" type="int" value="200"/>
+    <property name="distance" type="int" value="400"/>
    </properties>
   </object>
-  <object id="54" name="boulder7" x="708" y="100" width="32" height="34.6667">
+  <object id="54" name="boulder7" x="707" y="100" width="32" height="34.6667">
    <properties>
     <property name="direction" value="down"/>
     <property name="distance" type="int" value="300"/>

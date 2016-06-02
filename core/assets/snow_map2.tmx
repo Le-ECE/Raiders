@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="38" height="24" tilewidth="32" tileheight="32" nextobjectid="66">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="38" height="24" tilewidth="32" tileheight="32" nextobjectid="78">
  <properties>
-  <property name="numOfBoulders" type="int" value="14"/>
+  <property name="numOfBoulders" type="int" value="10"/>
  </properties>
  <tileset firstgid="1" name="snow_on_stones" tilewidth="32" tileheight="32" tilecount="80" columns="10">
   <image source="snow text/snow_on_stones.png" width="320" height="256"/>
@@ -154,7 +154,7 @@
 </data>
  </layer>
  <objectgroup name="collision" offsetx="-1" offsety="-1">
-  <object id="20" x="138.333" y="7.66667" width="308" height="270.667"/>
+  <object id="20" x="144" y="7.66667" width="300.333" height="270.667"/>
   <object id="21" x="174.333" y="522.333" width="268" height="40"/>
   <object id="22" x="393" y="263.667" width="50.6667" height="262.667"/>
   <object id="23" x="3.66667" y="-1.66667" width="14.6667" height="770.667"/>
@@ -181,85 +181,63 @@
   <object id="15" name="boulder1" x="307.667" y="353" width="27.6663" height="41">
    <properties>
     <property name="direction" value="left"/>
-    <property name="distance" type="int" value="200"/>
+    <property name="distance" type="int" value="300"/>
    </properties>
   </object>
-  <object id="17" name="boulder2" x="313.333" y="460" width="61.3333" height="61.3333">
+  <object id="17" name="boulder2" x="90.333" y="648" width="61.3333" height="61.3333">
    <properties>
-    <property name="direction" value="left"/>
+    <property name="direction" value="up"/>
     <property name="distance" type="int" value="200"/>
    </properties>
   </object>
-  <object id="35" name="boulder9" x="494.667" y="668" width="61.3333" height="61.3333">
-   <properties>
-    <property name="direction" value="right"/>
-    <property name="distance" type="int" value="200"/>
-   </properties>
-  </object>
-  <object id="36" name="boulder3" x="500" y="476" width="61.3333" height="61.3333">
+<object id="76" name="boulder3" x="476" y="343" width="25" height="25">
    <properties>
     <property name="direction" value="down"/>
-    <property name="distance" type="int" value="200"/>
-   </properties>
-  </object>
-  <object id="38" name="boulder5" x="682.667" y="476" width="63" height="61.333">
-   <properties>
-    <property name="direction" value="left"/>
-    <property name="distance" type="int" value="200"/>
-   </properties>
-  </object>
-  <object id="39" name="boulder4" x="596" y="478.667" width="61.3333" height="61.3333">
-   <properties>
-    <property name="direction" value="left"/>
-    <property name="distance" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="40" name="boulder7" x="677.333" y="670.666" width="61.3333" height="61.3333">
-   <properties>
-    <property name="direction" value="up"/>
-    <property name="distance" type="int" value="200"/>
-   </properties>
-  </object>
-  <object id="41" name="boulder6" x="686.667" y="565.334" width="61.3333" height="61.3333">
-   <properties>
-    <property name="direction" value="up"/>
-    <property name="distance" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="42" name="boulder8" x="594.667" y="669.333" width="61.3333" height="61.3333">
-   <properties>
-    <property name="direction" value="right"/>
-    <property name="distance" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="43" name="boulder10" x="520" y="105.333" width="61.3333" height="61.3333">
-   <properties>
-    <property name="direction" value="right"/>
     <property name="distance" type="int" value="300"/>
    </properties>
   </object>
-  <object id="44" name="boulder11" x="706.666" y="174.667" width="61.3333" height="61.3333">
+  <object id="75" name="boulder4" x="692" y="429" width="25" height="25">
    <properties>
     <property name="direction" value="left"/>
-    <property name="distance" type="int" value="200"/>
+    <property name="distance" type="int" value="250"/>
    </properties>
   </object>
-  <object id="45" name="boulder12" x="810.667" y="265.334" width="61.3333" height="61.3333">
+  <object id="74" name="boulder5" x="477" y="99" width="25" height="25">
    <properties>
-    <property name="direction" value="left"/>
-    <property name="distance" type="int" value="300"/>
+    <property name="direction" value="right"/>
+    <property name="distance" type="int" value="250"/>
    </properties>
   </object>
-  <object id="47" name="boulder13" x="956" y="457.334" width="61.3333" height="61.3333">
-   <properties>
-    <property name="direction" value="left"/>
-    <property name="distance" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="51" name="boulder14" x="849.333" y="537.333" width="61.3333" height="61.3333">
+  <object id="72" name="boulder6" x="828" y="560.667" width="25" height="25">
    <properties>
     <property name="direction" value="right"/>
     <property name="distance" type="int" value="150"/>
+   </properties>
+  </object>
+  <object id="73" name="boulder7" x="763" y="201" width="25" height="25">
+   <properties>
+    <property name="direction" value="left"/>
+    <property name="distance" type="int" value="280"/>
+   </properties>
+  </object>
+  <object id="45" name="boulder8" x="810.667" y="265.334" width="61.3333" height="61.3333">
+   <properties>
+    <property name="direction" value="left"/>
+    <property name="distance" type="int" value="300"/>
+    <property name="yoyo" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="68" name="boulder9" x="505" y="665">
+   <properties>
+    <property name="direction" value="right"/>
+    <property name="distance" type="int" value="150"/>
+    <property name="yoyo" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="69" name="boulder10" x="980.834" y="462.167" width="27.6663" height="41">
+   <properties>
+    <property name="direction" value="left"/>
+    <property name="distance" type="int" value="200"/>
    </properties>
   </object>
  </objectgroup>
