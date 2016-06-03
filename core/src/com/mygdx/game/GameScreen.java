@@ -557,7 +557,7 @@ public class GameScreen implements Screen {
 			game.getSaveManager().writeSave();
 		}
 
-		if (!paused&&!gameEnded)
+		if (!paused&&!gameEnded)	
 			time += Gdx.graphics.getDeltaTime();
 		
 		// set camera view
