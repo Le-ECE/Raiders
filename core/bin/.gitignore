@@ -18,7 +18,6 @@
 /boulder_3.png
 /cavern_ruins.png
 /column.png
-/com/
 /cursor.png
 /desert_music.mp3
 /difficulty_title.png
@@ -37,8 +36,10 @@
 /grass_theme.mp3
 /hard.png
 /hard_dark.png
+/high_score.png
 /ice_theme.mp3
 /indianajones.png
+/instructions_button.png
 /left_walk.png
 /levelcomplete_text.png
 /load.png
@@ -51,24 +52,30 @@
 /menubg.png
 /music/
 /next_arrow.png
-/oscar (2).png
+/next_arrow_dark.png
 /oscar.png
 /pause_overlay.png
 /pause_text.png
 /playbutton.png
-/playbuttonover.png
 /prev_arrow.png
 /quit.png
 /quit_dark.png
-/quitover.png
 /right_walk.png
+/com/
 /riskofrain_bitmap.fnt
 /riskofrain_bitmap_0.png
 /roll_left.png
 /rule1.tmx
 /rules.txt
+/save.png
+/save_dark.png
 /save_screen.png
 /score_panel.png
+/screen1.png
+/screen2.png
+/screen3.png
+/screen4.png
+/screen5.png
 /snow text/
 /snow_map.tmx
 /snow_map2.tmx
@@ -79,6 +86,3 @@
 /treasure_overlay.png
 /tween/
 /up_walk.png
-/high_score.png
-/save.png
-/save_dark.png
