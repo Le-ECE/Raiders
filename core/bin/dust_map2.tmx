@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="38" height="24" tilewidth="32" tileheight="32" nextobjectid="76">
  <properties>
+  <property name="containsTreasure" type="bool" value="false"/>
   <property name="numOfBoulders" type="int" value="3"/>
  </properties>
  <tileset firstgid="1" name="blowharder" tilewidth="32" tileheight="32" tilecount="1102" columns="58">

@@ -1,3 +1,5 @@
+/8bit_bitmap.fnt
+/8bit_bitmap_0.png
 /Signs0.png
 /Signs1.png
 /Signs2.png
@@ -16,6 +18,7 @@
 /boulder_3.png
 /cavern_ruins.png
 /column.png
+/com/
 /cursor.png
 /desert_music.mp3
 /difficulty_title.png
@@ -47,20 +50,24 @@
 /menu_dark.png
 /menubg.png
 /music/
-/com/
+/next_arrow.png
 /oscar (2).png
 /oscar.png
 /pause_overlay.png
 /pause_text.png
 /playbutton.png
 /playbuttonover.png
+/prev_arrow.png
 /quit.png
 /quit_dark.png
 /quitover.png
 /right_walk.png
+/riskofrain_bitmap.fnt
+/riskofrain_bitmap_0.png
 /roll_left.png
 /rule1.tmx
 /rules.txt
+/save_screen.png
 /score_panel.png
 /snow text/
 /snow_map.tmx
@@ -69,5 +76,6 @@
 /splashtitle.png
 /title.png
 /title_new.png
+/treasure_overlay.png
 /tween/
 /up_walk.png

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="38" height="24" tilewidth="32" tileheight="32" nextobjectid="55">
  <properties>
+  <property name="containsTreasure" type="bool" value="false"/>
   <property name="numOfBoulders" type="int" value="7"/>
  </properties>
  <tileset firstgid="1" name="door" tilewidth="32" tileheight="32" tilecount="9" columns="3">
@@ -127,13 +128,13 @@
     <property name="distance" type="int" value="300"/>
    </properties>
   </object>
-  <object id="36" name="boulder6" x="1111" y="100" width="26.6667" height="16">
+  <object id="36" name="boulder6" x="1111" y="120" width="26.6667" height="16">
    <properties>
     <property name="direction" value="left"/>
     <property name="distance" type="int" value="400"/>
    </properties>
   </object>
-  <object id="54" name="boulder7" x="707" y="100" width="32" height="34.6667">
+  <object id="54" name="boulder7" x="707" y="120" width="32" height="34.6667">
    <properties>
     <property name="direction" value="down"/>
     <property name="distance" type="int" value="300"/>
