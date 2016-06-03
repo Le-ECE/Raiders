@@ -6,7 +6,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 import java.io.*;
 import javax.swing.*;
-public class HighScore implements Screen {
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.*;
+public class HighScore implements Screen,Printable{
 
 	//private SpriteBatch batch;
 	//private MainGame game;
@@ -23,8 +27,52 @@ public class HighScore implements Screen {
 		//this.game=game;
 	}
 	
+	@Override
+	public int print(Graphics g, PageFormat pf,int page) throws PrinterException {
+		if(page>0)
+			return NO_SUCH_PAGE;
+		
+		Graphics2D g2d = (Graphics2D)g;
+		    g2d.translate(pf.getImageableX(), pf.getImageableY());
+		    g.drawString("High Scores", 275, 50);
+		    g.drawString("Name", 150, 100);
+		    g.drawString("Time of Completion [Seconds]",350, 100);
+		    g.drawString("Easy Difficulty", 25, 150);
+		    for(int a=0;a<listSaveEasy.size();a++){
+	g.drawString(listSaveEasy.get(a).getName(), 150, 175+a*15);
+g.drawString(""+listSaveEasy.get(a).getTimeSeconds(), 350, 175+a*15);
+				}
+		    g.drawString("Medium Difficulty", 25, 340);
+		       for(int b=0;b<listSaveMed.size();b++){
+		    		g.drawString(listSaveMed.get(b).getName(), 150, 365+b*15);
+		    		g.drawString(""+listSaveMed.get(b).getTimeSeconds(), 350, 365+b*15);
+					}
+				
+		       g.drawString("Hard Difficulty", 25, 510);
+		       for(int c=0;c<listSaveHard.size();c++){
+		    		g.drawString(listSaveMed.get(c).getName(), 150, 535+c*15);
+		    		g.drawString(""+listSaveMed.get(c).getTimeSeconds(), 350, 535+c*15);
+					}
+	return PAGE_EXISTS; 
+	}
+	
 	public void printer(){
+		
+PrinterJob newJob = PrinterJob.getPrinterJob();
 
+
+boolean printDiag=newJob.printDialog();
+newJob.setPrintable(this);
+
+if(printDiag){
+	try{
+		scoreLimit();
+		newJob.print();
+	}
+	catch(PrinterException e){
+	}
+}
+	
 	}
 
 	public static void addSave(Save passSave){
@@ -41,19 +89,48 @@ public class HighScore implements Screen {
 				}
 		newScore.scoreSorter();
 		newScore.scoreWrite();
-		for(int a=0;a<newScore.listSaveEasy.size();a++){
-		JOptionPane.showMessageDialog(null, newScore.listSaveEasy.get(a).getName(),"attention",JOptionPane.ERROR_MESSAGE);
-		JOptionPane.showMessageDialog(null, newScore.listSaveEasy.get(a).getDifficulty(),"attention",JOptionPane.ERROR_MESSAGE);
-		JOptionPane.showMessageDialog(null, newScore.listSaveEasy.get(a).getTimeSeconds(),"attention",JOptionPane.ERROR_MESSAGE);
-		}
+	}
+	
+	public void scoreLimit(){
+		if(listSaveEasy.size()>10)
+			listSaveEasy.subList(10,listSaveEasy.size()).clear();
+		if(listSaveMed.size()>10)
+			listSaveMed.subList(10,listSaveMed.size()).clear();
+		if(listSaveHard.size()>10)
+			listSaveHard.subList(10,listSaveHard.size()).clear();
 	}
 	
 	public void scoreWrite(){
+		PrintWriter scoreWrite;
 		if(!(new File(System.getProperty("user.dir")+"//highscore").exists())){
 			new File(System.getProperty("user.dir")+"//highscore").mkdirs();
 		}
 		choose.setCurrentDirectory(new File(System.getProperty("user.dir")+"//highscore")); 
-		
+		try{
+				scoreWrite=new PrintWriter(new FileWriter("//"+choose.getCurrentDirectory()+"//"+"HighScore"+MainGame.EXT));
+				scoreLimit();
+				for(Save a:listSaveEasy){
+				scoreWrite.println(a.getDifficulty());
+				scoreWrite.println(a.getTimeSeconds());
+				scoreWrite.println(a.getName());
+				}
+				
+				for(Save b:listSaveMed){
+					scoreWrite.println(b.getDifficulty());
+					scoreWrite.println(b.getTimeSeconds());
+					scoreWrite.println(b.getName());
+					}
+				
+				for(Save c:listSaveHard){
+					scoreWrite.println(c.getDifficulty());
+					scoreWrite.println(c.getTimeSeconds());
+					scoreWrite.println(c.getName());
+					}
+				scoreWrite.close();
+		}
+		catch(IOException e){
+			// should not have prompt
+		}
 	}
 	
 	public void scoreSorter(){
@@ -112,9 +189,6 @@ for(int b=a;b<listSaveHard.size();b++)
 		String input1;
 		String input2;
 		String input3;
-		//  String inputSave;
-		//  String[]inputSplit;
-		// new changes
 
 		int inputDifficulty=0;
 		int inputTime=0;
@@ -184,6 +258,8 @@ for(int b=a;b<listSaveHard.size();b++)
 scoreRead();
 scoreSorter();
 scoreWrite();
+// call with button
+printer();
 			}
 
 		
@@ -223,5 +299,7 @@ scoreWrite();
 				// TODO Auto-generated method stub
 
 			}
+
+			
 
 		}
