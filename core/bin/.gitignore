@@ -1,25 +1,4 @@
-/8bit_bitmap.fnt
-/8bit_bitmap_0.png
-/Signs0.png
-/Signs1.png
-/Signs2.png
-/Signs3.png
-/Signs4.png
-/Signs5.png
-/Signs6.png
-/Signs7.png
-/Tilesets/
-/back_dark.png
-/backbutton.png
-/background(terraria).png
-/boulder_0.png
-/boulder_1.png
-/boulder_2.png
-/boulder_3.png
-/cavern_ruins.png
-/column.png
-/cursor.png
-/desert_music.mp3
+/com/
 /difficulty_title.png
 /dirt text/
 /down_walk.png
@@ -58,10 +37,10 @@
 /pause_text.png
 /playbutton.png
 /prev_arrow.png
+/prev_arrow_dark.png
 /quit.png
 /quit_dark.png
 /right_walk.png
-/com/
 /riskofrain_bitmap.fnt
 /riskofrain_bitmap_0.png
 /roll_left.png
@@ -86,20 +65,3 @@
 /treasure_overlay.png
 /tween/
 /up_walk.png
-<<<<<<< HEAD
-=======
-/high_score.png
-/save.png
-/save_dark.png
-/instructions_button.png
-/next_arrow_dark.png
-/screen1.png
-/screen2.png
-/screen3.png
-/screen4.png
-/screen5.png
-<<<<<<< HEAD
-=======
->>>>>>> origin/kazmanfima-patch-36
->>>>>>> origin/kazmanfima-patch-36
-/prev_arrow_dark.png
