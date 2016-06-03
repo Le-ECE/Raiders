@@ -278,7 +278,7 @@ public class MainMenu implements Screen {
 						public void changed(ChangeEvent event, Actor actor) {
 							dispose();
 							game.setSaveManager(new SaveManager());
-							game.setScreen(new HighScore(batch,game));
+							game.setScreen(new HighScore());
 
 						}
 					});

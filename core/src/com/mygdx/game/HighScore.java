@@ -8,8 +8,8 @@ import java.io.*;
 import javax.swing.*;
 public class HighScore implements Screen {
 
-	private SpriteBatch batch;
-	private MainGame game;
+	//private SpriteBatch batch;
+	//private MainGame game;
 	ArrayList<Save> listSaveEasy;
 	ArrayList<Save> listSaveMed;
 	ArrayList<Save> listSaveHard;
@@ -18,9 +18,9 @@ public class HighScore implements Screen {
 	JFileChooser choose=new JFileChooser();
 
 
-	public HighScore(SpriteBatch batch,MainGame game){
-		this.batch=batch;
-		this.game=game;
+	public HighScore(){
+		//this.batch=batch;
+		//this.game=game;
 	}
 	
 	public void printer(){
