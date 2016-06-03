@@ -28,7 +28,24 @@ public class HighScore implements Screen {
 	}
 
 	public static void addSave(Save passSave){
-		JOptionPane.showMessageDialog(null, "succ,remove this","attention",JOptionPane.ERROR_MESSAGE);
+		HighScore newScore=new HighScore();
+		newScore.scoreRead();
+		if(passSave.getDifficulty()>=0&&passSave.getDifficulty()<=1){
+			newScore.listSaveEasy.add(passSave);
+		}
+			if(passSave.getDifficulty()>=2&&passSave.getDifficulty()<=3){
+				newScore.listSaveMed.add(passSave);
+			}
+				if(passSave.getDifficulty()>=4&&passSave.getDifficulty()<=5){
+					newScore.listSaveHard.add(passSave);
+				}
+		newScore.scoreSorter();
+		newScore.scoreWrite();
+		for(int a=0;a<newScore.listSaveEasy.size();a++){
+		JOptionPane.showMessageDialog(null, newScore.listSaveEasy.get(a).getName(),"attention",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, newScore.listSaveEasy.get(a).getDifficulty(),"attention",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, newScore.listSaveEasy.get(a).getTimeSeconds(),"attention",JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void scoreWrite(){
