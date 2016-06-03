@@ -856,7 +856,7 @@ public class GameScreen implements Screen {
 					treasureOverlaySprite.draw (batch);
 				}
 				saveGame();
-				//highScoreWrite ();		
+				highScoreWrite (game.getSaveManager().getSave());		
 			}
 		}
 	}
