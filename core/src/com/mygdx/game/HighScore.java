@@ -109,10 +109,9 @@ public class HighScore implements Screen {
 						catch(NumberFormatException er){
 						//this part checks for no parsing
 							//	JOptionPane.showMessageDialog(null, "didnt parse correctly,remove this","attention",JOptionPane.ERROR_MESSAGE);
-						}
+						}	
 					}
 					System.out.println(writable);
-				//	JOptionPane.showMessageDialog(null, writable,"attention",JOptionPane.ERROR_MESSAGE);
 			if(writable){
 						if(inputDifficulty>=0&&inputDifficulty<=1){
 							listSaveEasy.add(new Save(inputName,inputDifficulty,inputTime));
@@ -138,11 +137,10 @@ public class HighScore implements Screen {
 
 
 			@Override
-			public void show() {
-	
+			public void show() {	
 scoreRead();
 scoreSorter();
-//scoreWrite();
+scoreWrite();
 			}
 
 			public void scoreSorter(){
