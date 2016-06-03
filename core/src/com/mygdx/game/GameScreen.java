@@ -13,7 +13,7 @@
  * as for the map properties.
  * 
  * @author Brian Tran
- * @version 2.0 19.05.2016
+ * @version 4.0 03.06.2016
  * 
  * <p>
  * <b>Instance Variables</b>
@@ -40,17 +40,85 @@
  * <p>
  * <b>indianaJones</b> Instance of Sprite used to store a custom texture sprite
  * <p>
- * <b>column</b> Instance of Sprite used to store a custom texture sprite
+ * <b>pauseTextSprite</b> Instance of Sprite used to store a custom texture sprite
  * <p>
- * <b>boulder</b> Instance of Sprite used to store a custom texture sprite
+ * <b>backSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>quitSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>darkBackSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>darkQuitSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>boulder1Sprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>successSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>scoreSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>menuDarkSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>menuSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>goDarkSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>goSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>treasureSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>treasureOverlaySprite</b> Instance of Sprite used to store a custom texture sprite
  * <p>
  * <b>body</b> Instance of Rectangle used to detect collision of main sprite
  * <p>
- * <b>collide</b> Instance of Rectangle used to detect collision of column sprite
- * <p>
- * <b>collideBoulder</b> Instance of Rectangle used to detect collision of boulder sprite
- * <p>
  * <b>interp</b> Instance of Rectangle used to prerender collision of sprites
+ * <p>
+ * <b>backRect</b> Instance of Rectangle used to detect mouse input with back button
+ * <p>
+ * <b>quitRect</b> Instance of Rectangle used to detect mouse input with quit button
+ * <p>
+ * <b>endRect</b> Instance of Rectangle used to player collision with level end
+ * <p>
+ * <b>menuRect</b> Instance of Rectangle used to detect mouse input with menu button
+ * <p>
+ * <b>goRect</b> Instance of Rectangle used to detect mouse input with go button
+ * <p>
+ * <b>collisionArray</b> ArrayList of Rectangle used to store collision boxes of map
+ * <p>
+ * <b>boulderArr</b> ArrayList of Rectangle used to store boulder locations and properties
+ * <p>
+ * <b>boulderXArr</b> ArrayList of Integer used to store x-coordinates of all boulders on the map
+ * <p>
+ * <b>boulderYArr</b> ArrayList of Integer used to store y-coordinates of all boulders on the map
+ * <p>
+ * <b>distanceArr</b> ArrayList of Integer used to store max distance traveled of all boulders on the map
+ * <p>
+ * <b>directionArr</b> ArrayList of String used to store direction of boulder travel of all boulders on the map
+ * <p>
+ * <b>mapList</b> ArrayList of TiledMap used to store game maps
+ * <p>
+ * <b>Textures</b>
+ * <p>
+ * <b>pauseOverlay</b> Instance of Texture used to store texture for pause screen overlay
+ * <p>
+ * <b>pauseText</b> Instance of Texture used to store texture for pause text
+ * <p>
+ * <b>backButton</b> Instance of Texture used to store texture for back button
+ * <p>
+ * <b>quitButton</b> Instance of Texture used to store texture for quit button
+ * <p>
+ * <b>boulder1</b> Instance of Texture used to store texture for boulder
+ * <p>
+ * <b>successText</b> Instance of Texture used to store level end text
+ * <p>
+ * <b>scoreText</b> Instance of Texture used to store score text
+ * <p>
+ * <b>menuDarkText</b> Instance of Texture used to store dark menu button
+ * <p>
+ * <b>menuText</b> Instance of Texture used to store menu button
+ * <p>
+ * <b>goText</b> Instance of Texture used to store go button
+ * <p>
+ * <b>goDarkText</b> Instance of Texture used to store dark go button
  * <p>
  * <b>indianaText</b> Instance of Texture used to store texture for an image
  * <p>
@@ -62,15 +130,23 @@
  * <p>
  * <b>walk_down</b> Instance of Texture used to store sprite sheet for down walk cycle
  * <p>
- * <b>colText</b> Instance of Texture used to store column texture
+ * <b>treasureText</b> Instance of Texture used to store texture for treasure item
  * <p>
- * <b>boulderText</b> Instance of Texture used to store boulder texture
+ * <b>treasureOverlayText</b> Instance of Texture used to store texture for treasure overlay prompt
  * <p>
- * <b>map</b> Instance of TiledMap used to store custom .tmx map file
+ * <b>start</b> Instance of Ellipse used to store player start position
+ * <p>
+ * <b>currentMap</b> Instance of TiledMap used to store the current custom .tmx map file
  * <p>
  * <b>tmRender</b> Instance of TileMapRenderer used to render custom .tmx map file
  * <p>
+ * <b>tweenManager</b> Instance of TweenManager used to manage sprite animations
+ * <p>
  * <b>camera</b> Instance of OrthographicCamera used to display the map
+ * <p>
+ * <b>totalTime</b> float value representing total time user took to complete the level
+ * <p>
+ * <b>interpY</b> float value representing y-coord of interp collision box
  * <p>
  * <b>indianaX</b> float value used to store x-coord of main sprite
  * <p>
@@ -80,8 +156,35 @@
  * <p>
  * <b>time</b> float value used to store duration of a frame (used for animation)
  * <p>
+ * <b>direction</b> String value representing direction of player movement
+ * <p>
+ * <b>name</b> String value representing user's name
+ * <p>
+ * <b>paused</b> boolean value used to determine if game is paused
+ * <p>
+ * <b>priority</b> boolean value used to determine whether or not priorityDraw() method is called
+ * <p>
+ * <b>gameEnded</b> boolean value used to determine if game has ended
+ * <p>
  * <b>catched</b> boolean value used to determine if cursor is visible
- * 
+ * <p>
+ * <b>retrieved</b> boolean value used to determine if treasure has been retrieved
+ * <p>
+ * <b>timeSeconds</b> int value representing amount of time elapsed
+ * <p>
+ * <b>difficulty</b> int value representing the level difficulty
+ * <p>
+ * <b>b</b> Instance of Boulder class used to update and draw boulder locations
+ * <p>
+ * <b>desertMusic</b> Instance of Music used to stream music
+ * <p>
+ * <b>earthMusic</b> Instance of Music used to stream music
+ * <p>
+ * <b>iceMusic</b> Instance of Music used to stream music
+ * <p>
+ * <b>timerFont</b> Instance of BitmapFont used to display custom windows fonts for the timer.
+ * <p>
+ * <b>dialogFont</b> Instance of BitmapFont used to display custom windows fonts for dialog boxes.
  */
 
 package com.mygdx.game;
@@ -103,7 +206,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -119,142 +221,182 @@ import aurelienribon.tweenengine.TweenManager;
 import tween.SpriteManager;
 
 public class GameScreen implements Screen {
-	Animation animation_right;
-	Animation animation_left;
-	Animation animation_up;
-	Animation animation_down;
+	private Animation animation_right;
+	private Animation animation_left;
+	private Animation animation_up;
+	private Animation animation_down;
 
-	Music desertMusic;
-	Music earthMusic;
-	Music iceMusic;
+	private Music desertMusic;
+	private Music earthMusic;
+	private Music iceMusic;
 
-	BitmapFont timerFont;
-	BitmapFont dialogFont;
+	private BitmapFont timerFont; //jd
+	private BitmapFont dialogFont; //jd
 
-	TextureRegion[] frames_right;
-	TextureRegion[] frames_left;
-	TextureRegion[] frames_up;
-	TextureRegion[] frames_down;
+	private TextureRegion[] frames_right;
+	private TextureRegion[] frames_left;
+	private TextureRegion[] frames_up;
+	private TextureRegion[] frames_down;
 
-	ShapeRenderer sr;
+	private MainGame game;
 
-	MainGame game;
+	private SpriteBatch batch;
 
-	SpriteBatch batch;
+	private Sprite indianaJones;
+	private Sprite pauseTextSprite;
+	private Sprite backSprite;
+	private Sprite quitSprite;
+	private Sprite darkBackSprite;
+	private Sprite darkQuitSprite;
+	private Sprite boulder1Sprite;
+	private Sprite successSprite;
+	private Sprite scoreSprite;
+	private Sprite menuDarkSprite;
+	private Sprite menuSprite;
+	private Sprite goDarkSprite;
+	private Sprite goSprite;
+	private Sprite treasureSprite; //jd
+	private Sprite treasureOverlaySprite; //jd
 
-	Sprite indianaJones;
-	Sprite column;
-	Sprite boulder;
-	Sprite pauseTextSprite;
-	Sprite backSprite;
-	Sprite quitSprite;
-	Sprite darkBackSprite;
-	Sprite darkQuitSprite;
-	Sprite boulder1Sprite;
-	Sprite gameOverSprite;
-	Sprite successSprite;
-	Sprite scoreSprite;
-	Sprite menuDarkSprite;
-	Sprite menuSprite;
-	Sprite goDarkSprite;
-	Sprite goSprite;
-	Sprite treasureSprite;
-	Sprite treasureOverlaySprite;
+	private Rectangle body;
+	private Rectangle interp;
+	private Rectangle backRect;
+	private Rectangle quitRect;
+	private Rectangle endRect;
+	private Rectangle menuRect;
+	private Rectangle goRect;
 
-	Rectangle body;
-	Rectangle interp;
-	Rectangle backRect;
-	Rectangle quitRect;
-	Rectangle endRect;
-	Rectangle menuRect;
-	Rectangle goRect;
-
-	ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
-	ArrayList<Rectangle> boulderArr = new ArrayList<Rectangle>();
+	private ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
+	private ArrayList<Rectangle> boulderArr = new ArrayList<Rectangle>();
 	public static ArrayList<Integer>boulderXArr;
 	public static ArrayList<Integer>boulderYArr;
-	ArrayList <Integer> distanceArr;
-	ArrayList <String> directionArr;
+	private ArrayList <Integer> distanceArr;
+	private ArrayList <String> directionArr; 
 
-	ArrayList<TiledMap> mapList = new ArrayList<TiledMap>();
+	private ArrayList<TiledMap> mapList = new ArrayList<TiledMap>();
 
-	Texture indianaText;
-	Texture walk_right;
-	Texture walk_left;
-	Texture walk_up;
-	Texture walk_down;
-	Texture pauseOverlay;
-	Texture pauseText;
-	Texture backButton;
-	Texture quitButton;
-	Texture backDark;
-	Texture quitDark;
-	Texture boulder1;
-	Texture gameOverText;
-	Texture successText;
-	Texture scoreText;
-	Texture menuDarkText;
-	Texture menuText;
-	Texture goText;
-	Texture goDarkText;
-	Texture treasureText;
-	Texture treasureOverlayText;
+	private Texture indianaText;
+	private Texture walk_right;
+	private Texture walk_left;
+	private Texture walk_up;
+	private Texture walk_down;
+	private Texture pauseOverlay;
+	private Texture pauseText;
+	private Texture backButton;
+	private Texture quitButton;
+	private Texture backDark;
+	private Texture quitDark;
+	private Texture boulder1;
+	private Texture successText;
+	private Texture scoreText;
+	private Texture menuDarkText;
+	private Texture menuText;
+	private Texture goText;
+	private Texture goDarkText;
+	private Texture treasureText;
+	private Texture treasureOverlayText; 
 
-	Ellipse start;
+	private Ellipse start;
 
-	TiledMap currentMap;
-	TiledMapRenderer tmRender;
+	private TiledMap currentMap;
+	private TiledMapRenderer tmRender;
 
-	TweenManager tweenManager;
+	private TweenManager tweenManager;
 
-	OrthographicCamera camera;
+	private OrthographicCamera camera;
 
-	float indianaX;
-	float indianaY;
-	float speed;
-	float time;
-	float totalTime;
-	float interpY;
+	private float indianaX;
+	private float indianaY;
+	private float speed;
+	private float time;
+	private float totalTime;
+	private float interpY;
 
-	String direction;
-
-	boolean catched = true;
-	boolean paused = false;
-	boolean mapCollide = false;
-	boolean priority;
-	boolean gameEnded;
-	boolean retrieved;
-
+	private String direction;
 	private String name;
+
+	private boolean catched = true;
+	private boolean paused = false;
+	private boolean priority;
+	private boolean gameEnded;
+	private boolean retrieved;
+
 	private int difficulty;
 	private int timeSeconds;
-	private int currentTime;
 
-	Boulder b;
+	private Boulder b;
 
-	Rectangle [] boulderCollision;
+	private Rectangle [] boulderCollision; 
 
+	/**
+	 * The GameScreen constructor is responsible for taking values in from other
+	 * classes in order to be used.
+	 * @param batch SpriteBatch used for rendering screen elements
+	 * @param game MainGame used for switching between screens
+	 * @param name String used for username storage
+	 * @param difficulty int used for difficulty selection
+	 * @param timeSeconds int used for time storage
+	 */
 	public GameScreen(SpriteBatch batch, MainGame game,String name, int difficulty,int timeSeconds) {
 		this.batch = batch;
 		this.game = game;
 		this.name=name;
 		this.difficulty = difficulty;
 		this.timeSeconds=timeSeconds;
-		create();
 	}
 
 	/**
-	 * The create() method is an overridden method that is used to instantiate
-	 * and give values to all of the variables. Create() is called every time
-	 * the application is run. The create() method also sets the cursor to
-	 * remain within the window and be non visible with a built in GDX method
-	 * setCursorCatched (). Multiple for loops are used to create animation
-	 * frames as well as to import collision hitboxes from the map.
+	 * Unused overridden method.
 	 */
-	public void create() {
+	@Override
+	public void resize(int width, int height) {
 
-		sr = new ShapeRenderer();
+	}
 
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void pause() {
+
+	}
+
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void resume() {
+
+	}
+
+	/**
+	 * This method disposes of all unused resources in order to prevent more
+	 * memory from being taken up.
+	 */
+	@Override
+	public void dispose() {
+		desertMusic.dispose();
+		earthMusic.dispose();
+		iceMusic.dispose();
+		game.dispose();
+		indianaText.dispose();
+		walk_right.dispose();
+		walk_left.dispose();
+		walk_up.dispose();
+		walk_down.dispose();
+		currentMap.dispose();
+	}
+
+	/**
+	 * The show() method is an overridden method from the Screen interface. This method
+	 * is run once at the beginning of the application run time. This method
+	 * is used to create and initialize variables as well as run settings that should
+	 * be run at the beginning of the application, such as the playing of music. First
+	 * and second for loop is used to fill the texture region arrays with images from the
+	 * spritesheet to be used for animation.
+	 */
+	@Override
+	public void show() {
 		MainGame.mainMusic.dispose();
 
 		// set music
@@ -272,7 +414,7 @@ public class GameScreen implements Screen {
 		//create font
 		timerFont = new BitmapFont (Gdx.files.internal("8bit_bitmap.fnt"),Gdx.files.internal("8bit_bitmap_0.png"),false);
 		dialogFont = new BitmapFont (Gdx.files.internal ("riskofrain_bitmap.fnt"), Gdx.files.internal("riskofrain_bitmap_0.png"),false);
-		
+
 		// set accessor
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
 
@@ -335,7 +477,7 @@ public class GameScreen implements Screen {
 
 		treasureOverlayText = new Texture ("treasure_overlay.png");
 		treasureOverlaySprite = new Sprite (treasureOverlayText);
-		
+
 		// sets current map based on difficulty
 		setCurrentMap(difficulty);
 
@@ -356,11 +498,6 @@ public class GameScreen implements Screen {
 
 		//create boulder collision array
 		boulderCollision = new Rectangle [directionArr.size()];
-
-		// create game over text
-		gameOverText = new Texture("gameover_text.png");
-
-		gameOverSprite = new Sprite(gameOverText);
 
 		// create success text
 		successText = new Texture("levelcomplete_text.png");
@@ -462,70 +599,6 @@ public class GameScreen implements Screen {
 		Tween.set(treasureSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(treasureSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
 		.start(tweenManager);
-
-
-		// for (MapObject object :
-		// currentMap.getLayers().get("collision").getObjects()) {
-		// if (object instanceof RectangleMapObject) {
-		// collisionArray.add(((RectangleMapObject) object).getRectangle());
-		// }
-		// }
-
-		//		Boulder b = new Boulder(currentMap);
-		//		ArrayList <Integer> arrList = b.getDistance();
-		//		for (int x : arrList){
-		//			System.out.println("integers: "+x);
-		//		}
-	}
-
-	/**
-	 * Unused overridden method.
-	 */
-	@Override
-	public void resize(int width, int height) {
-
-	}
-
-	/**
-	 * Unused overridden method.
-	 */
-	@Override
-	public void pause() {
-
-	}
-
-	/**
-	 * Unused overridden method.
-	 */
-	@Override
-	public void resume() {
-
-	}
-
-	/**
-	 * This method disposes of all unused resources in order to prevent more
-	 * memory from being taken up.
-	 */
-	@Override
-	public void dispose() {
-		desertMusic.dispose();
-		earthMusic.dispose();
-		iceMusic.dispose();
-		game.dispose();
-		indianaText.dispose();
-		walk_right.dispose();
-		walk_left.dispose();
-		walk_up.dispose();
-		walk_down.dispose();
-		currentMap.dispose();
-	}
-
-	/**
-	 * Unused overridden method.
-	 */
-	@Override
-	public void show() {
-
 	}
 
 	/**
@@ -534,8 +607,18 @@ public class GameScreen implements Screen {
 	 * every frame with new information. This allows for animations of sprites
 	 * and such to be easier. Things are displayed on the screen using a
 	 * SpriteBatch, which acts as a container of sorts for the screen
-	 * elements.Various for loops are used to detect user input, as for
-	 * collision and detection.
+	 * elements. First if statement is used to save the game state when the
+	 * keyboard shortcut Ctrl + S is used. Second if statement is used to
+	 * increment the timer when the game is not paused or finished. Third if
+	 * structure is used to update the game whenever it is not paused. If it
+	 * is paused, this if statement draws the pause overlay. First for loop
+	 * draws all of the boulders when the game is paused. Fourth if statement
+	 * is used to quit to the main menu when the quit button is pressed. Fifth
+	 * if statement is used to resume the game when the back button is pressed.
+	 * Sixth if statement is used to resume the game when the escape key is
+	 * pressed while the game is in pause state. Seventh if statement is used
+	 * to draw the treasure item if the map properties state that the map
+	 * contains one.
 	 */
 	@Override
 	public void render(float delta) {
@@ -548,9 +631,6 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		body.setPosition(indianaX, indianaY);
-		//	float tempTime = time;
-		// keep track of elapsed time
-
 
 		if((Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)||Gdx.input.isKeyPressed(Keys.CONTROL_LEFT))&&Gdx.input.isKeyPressed(Keys.S)&&!gameEnded){
 			saveGame();
@@ -559,7 +639,7 @@ public class GameScreen implements Screen {
 
 		if (!paused&&!gameEnded)	
 			time += Gdx.graphics.getDeltaTime();
-		
+
 		// set camera view
 		tmRender.setView(camera);
 		// render tile map
@@ -621,20 +701,38 @@ public class GameScreen implements Screen {
 		batch.end();
 	}
 
-	//	private void drawBoulder(int boulderNum,String direction, int distance,String rotation){
-	//	if (direction.equals("up"))
-	//			batch.draw(boulder1, (int) boulderXArr.get(boulderNum),(int)boulderYArr.get(boulderNum),64f,64f);
-	//	}
-
-	//	private boolean boulderCheck() {
-	//		return true;
-	//	}
-
 	/**
 	 * The gameUpdate method takes in user input and updates the player's
 	 * current location based on the keys the user enters. This method is called
 	 * everytime the render method runs, as long as the game is not in a paused
-	 * state.
+	 * state. First for loop is used to update every boulder with the Boulder
+	 * class, and to reset and draw the boulders in their new locations. First
+	 * if statement is used to respawn the player if they collide with a boulder.
+	 * Second if statement is used to set the retrieved boolean to true if the
+	 * player has retrieved the treasure item. Third if statement is used to
+	 * set paused boolean to true and to set mouse cursor to catched if the
+	 * escape key is pressed. Fourth if statement is used to determine actions
+	 * that are performed if the D key or the right arrow key is pressed. Fifth
+	 * if statement updates player location as long as they don't collide with
+	 * the map. Sixth if statement resets player location if the collide with 
+	 * outer map boundaries. Seventh if statement sets player movement direction
+	 * to right. Eighth if statement determines actions to be performed if the
+	 * A key or the left arrow key is pressed. Ninth if statement updates player
+	 * location as long as they don't collide with the map. Tenth if statement
+	 * resets player location if they collide with the outer map boundaries.
+	 * Eleventh if statement sets player direction to left. Twelfth if statement
+	 * determines actions to be performed if the S key or the down arrow key is
+	 * pressed. Thirteenth if statement updates player location as long as they
+	 * don't collide with the map. Fourteenth if statement resets player location
+	 * if they collide with the outer map boundaries. Fifteenth if statement sets
+	 * the player direction to down. Sixteenth if statement determines actions to
+	 * be performed if the W key or the up arrow key is pressed. Seventeenth if
+	 * statement updates player location as long as they don't collide with the map.
+	 * Eighteenth if statement resets player location if they collide with outer
+	 * map boundaries. Nineteenth if statement sets the player direction to up.
+	 * Twentieth if statement sets player direction to none. Twenty-first if
+	 * statement saves the game and resets timer/direction values if the player
+	 * completes the game.
 	 */
 	public void gameUpdate() {
 
@@ -762,7 +860,9 @@ public class GameScreen implements Screen {
 	/**
 	 * This method uses a for loop and an if statement to determine if the
 	 * user's walking hitbox collides with the map boundaries. If the user
-	 * collides with the map, a result of true is returned.
+	 * collides with the map, a result of true is returned. First for loop
+	 * runs through the array of collision rectangles. First if statement
+	 * determines if the player collides with any of the collision rectangles.
 	 * 
 	 * @return result boolean based on if player collides with map
 	 */
@@ -777,6 +877,12 @@ public class GameScreen implements Screen {
 		return result;
 	}
 
+	/**
+	 * This method determines if the player collides with the end point of
+	 * the level. First if statement determines if the player's hitbox rectangle
+	 * collides with the rectangle of the end location.
+	 * @return result Boolean based on if the player collides with end point
+	 */
 	private boolean mapEnds() {
 		boolean result = false;
 		if (interp.overlaps(endRect)) {
@@ -789,7 +895,13 @@ public class GameScreen implements Screen {
 	 * The priority draw method is called every render loop. This method
 	 * ensures, through a series of if statements, that if the user inputs
 	 * multiple keys at once, only the first key's animation will play, instead
-	 * of having multiple walking animations play at the same time.
+	 * of having multiple walking animations play at the same time. First if
+	 * statement draws the up animation if the direction of the player is up.
+	 * Second if statement draws the down animation if the direction of the player
+	 * is down. Third if statement draws the left animation if the direction of
+	 * the player is left. Fourth if statement draws the right animation if the
+	 * direction of the player is right. Fifth if statement draws a still image
+	 * if the direction of the player is none.
 	 */
 	private void priorityDraw() {
 		if (direction.equals("up"))
@@ -836,6 +948,18 @@ public class GameScreen implements Screen {
 		currentMap = mapList.get(index);
 	}
 
+	/**
+	 * This method checks if the user has ended the stage or level. If the stage
+	 * that the user has completed is not the final stage of the difficulty, a
+	 * new map (the last stage) is loaded. If the stage that the user has completed
+	 * is the final stage of the difficulty, a game winning overlay with the
+	 * user's name and score is displayed and the game is saved. First if statement
+	 * determines if the user has completed the level. Second if statement determines
+	 * the actions to be performed if the stage the user has completed was the first
+	 * stage of the difficulty. Third if statement draws the overlay and sets gameEnded
+	 * to true if the map does not contain a treasure or if the treasure has been
+	 * retrieved. 
+	 */
 	private void endCheck() {
 		if(mapEnds()){
 
@@ -862,13 +986,30 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	//fix uneven menu buttons
-
+	/**
+	 * This method calls the save method in the SaveManager class from the MainGame
+	 * class. The method stores the user's name, the difficulty of the stage they
+	 * are currently on, and the total time that has elapsed.
+	 */
 	public void saveGame(){
 		totalTime = time;
 		game.getSaveManager().setSave(new Save(name,difficulty,timeSeconds+(int)totalTime));
 	}
 
+	/**
+	 * This method draws the game ending overlay, which happens when the user has
+	 * completed the final stage of the difficulty. This game ending overlay contains
+	 * the user's name within a dialog box as well as the time it took for the user
+	 * to complete the entire difficulty level. The first if statement determines
+	 * what actions to be performed when the user's cursor is over the menu button. The
+	 * second if statement changes the game screen to the main menu if the user clicks
+	 * their mouse while the cursor is over the menu button. The third if statement
+	 * determines what actions to be performed when the user's cursor is over the go
+	 * button. The fourth if statement renders the new map and resets values when
+	 * the user clicks their mouse while the cursor is over the go button. The fifth if
+	 * statement determine actions to occur based on whether the level they completed
+	 * is the last one or not.
+	 */
 	private void drawOverlay() {
 		Gdx.input.setCursorCatched(false);
 
@@ -887,7 +1028,7 @@ public class GameScreen implements Screen {
 		//dialog font
 		dialogFont.setColor(Color.BLACK);
 		dialogFont.draw(batch, name+"!", 630f, 275f);
-		
+
 		if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			menuSprite.draw(batch);
 			if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
@@ -920,6 +1061,19 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	/**
+	 * This method is responsible for rendering the map, and resetting all of the
+	 * array values (such as collision array and boulder array). This method is
+	 * used for when a new map is switched. The first for loop occupies the collision
+	 * array with rectangles taken from the map file. The first if statement determines
+	 * if the current object is a Rectangle. If so, it is added to the collision array.
+	 * The second for loop runs through the map objects that represent the start and end
+	 * points in the map file. The second if statement determines if the object is an
+	 * Ellipse. If so, the start value is set to the Ellipse. The third if statement
+	 * determines if the object is a Rectangle. If so, the end value is set to the Rectangle.
+	 * The fourth if statement resets the retrieved value to false if the map contains
+	 * a treasure item.
+	 */
 	private void createMap() {
 
 		b = new Boulder (currentMap);
@@ -987,6 +1141,13 @@ public class GameScreen implements Screen {
 
 	}
 
+	/**
+	 * This method plays different music files based on the difficulty of the
+	 * level. The first if statement plays the desert theme if the user is on
+	 * the first difficulty. The second if statement plays the earth theme if
+	 * the user is on the second difficulty. The third if statement plays the
+	 * ice theme if the user is on the third difficulty.
+	 */
 	public void musicPlay(){
 		if (difficulty == 0) {
 			desertMusic.play();
@@ -1003,13 +1164,19 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	/**
+	 * This method determines if the user collides with any boulder located on
+	 * the map. The first for loop runs through the array of rectangles that
+	 * represent the boulder hitboxes. The first if statement returns true if
+	 * the player's hitbox collides with that of the boulder's.
+	 * 
+	 * @return result Boolean based on if the user collides with a boulder
+	 */
 	public boolean collidesWithBoulders(){
 		boolean result = false;
 
 		for (int x = 0; x < boulderCollision.length; x++){
-			//System.out.println(" "+boulderCollision[x].getX()+" "+boulderCollision[x].getY()+" "+boulderCollision[x].getWidth()+" "+boulderCollision[x].getHeight());
 			if (interp.overlaps(boulderCollision[x])){
-				System.out.println("********waddup*******");
 				result = true;
 				break;
 			}
@@ -1017,6 +1184,13 @@ public class GameScreen implements Screen {
 		return result;
 	}
 
+	/**
+	 * This method determines if the user has collected the treasure item or not.
+	 * The first if statement determines if the user has collided with the
+	 * rectangle representing the treasure item.
+	 * 
+	 * @return result Boolean based on if the user collided with treasure item
+	 */
 	private boolean treasureRetrieved(){
 		Rectangle treasureRect = treasureSprite.getBoundingRectangle();
 		boolean result = false;
