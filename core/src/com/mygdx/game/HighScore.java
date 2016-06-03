@@ -64,6 +64,7 @@ public class HighScore implements Screen {
 		String input3;
 		//  String inputSave;
 		//  String[]inputSplit;
+		// new changes
 
 		int inputDifficulty=0;
 		int inputTime=0;
