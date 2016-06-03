@@ -75,6 +75,7 @@ public class MainMenu implements Screen {
 	Texture bg;
 	Texture pB;
 	Texture lB;
+	Texture hB;
 	Texture qB;
 	Texture title;
 	Texture iB;
@@ -112,6 +113,7 @@ public class MainMenu implements Screen {
 		stage = new Stage();
 		bg = new Texture("splash.png");
 		lB=new Texture("load.png");
+		hB=new Texture("high_score.png");
 		pB = new Texture("playbutton.png");
 		qB = new Texture("quit.png");
 		skin = new Skin();
@@ -141,9 +143,11 @@ public class MainMenu implements Screen {
 		skin.add("red", pB);
 		skin.add("load", lB);
 		skin.add("overlay", qB);
+		skin.add("score", hB);
 		skin.add("instructions", iB);
 		skin.add("pb", new Texture("playbutton.png"));
 		skin.add("lb", new Texture("load.png"));
+		skin.add("hb", new Texture("high_score.png"));
 		skin.add("iB", new Texture ("instructions_button.png"));
 		skin.add("qover", new Texture("quit.png"));
 
@@ -151,6 +155,7 @@ public class MainMenu implements Screen {
 		TextButtonStyle tb1 = new TextButtonStyle();
 		TextButtonStyle tb2 = new TextButtonStyle();
 		TextButtonStyle tb3 = new TextButtonStyle();
+		TextButtonStyle tb4 = new TextButtonStyle();
 		tb.up = skin.newDrawable("red", Color.LIGHT_GRAY);
 		tb.down = skin.newDrawable("red", Color.DARK_GRAY);
 		tb.over = skin.newDrawable("pb");
@@ -165,16 +170,22 @@ public class MainMenu implements Screen {
 		tb2.down = skin.newDrawable("load", Color.DARK_GRAY);
 		tb2.over = skin.newDrawable("lb");
 		tb2.font = new BitmapFont();
-
-		tb3.up = skin.newDrawable("instructions", Color.LIGHT_GRAY);
-		tb3.down = skin.newDrawable("instructions", Color.DARK_GRAY);
-		tb3.over = skin.newDrawable("iB");
+		
+		tb3.up = skin.newDrawable("score", Color.LIGHT_GRAY);
+		tb3.down = skin.newDrawable("score", Color.DARK_GRAY);
+		tb3.over = skin.newDrawable("hb");
 		tb3.font = new BitmapFont();
+
+		tb4.up = skin.newDrawable("instructions", Color.LIGHT_GRAY);
+		tb4.down = skin.newDrawable("instructions", Color.DARK_GRAY);
+		tb4.over = skin.newDrawable("iB");
+		tb4.font = new BitmapFont();
 
 		final TextButton playButton = new TextButton("", tb);
 		final TextButton loadButton = new TextButton("", tb2);
 		final TextButton quitButton = new TextButton("", tb1);
-		final TextButton instructionsButton = new TextButton ("", tb3);
+		final TextButton highScoreButton=new TextButton("",tb3);
+		final TextButton instructionsButton = new TextButton ("", tb4);
 
 		playButton.setPosition(475, 400);
 		playButton.setWidth(250f);
@@ -183,21 +194,28 @@ public class MainMenu implements Screen {
 
 		playButton.addAction(Actions.fadeIn (1.5f));
 
-		loadButton.setPosition(475, 285);
+		loadButton.setPosition(475, 250);
 		loadButton.setWidth(250f);
 		loadButton.setHeight(105f);
 		loadButton.setColor(loadButton.getColor().r,loadButton.getColor().g,loadButton.getColor().b, 0);
 
 		loadButton.addAction(Actions.fadeIn (1.5f));
 
-		instructionsButton.setPosition (475,170);
+		highScoreButton.setPosition(200, 250); //750 for right
+		highScoreButton.setWidth(250f);
+		highScoreButton.setHeight(105f);
+		highScoreButton.setColor(highScoreButton.getColor().r,highScoreButton.getColor().g,highScoreButton.getColor().b, 0);
+
+		highScoreButton.addAction(Actions.fadeIn (1.5f));
+		
+		instructionsButton.setPosition (750,250);
 		instructionsButton.setWidth(250f);
 		instructionsButton.setHeight(105f);
 		instructionsButton.setColor(instructionsButton.getColor().r,instructionsButton.getColor().g,instructionsButton.getColor().b,0);
 
 		instructionsButton.addAction(Actions.fadeIn(1.5f));
 
-		quitButton.setPosition(475, 55);
+		quitButton.setPosition(475, 100);
 		quitButton.setWidth(250f);
 		quitButton.setHeight(105f);
 		quitButton.setColor(quitButton.getColor().r,quitButton.getColor().g,quitButton.getColor().b, 0);
@@ -272,6 +290,15 @@ public class MainMenu implements Screen {
 			}
 		});
 		
+		highScoreButton.addCaptureListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				dispose();
+				game.setSaveManager(new SaveManager());
+				game.setScreen(new HighScore());
+
+			}
+		});
+		
 		instructionsButton.addCaptureListener(new ChangeListener(){
 			public void changed (ChangeEvent event, Actor actor){
 				dispose();
@@ -289,6 +316,7 @@ public class MainMenu implements Screen {
 
 		stage.addActor(playButton);
 		stage.addActor(loadButton);
+		stage.addActor(highScoreButton);
 		stage.addActor(instructionsButton);
 		stage.addActor(quitButton);
 	}
