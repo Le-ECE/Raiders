@@ -1,13 +1,15 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 import java.io.*;
 import javax.swing.*;
 public class HighScore implements Screen {
 
-
+	private SpriteBatch batch;
+	private MainGame game;
 	ArrayList<Save> listSaveEasy;
 	ArrayList<Save> listSaveMed;
 	ArrayList<Save> listSaveHard;
@@ -16,12 +18,21 @@ public class HighScore implements Screen {
 	JFileChooser choose=new JFileChooser();
 
 
+	public HighScore(SpriteBatch batch,MainGame game){
+		this.batch=batch;
+		this.game=game;
+	}
+	
 	public void printer(){
 
 	}
 
-	public static void scoreWrite(){
-
+	public static void addSave(Save passSave){
+		JOptionPane.showMessageDialog(null, "succ,remove this","attention",JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void scoreWrite(){
+		
 	}
 
 	public void scoreRead(){
@@ -74,7 +85,7 @@ public class HighScore implements Screen {
 						}
 					
 						catch(NumberFormatException er){
-							JOptionPane.showMessageDialog(null, "remove this","attention",JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "didnt parse correctly,remove this","attention",JOptionPane.ERROR_MESSAGE);
 						}
 					}
 			if(writable){
@@ -107,8 +118,9 @@ public class HighScore implements Screen {
 					new File(System.getProperty("user.dir")+"//highscore").mkdirs();
 				}
 				choose.setCurrentDirectory(new File(System.getProperty("user.dir")+"//highscore")); 
-
-
+scoreRead();
+scoreSorter();
+//scoreWrite();
 			}
 
 			public void scoreSorter(){

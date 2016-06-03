@@ -75,6 +75,7 @@ public class MainMenu implements Screen {
 	Texture bg;
 	Texture pB;
 	Texture lB;
+	Texture hB;
 	Texture qB;
 	Texture title;
 
@@ -111,6 +112,7 @@ public class MainMenu implements Screen {
 		stage = new Stage();
 		bg = new Texture("splash.png");
 		lB=new Texture("load.png");
+		hB=new Texture("high_score.png");
 		pB = new Texture("playbutton.png");
 		qB = new Texture("quit.png");
 		skin = new Skin();
@@ -141,14 +143,17 @@ public class MainMenu implements Screen {
 
 		skin.add("red", pB);
 		skin.add("load", lB);
+		skin.add("score", hB);
 		skin.add("overlay", qB);
 		skin.add("pb", new Texture("playbutton.png"));
 		skin.add("lb", new Texture("load.png"));
+		skin.add("hb", new Texture("high_score.png"));
 		skin.add("qover", new Texture("quit.png"));
 
 		TextButtonStyle tb = new TextButtonStyle();
 		TextButtonStyle tb1 = new TextButtonStyle();
 		TextButtonStyle tb2 = new TextButtonStyle();
+		TextButtonStyle tb3 = new TextButtonStyle();
 		tb.up = skin.newDrawable("red", Color.LIGHT_GRAY);
 		tb.down = skin.newDrawable("red", Color.DARK_GRAY);
 		tb.over = skin.newDrawable("pb");
@@ -163,9 +168,15 @@ public class MainMenu implements Screen {
 		tb2.down = skin.newDrawable("load", Color.DARK_GRAY);
 		tb2.over = skin.newDrawable("lb");
 		tb2.font = new BitmapFont();
+		
+		tb3.up = skin.newDrawable("score", Color.LIGHT_GRAY);
+		tb3.down = skin.newDrawable("score", Color.DARK_GRAY);
+		tb3.over = skin.newDrawable("hb");
+		tb3.font = new BitmapFont();
 
 		final TextButton playButton = new TextButton("", tb);
 		final TextButton loadButton = new TextButton("", tb2);
+		final TextButton highScoreButton=new TextButton("",tb3);
 		final TextButton quitButton = new TextButton("", tb1);
 
 		playButton.setPosition(475, 400);
@@ -181,6 +192,13 @@ public class MainMenu implements Screen {
 		loadButton.setColor(loadButton.getColor().r,loadButton.getColor().g,loadButton.getColor().b, 0);
 
 		loadButton.addAction(Actions.fadeIn (1.5f));
+		
+		highScoreButton.setPosition(200, 250); //750 for right
+		highScoreButton.setWidth(250f);
+		highScoreButton.setHeight(105f);
+		highScoreButton.setColor(highScoreButton.getColor().r,highScoreButton.getColor().g,highScoreButton.getColor().b, 0);
+
+		highScoreButton.addAction(Actions.fadeIn (1.5f));
 
 		quitButton.setPosition(475, 100);
 		quitButton.setWidth(250f);
@@ -255,6 +273,15 @@ public class MainMenu implements Screen {
 
 						}
 					});
+					
+					highScoreButton.addCaptureListener(new ChangeListener() {
+						public void changed(ChangeEvent event, Actor actor) {
+							dispose();
+							game.setSaveManager(new SaveManager());
+							game.setScreen(new HighScore(batch,game));
+
+						}
+					});
 
 					quitButton.addCaptureListener(new ChangeListener() {
 						public void changed(ChangeEvent event, Actor actor) {
@@ -266,6 +293,7 @@ public class MainMenu implements Screen {
 
 					stage.addActor(playButton);
 					stage.addActor(loadButton);
+					stage.addActor(highScoreButton);
 					stage.addActor(quitButton);
 	}
 
