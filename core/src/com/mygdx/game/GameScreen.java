@@ -1009,7 +1009,6 @@ public class GameScreen implements Screen {
 		for (int x = 0; x < boulderCollision.length; x++){
 			//System.out.println(" "+boulderCollision[x].getX()+" "+boulderCollision[x].getY()+" "+boulderCollision[x].getWidth()+" "+boulderCollision[x].getHeight());
 			if (interp.overlaps(boulderCollision[x])){
-				System.out.println("********waddup*******");
 				result = true;
 				break;
 			}

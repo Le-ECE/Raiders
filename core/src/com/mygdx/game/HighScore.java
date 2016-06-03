@@ -53,6 +53,11 @@ public class HighScore implements Screen {
 	}
 
 	public void scoreRead(){
+		if(!(new File(System.getProperty("user.dir")+"//highscore").exists())){
+			new File(System.getProperty("user.dir")+"//highscore").mkdirs();
+		}
+		choose.setCurrentDirectory(new File(System.getProperty("user.dir")+"//highscore")); 
+		
 		listSaveEasy = new ArrayList<Save>();
 		listSaveMed = new ArrayList<Save>();
 		listSaveHard = new ArrayList<Save>();
@@ -99,13 +104,15 @@ public class HighScore implements Screen {
 							for(int b=0;b<illegalChar.length;b++)
 								if(inputName.charAt(a)==illegalChar[b])
 									writable=false;
-						
 						}
 					
 						catch(NumberFormatException er){
-							JOptionPane.showMessageDialog(null, "didnt parse correctly,remove this","attention",JOptionPane.ERROR_MESSAGE);
+						//this part checks for no parsing
+							//	JOptionPane.showMessageDialog(null, "didnt parse correctly,remove this","attention",JOptionPane.ERROR_MESSAGE);
 						}
 					}
+					System.out.println(writable);
+				//	JOptionPane.showMessageDialog(null, writable,"attention",JOptionPane.ERROR_MESSAGE);
 			if(writable){
 						if(inputDifficulty>=0&&inputDifficulty<=1){
 							listSaveEasy.add(new Save(inputName,inputDifficulty,inputTime));
@@ -132,10 +139,7 @@ public class HighScore implements Screen {
 
 			@Override
 			public void show() {
-				if(!(new File(System.getProperty("user.dir")+"//highscore").exists())){
-					new File(System.getProperty("user.dir")+"//highscore").mkdirs();
-				}
-				choose.setCurrentDirectory(new File(System.getProperty("user.dir")+"//highscore")); 
+	
 scoreRead();
 scoreSorter();
 //scoreWrite();
