@@ -49,7 +49,52 @@ public class HighScore implements Screen {
 	}
 	
 	public void scoreWrite(){
+		if(!(new File(System.getProperty("user.dir")+"//highscore").exists())){
+			new File(System.getProperty("user.dir")+"//highscore").mkdirs();
+		}
+		choose.setCurrentDirectory(new File(System.getProperty("user.dir")+"//highscore")); 
 		
+	}
+	
+	public void scoreSorter(){
+		int d;
+		Save temp;
+for(int a=0;a<listSaveEasy.size();a++){
+d=a;
+for(int b=a;b<listSaveEasy.size();b++)
+	if(listSaveEasy.get(b).getTimeSeconds()<listSaveEasy.get(d).getTimeSeconds())
+		d=b;
+	if(d!=a){
+		temp=listSaveEasy.get(a);
+		listSaveEasy.set(a,listSaveEasy.get(d));
+		listSaveEasy.set(d,temp);
+	}
+}	
+
+for(int a=0;a<listSaveMed.size();a++){
+d=a;
+for(int b=a;b<listSaveMed.size();b++)
+	if(listSaveMed.get(b).getTimeSeconds()<listSaveMed.get(d).getTimeSeconds())
+		d=b;
+	if(d!=a){
+		temp=listSaveMed.get(a);
+		listSaveMed.set(a,listSaveMed.get(d));
+		listSaveMed.set(d,temp);
+	}
+}
+
+for(int a=0;a<listSaveHard.size();a++){
+d=a;
+for(int b=a;b<listSaveHard.size();b++)
+	if(listSaveHard.get(b).getTimeSeconds()<listSaveHard.get(d).getTimeSeconds())
+		d=b;
+	if(d!=a){
+		temp=listSaveHard.get(a);
+		listSaveHard.set(a,listSaveHard.get(d));
+		listSaveHard.set(d,temp);
+	}
+}
+
 	}
 
 	public void scoreRead(){
@@ -107,11 +152,9 @@ public class HighScore implements Screen {
 						}
 					
 						catch(NumberFormatException er){
-						//this part checks for no parsing
-							//	JOptionPane.showMessageDialog(null, "didnt parse correctly,remove this","attention",JOptionPane.ERROR_MESSAGE);
+							writable=false;
 						}	
 					}
-					System.out.println(writable);
 			if(writable){
 						if(inputDifficulty>=0&&inputDifficulty<=1){
 							listSaveEasy.add(new Save(inputName,inputDifficulty,inputTime));
@@ -143,9 +186,7 @@ scoreSorter();
 scoreWrite();
 			}
 
-			public void scoreSorter(){
-
-			}
+		
 
 			@Override
 			public void render(float delta) {
