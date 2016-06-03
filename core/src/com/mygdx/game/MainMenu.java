@@ -75,9 +75,9 @@ public class MainMenu implements Screen {
 	Texture bg;
 	Texture pB;
 	Texture lB;
-	Texture hB;
 	Texture qB;
 	Texture title;
+	Texture iB;
 
 
 	Image bG;
@@ -112,18 +112,15 @@ public class MainMenu implements Screen {
 		stage = new Stage();
 		bg = new Texture("splash.png");
 		lB=new Texture("load.png");
-		hB=new Texture("high_score.png");
 		pB = new Texture("playbutton.png");
 		qB = new Texture("quit.png");
 		skin = new Skin();
+		iB = new Texture ("instructions_button.png");
 		// pix = new Pixmap(100, 100, Format.RGBA8888);
 
 		title = new Texture("title_new.png");
 		ttl = new Image (title);
 		ttl.setPosition(0, 720 - title.getHeight());
-
-		//		Tween.set(ttl, SpriteManager.ALPHA).target(0f).start(tweenManager);
-		//		Tween.to(ttl, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f).start (tweenManager);
 
 		bG = new Image(bg);
 		bG.setPosition(0, 0);
@@ -143,11 +140,11 @@ public class MainMenu implements Screen {
 
 		skin.add("red", pB);
 		skin.add("load", lB);
-		skin.add("score", hB);
 		skin.add("overlay", qB);
+		skin.add("instructions", iB);
 		skin.add("pb", new Texture("playbutton.png"));
 		skin.add("lb", new Texture("load.png"));
-		skin.add("hb", new Texture("high_score.png"));
+		skin.add("iB", new Texture ("instructions_button.png"));
 		skin.add("qover", new Texture("quit.png"));
 
 		TextButtonStyle tb = new TextButtonStyle();
@@ -168,16 +165,16 @@ public class MainMenu implements Screen {
 		tb2.down = skin.newDrawable("load", Color.DARK_GRAY);
 		tb2.over = skin.newDrawable("lb");
 		tb2.font = new BitmapFont();
-		
-		tb3.up = skin.newDrawable("score", Color.LIGHT_GRAY);
-		tb3.down = skin.newDrawable("score", Color.DARK_GRAY);
-		tb3.over = skin.newDrawable("hb");
+
+		tb3.up = skin.newDrawable("instructions", Color.LIGHT_GRAY);
+		tb3.down = skin.newDrawable("instructions", Color.DARK_GRAY);
+		tb3.over = skin.newDrawable("iB");
 		tb3.font = new BitmapFont();
 
 		final TextButton playButton = new TextButton("", tb);
 		final TextButton loadButton = new TextButton("", tb2);
-		final TextButton highScoreButton=new TextButton("",tb3);
 		final TextButton quitButton = new TextButton("", tb1);
+		final TextButton instructionsButton = new TextButton ("", tb3);
 
 		playButton.setPosition(475, 400);
 		playButton.setWidth(250f);
@@ -186,26 +183,27 @@ public class MainMenu implements Screen {
 
 		playButton.addAction(Actions.fadeIn (1.5f));
 
-		loadButton.setPosition(475, 250);
+		loadButton.setPosition(475, 285);
 		loadButton.setWidth(250f);
 		loadButton.setHeight(105f);
 		loadButton.setColor(loadButton.getColor().r,loadButton.getColor().g,loadButton.getColor().b, 0);
 
 		loadButton.addAction(Actions.fadeIn (1.5f));
-		
-		highScoreButton.setPosition(200, 250); //750 for right
-		highScoreButton.setWidth(250f);
-		highScoreButton.setHeight(105f);
-		highScoreButton.setColor(highScoreButton.getColor().r,highScoreButton.getColor().g,highScoreButton.getColor().b, 0);
 
-		highScoreButton.addAction(Actions.fadeIn (1.5f));
+		instructionsButton.setPosition (475,170);
+		instructionsButton.setWidth(250f);
+		instructionsButton.setHeight(105f);
+		instructionsButton.setColor(instructionsButton.getColor().r,instructionsButton.getColor().g,instructionsButton.getColor().b,0);
 
-		quitButton.setPosition(475, 100);
+		instructionsButton.addAction(Actions.fadeIn(1.5f));
+
+		quitButton.setPosition(475, 55);
 		quitButton.setWidth(250f);
 		quitButton.setHeight(105f);
 		quitButton.setColor(quitButton.getColor().r,quitButton.getColor().g,quitButton.getColor().b, 0);
 
 		quitButton.addAction(Actions.fadeIn(1.5f));
+
 
 
 		playButton.addCaptureListener(new ChangeListener(){
@@ -216,33 +214,33 @@ public class MainMenu implements Screen {
 				//redo in libgdx
 				// fix error with cancelling and exiting box
 				while(true){
-					 illegalTrue=false;
+					illegalTrue=false;
 					inputName=JOptionPane.showInputDialog(null,"Enter your full name.","Input",2);
 					if(inputName==null){
 						return;
 					}
 					inputName=inputName.trim();
-					
+
 					if(inputName.isEmpty()){
 						JOptionPane.showMessageDialog(null, "Name cannot be blank.","Attention",JOptionPane.ERROR_MESSAGE);	
 					}
-					
-							else if(inputName.length()>0&&inputName.length()<25){
-								for(int a=0;a<inputName.length();a++){
-									for(int b=0;b<illegalChar.length;b++){
-									if(inputName.charAt(a)==illegalChar[b]){
-										illegalTrue=true;
-									}
-									}
+
+					else if(inputName.length()>0&&inputName.length()<25){
+						for(int a=0;a<inputName.length();a++){
+							for(int b=0;b<illegalChar.length;b++){
+								if(inputName.charAt(a)==illegalChar[b]){
+									illegalTrue=true;
 								}
-								if(illegalTrue)
-								JOptionPane.showMessageDialog(null, "Name cannot contain special characters.","Attention",JOptionPane.ERROR_MESSAGE);
-								else
-								break;	
 							}
-							else{
-								JOptionPane.showMessageDialog(null, "Name must be under 25 Characters.","Attention",JOptionPane.ERROR_MESSAGE);
-							}
+						}
+						if(illegalTrue)
+							JOptionPane.showMessageDialog(null, "Name cannot contain special characters.","Attention",JOptionPane.ERROR_MESSAGE);
+						else
+							break;	
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Name must be under 25 Characters.","Attention",JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				char currentChar=' ';
 				String formatString="";
@@ -265,36 +263,34 @@ public class MainMenu implements Screen {
 			}
 		});
 
-					loadButton.addCaptureListener(new ChangeListener() {
-						public void changed(ChangeEvent event, Actor actor) {
-							dispose();
-							game.setSaveManager(new SaveManager());
-							game.setScreen(new LoadSave(batch,game));
+		loadButton.addCaptureListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				dispose();
+				game.setSaveManager(new SaveManager());
+				game.setScreen(new LoadSave(batch,game));
 
-						}
-					});
-					
-					highScoreButton.addCaptureListener(new ChangeListener() {
-						public void changed(ChangeEvent event, Actor actor) {
-							dispose();
-							game.setSaveManager(new SaveManager());
-							game.setScreen(new HighScore());
+			}
+		});
+		
+		instructionsButton.addCaptureListener(new ChangeListener(){
+			public void changed (ChangeEvent event, Actor actor){
+				dispose();
+				game.setScreen(new Instructions (batch,game));
+			}
+		});
 
-						}
-					});
+		quitButton.addCaptureListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				batch.dispose();
+				dispose();
+				Gdx.app.exit();
+			}
+		});
 
-					quitButton.addCaptureListener(new ChangeListener() {
-						public void changed(ChangeEvent event, Actor actor) {
-							batch.dispose();
-							dispose();
-							Gdx.app.exit();
-						}
-					});
-
-					stage.addActor(playButton);
-					stage.addActor(loadButton);
-					stage.addActor(highScoreButton);
-					stage.addActor(quitButton);
+		stage.addActor(playButton);
+		stage.addActor(loadButton);
+		stage.addActor(instructionsButton);
+		stage.addActor(quitButton);
 	}
 
 	/**
