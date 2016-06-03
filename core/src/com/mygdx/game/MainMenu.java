@@ -295,6 +295,7 @@ public class MainMenu implements Screen {
 				dispose();
 				game.setSaveManager(new SaveManager());
 				game.setScreen(new HighScore());
+				//batch and game
 
 			}
 		});
