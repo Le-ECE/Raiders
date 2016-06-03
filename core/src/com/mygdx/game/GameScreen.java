@@ -1052,9 +1052,9 @@ public class GameScreen implements Screen {
 
 				}
 				else{
-					//fix this shit
-					JOptionPane.showMessageDialog(null,"put prompt for congrats or go to highscores","good shit",JOptionPane.ERROR_MESSAGE);
-					game.setScreen(new MainMenu(batch,game));
+					game.setScreen(new HighScore());;
+					//JOptionPane.showMessageDialog(null,"put prompt for congrats or go to highscores","good shit",JOptionPane.ERROR_MESSAGE);
+				//	game.setScreen(new MainMenu(batch,game));
 				}
 
 			}
