@@ -27,8 +27,12 @@ public class HighScore implements Screen {
 
 	}
 
-	public static void scoreWrite(){
-
+	public static void addSave(Save passSave){
+		JOptionPane.showMessageDialog(null, "succ,remove this","attention",JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void scoreWrite(){
+		
 	}
 
 	public void scoreRead(){
@@ -81,7 +85,7 @@ public class HighScore implements Screen {
 						}
 					
 						catch(NumberFormatException er){
-							JOptionPane.showMessageDialog(null, "remove this","attention",JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "didnt parse correctly,remove this","attention",JOptionPane.ERROR_MESSAGE);
 						}
 					}
 			if(writable){
@@ -114,8 +118,9 @@ public class HighScore implements Screen {
 					new File(System.getProperty("user.dir")+"//highscore").mkdirs();
 				}
 				choose.setCurrentDirectory(new File(System.getProperty("user.dir")+"//highscore")); 
-
-
+scoreRead();
+scoreSorter();
+//scoreWrite();
 			}
 
 			public void scoreSorter(){

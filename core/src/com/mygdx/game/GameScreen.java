@@ -554,6 +554,7 @@ public class GameScreen implements Screen {
 
 		if((Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)||Gdx.input.isKeyPressed(Keys.CONTROL_LEFT))&&Gdx.input.isKeyPressed(Keys.S)&&!gameEnded){
 			saveGame();
+			game.getSaveManager().writeSave();
 		}
 
 		if (!paused&&!gameEnded)
@@ -856,7 +857,7 @@ public class GameScreen implements Screen {
 					treasureOverlaySprite.draw (batch);
 				}
 				saveGame();
-				highScoreWrite (game.getSaveManager().getSave());		
+				HighScore.addSave(game.getSaveManager().getSave());		
 			}
 		}
 	}
@@ -866,12 +867,6 @@ public class GameScreen implements Screen {
 	public void saveGame(){
 		totalTime = time;
 		game.getSaveManager().setSave(new Save(name,difficulty,timeSeconds+(int)totalTime));
-		game.getSaveManager().writeSave();
-	}
-
-	public void highScoreWrite(Save newSave){
-
-
 	}
 
 	private void drawOverlay() {
