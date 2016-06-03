@@ -129,6 +129,7 @@ public class GameScreen implements Screen {
 	Music iceMusic;
 
 	BitmapFont timerFont;
+	BitmapFont dialogFont;
 
 	TextureRegion[] frames_right;
 	TextureRegion[] frames_left;
@@ -270,7 +271,8 @@ public class GameScreen implements Screen {
 
 		//create font
 		timerFont = new BitmapFont (Gdx.files.internal("8bit_bitmap.fnt"),Gdx.files.internal("8bit_bitmap_0.png"),false);
-
+		dialogFont = new BitmapFont (Gdx.files.internal ("riskofrain_bitmap.fnt"), Gdx.files.internal("riskofrain_bitmap_0.png"),false);
+		
 		// set accessor
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
 
@@ -331,6 +333,9 @@ public class GameScreen implements Screen {
 		occupyArray("snow_map.tmx");
 		occupyArray("snow_map2.tmx");
 
+		treasureOverlayText = new Texture ("treasure_overlay.png");
+		treasureOverlaySprite = new Sprite (treasureOverlayText);
+		
 		// sets current map based on difficulty
 		setCurrentMap(difficulty);
 
@@ -551,12 +556,8 @@ public class GameScreen implements Screen {
 			saveGame();
 		}
 
-
-
-		if (!paused)
+		if (!paused&&!gameEnded)
 			time += Gdx.graphics.getDeltaTime();
-		//if ((int) tempTime != (int) time)
-		//System.out.println((int) time);
 		
 		// set camera view
 		tmRender.setView(camera);
@@ -655,7 +656,7 @@ public class GameScreen implements Screen {
 		if (collidesWithBoulders()){
 			indianaX = start.x;
 			indianaY = start.y;
-			System.out.println("boulder collides!");
+			//System.out.println("boulder collides!");
 		}
 
 		if (treasureRetrieved()){
@@ -882,12 +883,16 @@ public class GameScreen implements Screen {
 		menuDarkSprite.draw(batch);
 		goDarkSprite.draw(batch);
 
-		//timerFont.
+		//timer font
 		timerFont.setColor(Color.BLACK);
 		timerFont.draw(batch, ""+(int)totalTime+" Seconds", 685f, 470f);
 		timerFont.setColor(Color.WHITE);
 		timerFont.draw(batch, ""+(int)totalTime+" Seconds", 690f, 475f);
 
+		//dialog font
+		dialogFont.setColor(Color.BLACK);
+		dialogFont.draw(batch, name+"!", 630f, 275f);
+		
 		if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			menuSprite.draw(batch);
 			if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ESCAPE)) {

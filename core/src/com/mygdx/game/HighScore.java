@@ -26,9 +26,6 @@ JFileChooser choose=new JFileChooser();
 			emptyWrite=new PrintWriter(new FileWriter("//"+choose.getCurrentDirectory()+"//"+"HighScore"+MainGame.EXT));
 				emptyWrite.close();
 			}
-		
-		scoreReader=new BufferedReader(new )
-		
 		}
 			catch(IOException e){
 				// should not throw io exception, make a promt anyways

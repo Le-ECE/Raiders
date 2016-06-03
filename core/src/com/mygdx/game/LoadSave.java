@@ -1,10 +1,16 @@
 package com.mygdx.game;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class LoadSave implements Screen {
@@ -13,6 +19,10 @@ public class LoadSave implements Screen {
 	private String name;
 	private int difficulty;
 	private int timeSeconds;
+	
+	Texture savePanelText;
+	
+	Sprite savePanelSprite;
 
 	private String nameOfSave;
 	//private Save selectedSave;
@@ -117,6 +127,12 @@ public class LoadSave implements Screen {
 	@Override
 	public void show() {
 
+		//create save screen
+		savePanelText = new Texture ("save_screen.png");
+		
+		savePanelSprite = new Sprite (savePanelText);
+		savePanelSprite.setPosition(0, 0);
+		
 		if(!(new File(System.getProperty("user.dir")+"//saves").exists())){
 			new File(System.getProperty("user.dir")+"//saves").mkdirs();
 		}
@@ -128,6 +144,7 @@ public class LoadSave implements Screen {
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
+		
 		// when they press load button
 		if(fileRead()){
 			JOptionPane.showMessageDialog(null, "The save file is corrupt.","Attention",JOptionPane.ERROR_MESSAGE);
@@ -163,6 +180,10 @@ public class LoadSave implements Screen {
 	public void dispose() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	private void drawOverlay(){
+		
 	}
 }
 
