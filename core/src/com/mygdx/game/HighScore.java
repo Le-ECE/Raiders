@@ -189,18 +189,18 @@ public class HighScore implements Screen, Printable {
   g.drawString("Easy Difficulty", 25, 150);
   for (int a = 0; a < listSaveEasy.size(); a++) {
    g.drawString(listSaveEasy.get(a).getName(), 150, 175 + a * 15);
-   g.drawString("" + listSaveEasy.get(a).getTimeSeconds(), 350, 175 + a * 15);
+   g.drawString("" + listSaveEasy.get(a).getTotalTime(), 350, 175 + a * 15);
   }
   g.drawString("Medium Difficulty", 25, 340);
   for (int b = 0; b < listSaveMed.size(); b++) {
    g.drawString(listSaveMed.get(b).getName(), 150, 365 + b * 15);
-   g.drawString("" + listSaveMed.get(b).getTimeSeconds(), 350, 365 + b * 15);
+   g.drawString("" + listSaveMed.get(b).getTotalTime(), 350, 365 + b * 15);
   }
 
   g.drawString("Hard Difficulty", 25, 510);
   for (int c = 0; c < listSaveHard.size(); c++) {
    g.drawString(listSaveMed.get(c).getName(), 150, 535 + c * 15);
-   g.drawString("" + listSaveMed.get(c).getTimeSeconds(), 350, 535 + c * 15);
+   g.drawString("" + listSaveMed.get(c).getTotalTime(), 350, 535 + c * 15);
   }
   return PAGE_EXISTS;
  }
@@ -286,19 +286,19 @@ public class HighScore implements Screen, Printable {
    scoreLimit();
    for (Save a : listSaveEasy) {
     scoreWrite.println(a.getDifficulty());
-    scoreWrite.println(a.getTotalTime());
+    scoreWrite.println(a.getTimeSeconds());
     scoreWrite.println(a.getName());
    }
 
    for (Save b : listSaveMed) {
     scoreWrite.println(b.getDifficulty());
-    scoreWrite.println(b.getTotalTime());
+    scoreWrite.println(b.getTimeSeconds());
     scoreWrite.println(b.getName());
    }
 
    for (Save c : listSaveHard) {
     scoreWrite.println(c.getDifficulty());
-    scoreWrite.println(c.getTotalTime());
+    scoreWrite.println(c.getTimeSeconds());
     scoreWrite.println(c.getName());
    }
    scoreWrite.close();
