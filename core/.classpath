@@ -5,10 +5,9 @@
 			<attribute name="FROM_GRADLE_MODEL" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="assets"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Julie/Desktop/ISP Stuff/tween-engine-api-6.3.3/tween-engine-api.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Julie/Desktop/ISP Stuff/tween-engine-api-6.3.3/tween-engine-api-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/David/Desktop/ISP Stuff/tween-engine-api-6.3.3/tween-engine-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/David/Desktop/ISP Stuff/tween-engine-api-6.3.3/tween-engine-api-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
