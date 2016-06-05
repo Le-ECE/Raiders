@@ -7,6 +7,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
 import com.badlogic.gdx.Gdx;
@@ -155,6 +157,9 @@ public class HighScore implements Screen, Printable {
 	Sprite backDarkSprite;
 	Sprite printSprite;
 	Sprite printDarkSprite;
+	
+	BufferedImage logo;
+	
 	int pageNum;
 
 	/**
@@ -187,8 +192,13 @@ public class HighScore implements Screen, Printable {
 			return NO_SUCH_PAGE;
 
 		Graphics2D g2d = (Graphics2D) g;
+		try{
+		logo=ImageIO.read(new File("assets/score_title.png"));
+		}
+		catch(IOException e){}
+		
 		g2d.translate(pf.getImageableX(), pf.getImageableY());
-		g.drawString("High Scores", 250, 50);
+		g.drawImage(logo, 0,0,null);
 		g.drawString("Name", 150, 165);
 		g.drawString("Time of Completion [h/m/s]", 350, 165);
 		g.drawString("Easy Difficulty", 25, 200);
