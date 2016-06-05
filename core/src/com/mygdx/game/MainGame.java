@@ -10,14 +10,18 @@ import com.badlogic.gdx.graphics.Pixmap;
  * starting the execution of the application by calling upon the MainMenu class.
  * 
  * @author Brian Tran
- * @version 2.0 19/05/2016
+ * @version 4.0 03/06/2016
  *
  *          <p>
  *          <b>Instance Variables</b>
  *          <p>
- *          <b>batch</b> Acts as a container for onscreen elements
- *          <p>
  *          <b>pm</b> Instance of Pixmap that allows for the image importing of the cursor image for custom cursors.
+ *          <p>
+ *          <b>mainMusic</b> Instance of Music that allows for streaming of audio
+ *          <p>
+ *          <b>EXT</b> Final String as extension
+ *          <p>
+ *          <b>mainSaveManager</b> Instance of SaveManager used to save data to files
  *
  */
 public class MainGame extends Game {
@@ -35,12 +39,12 @@ public class MainGame extends Game {
 	public void create() {
 
 		//set music
-		mainMusic = Gdx.audio.newMusic(Gdx.files.internal("main_music.mp3"));
+		mainMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/main_music.mp3"));
 		mainMusic.setLooping(true);
 		mainMusic.play();
 
 		// sets the cursor to a custom image
-		pm = new Pixmap(Gdx.files.internal("cursor.png"));
+		pm = new Pixmap(Gdx.files.internal("assets/cursor.png"));
 		Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
 		pm.dispose();
 		mainSaveManager = new SaveManager();

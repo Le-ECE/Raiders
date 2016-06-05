@@ -20,58 +20,6 @@
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>assets</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
-		</link>
-		<link>
-			<name>assets_</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
-		</link>
-		<link>
-			<name>assets__</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
-		</link>
-		<link>
-			<name>assets___</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
-		</link>
-		<link>
-			<name>assets____</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
-		</link>
-		<link>
-			<name>assets_____</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
-		</link>
-		<link>
-			<name>assets______</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
-		</link>
-		<link>
-			<name>assets_______</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
-		</link>
-		<link>
-			<name>assets________</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
-		</link>
-		<link>
-			<name>assets_________</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
-		</link>
-	</linkedResources>
 	<filteredResources>
 		<filter>
 			<id>1463537930301</id>

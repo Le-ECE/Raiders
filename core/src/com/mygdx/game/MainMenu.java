@@ -66,8 +66,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 public class MainMenu implements Screen {
 	MainGame game;
 
-
-
 	Stage stage;
 
 	SpriteBatch batch;
@@ -79,7 +77,6 @@ public class MainMenu implements Screen {
 	Texture qB;
 	Texture title;
 	Texture iB;
-
 
 	Image bG;
 
@@ -105,23 +102,23 @@ public class MainMenu implements Screen {
 	@Override
 	public void show() {
 
-		if (!MainGame.mainMusic.isPlaying()){
+		if (!MainGame.mainMusic.isPlaying()) {
 			MainGame.mainMusic.play();
-			MainGame.mainMusic.setPosition (14f);
+			MainGame.mainMusic.setPosition(14f);
 		}
 
 		stage = new Stage();
-		bg = new Texture("splash.png");
-		lB=new Texture("load.png");
-		hB=new Texture("high_score.png");
-		pB = new Texture("playbutton.png");
-		qB = new Texture("quit.png");
+		bg = new Texture("assets/splash.png");
+		lB = new Texture("assets/load.png");
+		hB = new Texture("assets/high_score.png");
+		pB = new Texture("assets/playbutton.png");
+		qB = new Texture("assets/quit.png");
 		skin = new Skin();
-		iB = new Texture ("instructions_button.png");
+		iB = new Texture("assets/instructions_button.png");
 		// pix = new Pixmap(100, 100, Format.RGBA8888);
 
-		title = new Texture("title_new.png");
-		ttl = new Image (title);
+		title = new Texture("assets/title_new.png");
+		ttl = new Image(title);
 		ttl.setPosition(0, 720 - title.getHeight());
 
 		bG = new Image(bg);
@@ -129,14 +126,13 @@ public class MainMenu implements Screen {
 		bG.setWidth(1200);
 		bG.setHeight(768);
 
-		ttl.setColor(ttl.getColor().r,ttl.getColor().g,ttl.getColor().b,0);
+		ttl.setColor(ttl.getColor().r, ttl.getColor().g, ttl.getColor().b, 0);
 
-		ttl.addAction (Actions.fadeIn(2f));
+		ttl.addAction(Actions.fadeIn(2f));
 
 		stage.addActor(bG);
 
 		stage.addActor(ttl);
-
 
 		Gdx.input.setInputProcessor(stage);
 
@@ -145,11 +141,11 @@ public class MainMenu implements Screen {
 		skin.add("overlay", qB);
 		skin.add("score", hB);
 		skin.add("instructions", iB);
-		skin.add("pb", new Texture("playbutton.png"));
-		skin.add("lb", new Texture("load.png"));
-		skin.add("hb", new Texture("high_score.png"));
-		skin.add("iB", new Texture ("instructions_button.png"));
-		skin.add("qover", new Texture("quit.png"));
+		skin.add("pb", new Texture("assets/playbutton.png"));
+		skin.add("lb", new Texture("assets/load.png"));
+		skin.add("hb", new Texture("assets/high_score.png"));
+		skin.add("iB", new Texture("assets/instructions_button.png"));
+		skin.add("qover", new Texture("assets/quit.png"));
 
 		TextButtonStyle tb = new TextButtonStyle();
 		TextButtonStyle tb1 = new TextButtonStyle();
@@ -170,7 +166,7 @@ public class MainMenu implements Screen {
 		tb2.down = skin.newDrawable("load", Color.DARK_GRAY);
 		tb2.over = skin.newDrawable("lb");
 		tb2.font = new BitmapFont();
-		
+
 		tb3.up = skin.newDrawable("score", Color.LIGHT_GRAY);
 		tb3.down = skin.newDrawable("score", Color.DARK_GRAY);
 		tb3.over = skin.newDrawable("hb");
@@ -184,99 +180,101 @@ public class MainMenu implements Screen {
 		final TextButton playButton = new TextButton("", tb);
 		final TextButton loadButton = new TextButton("", tb2);
 		final TextButton quitButton = new TextButton("", tb1);
-		final TextButton highScoreButton=new TextButton("",tb3);
-		final TextButton instructionsButton = new TextButton ("", tb4);
+		final TextButton highScoreButton = new TextButton("", tb3);
+		final TextButton instructionsButton = new TextButton("", tb4);
 
 		playButton.setPosition(475, 400);
 		playButton.setWidth(250f);
 		playButton.setHeight(105f);
-		playButton.setColor(playButton.getColor().r,playButton.getColor().g,playButton.getColor().b, 0);
+		playButton.setColor(playButton.getColor().r, playButton.getColor().g, playButton.getColor().b, 0);
 
-		playButton.addAction(Actions.fadeIn (1.5f));
+		playButton.addAction(Actions.fadeIn(1.5f));
 
 		loadButton.setPosition(475, 250);
 		loadButton.setWidth(250f);
 		loadButton.setHeight(105f);
-		loadButton.setColor(loadButton.getColor().r,loadButton.getColor().g,loadButton.getColor().b, 0);
+		loadButton.setColor(loadButton.getColor().r, loadButton.getColor().g, loadButton.getColor().b, 0);
 
-		loadButton.addAction(Actions.fadeIn (1.5f));
+		loadButton.addAction(Actions.fadeIn(1.5f));
 
-		highScoreButton.setPosition(200, 250); //750 for right
+		highScoreButton.setPosition(200, 250); // 750 for right
 		highScoreButton.setWidth(250f);
 		highScoreButton.setHeight(105f);
-		highScoreButton.setColor(highScoreButton.getColor().r,highScoreButton.getColor().g,highScoreButton.getColor().b, 0);
+		highScoreButton.setColor(highScoreButton.getColor().r, highScoreButton.getColor().g,
+				highScoreButton.getColor().b, 0);
 
-		highScoreButton.addAction(Actions.fadeIn (1.5f));
-		
-		instructionsButton.setPosition (750,250);
+		highScoreButton.addAction(Actions.fadeIn(1.5f));
+
+		instructionsButton.setPosition(750, 250);
 		instructionsButton.setWidth(250f);
 		instructionsButton.setHeight(105f);
-		instructionsButton.setColor(instructionsButton.getColor().r,instructionsButton.getColor().g,instructionsButton.getColor().b,0);
+		instructionsButton.setColor(instructionsButton.getColor().r, instructionsButton.getColor().g,
+				instructionsButton.getColor().b, 0);
 
 		instructionsButton.addAction(Actions.fadeIn(1.5f));
 
 		quitButton.setPosition(475, 100);
 		quitButton.setWidth(250f);
 		quitButton.setHeight(105f);
-		quitButton.setColor(quitButton.getColor().r,quitButton.getColor().g,quitButton.getColor().b, 0);
+		quitButton.setColor(quitButton.getColor().r, quitButton.getColor().g, quitButton.getColor().b, 0);
 
 		quitButton.addAction(Actions.fadeIn(1.5f));
 
-
-
-		playButton.addCaptureListener(new ChangeListener(){
+		playButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				String inputName="No Name";
-				char[]illegalChar={47,92,58,42,63,34,60,62};
+				String inputName = "No Name";
+				char[] illegalChar = { 47, 92, 58, 42, 63, 34, 60, 62 };
 				boolean illegalTrue;
-				//redo in libgdx
+				// redo in libgdx
 				// fix error with cancelling and exiting box
-				while(true){
-					illegalTrue=false;
-					inputName=JOptionPane.showInputDialog(null,"Enter your full name.","Input",2);
-					if(inputName==null){
+				while (true) {
+					illegalTrue = false;
+					inputName = JOptionPane.showInputDialog(null, "Enter your full name.", "Input", 2);
+					if (inputName == null) {
 						return;
 					}
-					inputName=inputName.trim();
+					inputName = inputName.trim();
 
-					if(inputName.isEmpty()){
-						JOptionPane.showMessageDialog(null, "Name cannot be blank.","Attention",JOptionPane.ERROR_MESSAGE);	
+					if (inputName.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Name cannot be blank.", "Attention",
+								JOptionPane.ERROR_MESSAGE);
 					}
 
-					else if(inputName.length()>0&&inputName.length()<25){
-						for(int a=0;a<inputName.length();a++){
-							for(int b=0;b<illegalChar.length;b++){
-								if(inputName.charAt(a)==illegalChar[b]){
-									illegalTrue=true;
+					else if (inputName.length() > 0 && inputName.length() < 25) {
+						for (int a = 0; a < inputName.length(); a++) {
+							for (int b = 0; b < illegalChar.length; b++) {
+								if (inputName.charAt(a) == illegalChar[b]) {
+									illegalTrue = true;
 								}
 							}
 						}
-						if(illegalTrue)
-							JOptionPane.showMessageDialog(null, "Name cannot contain special characters.","Attention",JOptionPane.ERROR_MESSAGE);
+						if (illegalTrue)
+							JOptionPane.showMessageDialog(null, "Name cannot contain special characters.", "Attention",
+									JOptionPane.ERROR_MESSAGE);
 						else
-							break;	
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "Name must be under 25 Characters.","Attention",JOptionPane.ERROR_MESSAGE);
+							break;
+					} else {
+						JOptionPane.showMessageDialog(null, "Name must be under 25 Characters.", "Attention",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				char currentChar=' ';
-				String formatString="";
+				char currentChar = ' ';
+				String formatString = "";
 
-				String[] arrayString=inputName.split("\\s+");
+				String[] arrayString = inputName.split("\\s+");
 
-				for(int a=0;a<arrayString.length;a++){     
-					currentChar=arrayString[a].charAt(0);
-					if(currentChar>='a'&&currentChar<='z'){
-						currentChar=Character.toUpperCase(currentChar);
+				for (int a = 0; a < arrayString.length; a++) {
+					currentChar = arrayString[a].charAt(0);
+					if (currentChar >= 'a' && currentChar <= 'z') {
+						currentChar = Character.toUpperCase(currentChar);
 					}
-					formatString=formatString+currentChar+arrayString[a].substring(1)+" ";       
+					formatString = formatString + currentChar + arrayString[a].substring(1) + " ";
 
 				}
-				inputName=formatString.trim();
+				inputName = formatString.trim();
 				dispose();
 				game.setSaveManager(new SaveManager());
-				game.setScreen(new Difficulty(batch, game,inputName));
+				game.setScreen(new Difficulty(batch, game, inputName));
 
 			}
 		});
@@ -285,25 +283,25 @@ public class MainMenu implements Screen {
 			public void changed(ChangeEvent event, Actor actor) {
 				dispose();
 				game.setSaveManager(new SaveManager());
-				game.setScreen(new LoadSave(batch,game));
+				game.setScreen(new LoadSave(batch, game));
 
 			}
 		});
-		
+
 		highScoreButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				dispose();
 				game.setSaveManager(new SaveManager());
-				game.setScreen(new HighScore());
-				//batch and game
+				game.setScreen(new HighScore(batch, game));
+				// batch and game
 
 			}
 		});
-		
-		instructionsButton.addCaptureListener(new ChangeListener(){
-			public void changed (ChangeEvent event, Actor actor){
+
+		instructionsButton.addCaptureListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
 				dispose();
-				game.setScreen(new Instructions (batch,game));
+				game.setScreen(new Instructions(batch, game));
 			}
 		});
 
@@ -389,7 +387,7 @@ public class MainMenu implements Screen {
 		qB.dispose();
 		title.dispose();
 		skin.dispose();
-		//mainMusic.dispose();
+		// mainMusic.dispose();
 		// pix.dispose();
 	}
 
