@@ -339,7 +339,7 @@ public class Difficulty implements Screen {
 
   
   
-  if(Gdx.input.isKeyPressed(Keys.UP)){
+  if(Gdx.input.isKeyJustPressed(Keys.UP)){
     if (Gdx.input.isKeyJustPressed(Keys.DPAD_UP)){
   if(highLight==1)
     highLight=3;
@@ -348,7 +348,7 @@ public class Difficulty implements Screen {
     }
   }
      
-      if(Gdx.input.isKeyPressed(Keys.DOWN)){
+      if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
          if (Gdx.input.isKeyJustPressed(Keys.DPAD_DOWN)){
   if(highLight==3)
     highLight=1;
@@ -357,9 +357,9 @@ public class Difficulty implements Screen {
   }
       }
   
-  if (backRect.contains(Gdx.input.getX(), Gdx.input.getY() - 600) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+  if (backRect.contains(Gdx.input.getX(), Gdx.input.getY() - 600) || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
    backSprite.draw(batch);
-   if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+   if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
     game.setScreen(new MainMenu(batch, game));
    }
   }
@@ -398,10 +398,10 @@ public class Difficulty implements Screen {
     hardSprite.draw(batch);
    }
   }
-  if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 625)|| Gdx.input.isKeyPressed(Keys.ENTER)) {
+  if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 625)|| Gdx.input.isKeyJustPressed(Keys.ENTER)) {
    if (difficulty > -1) {
     goSprite.draw(batch);
-    if (Gdx.input.justTouched()||Gdx.input.isKeyPressed(Keys.ENTER)) {
+    if (Gdx.input.justTouched()||Gdx.input.isKeyJustPressed(Keys.ENTER)) {
      game.setScreen(new GameScreen(batch, game,name, difficulty,0));//add current time from save
      dispose();
     }

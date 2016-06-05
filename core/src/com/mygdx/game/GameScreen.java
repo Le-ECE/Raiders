@@ -631,7 +631,7 @@ public class GameScreen implements Screen {
 
   body.setPosition(indianaX, indianaY);
 
-  if((Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)||Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT))&&Gdx.input.isKeyPressed(Keys.S)&&!gameEnded){
+  if((Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT)||Gdx.input.isKeyJustPressed(Keys.CONTROL_RIGHT))&&Gdx.input.isKeyJustPressed(Keys.S)&&!gameEnded){
    saveGame();
    game.getSaveManager().writeSave();
   }
@@ -767,7 +767,7 @@ public class GameScreen implements Screen {
    paused = true;
   }
 
-  if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
+  if (Gdx.input.isKeyJustPressed(Keys.D) || Gdx.input.isKeyJustPressed(Keys.DPAD_RIGHT)) {
    interp.setPosition(indianaX + 4, interpY);
    if (!collidesWithMap()) {
     indianaX += Gdx.graphics.getDeltaTime() * speed;
@@ -784,7 +784,7 @@ public class GameScreen implements Screen {
    priority = true;
 
   }
-  if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
+  if (Gdx.input.isKeyJustPressed(Keys.A) || Gdx.input.isKeyJustPressed(Keys.DPAD_LEFT)) {
 
    interp.setPosition(indianaX - 4, interpY);
 
@@ -803,7 +803,7 @@ public class GameScreen implements Screen {
    priority = true;
 
   }
-  if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
+  if (Gdx.input.isKeyJustPressed(Keys.S) || Gdx.input.isKeyJustPressed(Keys.DPAD_DOWN)) {
 
    interp.setPosition(indianaX, interpY - 4);
 
@@ -822,7 +822,7 @@ public class GameScreen implements Screen {
    priority = true;
 
   }
-  if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
+  if (Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyJustPressed(Keys.DPAD_UP)) {
 
    interp.setPosition(indianaX, interpY + 4);
 
@@ -1030,16 +1030,16 @@ public class GameScreen implements Screen {
   dialogFont.setColor(Color.BLACK);
   dialogFont.draw(batch, name+"!", 630f, 275f);
 
-  if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+  if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
    menuSprite.draw(batch);
-   if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+   if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
     game.setScreen(new MainMenu(batch, game));
    }
   }
 
-  if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyPressed(Keys.ENTER)) {
+  if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
    goSprite.draw(batch);
-   if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ENTER)) {
+   if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
     if(difficulty<5){
      catched = true;
      difficulty++;
