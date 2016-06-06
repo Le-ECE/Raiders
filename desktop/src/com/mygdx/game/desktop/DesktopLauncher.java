@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.game.MainGame;
@@ -15,6 +16,9 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1200;
 		config.height = 768;
+		config.title="Raiders of the Lost Marks";
+		config.resizable = false;
+		config.addIcon("assets/gameicon.png", Files.FileType.Internal);
 		new LwjglApplication(new MainGame(), config);
 	}
 }

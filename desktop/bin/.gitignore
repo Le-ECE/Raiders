@@ -1,6 +1,7 @@
 /8bit_bitmap.fnt
 /8bit_bitmap_0.png
 /D Le 5~5~2016 3«37«39.sav
+/HighScore.sav
 /Signs0.png
 /Signs1.png
 /Signs2.png
@@ -19,6 +20,7 @@
 /boulder_3.png
 /cavern_ruins.png
 /column.png
+/com/
 /cursor.png
 /desert_music.mp3
 /difficulty_title.png
@@ -64,8 +66,6 @@
 /print.png
 /print_dark.png
 /quit.png
-/HighScore.sav
-/com/
 /quit_dark.png
 /right_walk.png
 /riskofrain_bitmap.fnt

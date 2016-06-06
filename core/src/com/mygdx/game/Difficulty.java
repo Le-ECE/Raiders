@@ -453,8 +453,7 @@ public class Difficulty implements Screen {
   */
  @Override
  public void dispose() {
-  System.out.println ("successfully disposed");
-  
+
   easy.dispose();
   background.dispose();
   medium.dispose();
