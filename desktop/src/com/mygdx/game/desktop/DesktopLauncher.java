@@ -19,6 +19,9 @@ public class DesktopLauncher {
 		config.title="Raiders of the Lost Marks";
 		config.resizable = false;
 		config.addIcon("assets/gameicon.png", Files.FileType.Internal);
+		config.vSyncEnabled = false;
+		config.backgroundFPS = 120;
+		config.foregroundFPS = 120;
 		new LwjglApplication(new MainGame(), config);
 	}
 }

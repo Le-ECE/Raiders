@@ -20,6 +20,13 @@
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>assets_</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/core/assets</locationURI>
+		</link>
+	</linkedResources>
 	<filteredResources>
 		<filter>
 			<id>1463537930301</id>

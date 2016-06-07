@@ -15,9 +15,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -125,6 +127,7 @@ public class HighScore implements Screen, Printable {
 	Save currentFile;
 
 	JFileChooser choose = new JFileChooser();
+	 FileSystemView newView; 
 
 	Rectangle nextRect;
 	Rectangle prevRect;
@@ -214,8 +217,8 @@ public class HighScore implements Screen, Printable {
 
 		g.drawString("Hard Difficulty", 25, 560);
 		for (int c = 0; c < listSaveHard.size(); c++) {
-			g.drawString(listSaveMed.get(c).getName(), 150, 575 + c * 15);
-			g.drawString("" + listSaveMed.get(c).getTotalTime(), 350, 575 + c * 15);
+			g.drawString(listSaveHard.get(c).getName(), 150, 575 + c * 15);
+			g.drawString("" + listSaveHard.get(c).getTotalTime(), 350, 575 + c * 15);
 		}
 		return PAGE_EXISTS;
 	}
@@ -291,10 +294,11 @@ public class HighScore implements Screen, Printable {
 	 */
 	public void scoreWrite() {
 		PrintWriter scoreWrite;
-		if (!(new File(System.getProperty("user.dir") + "//highscore").exists())) {
-			new File(System.getProperty("user.dir") + "//highscore").mkdirs();
-		}
-		choose.setCurrentDirectory(new File(System.getProperty("user.dir") + "//highscore"));
+		 newView = choose.getFileSystemView();
+		  if (!new File(newView.getDefaultDirectory()+"//High Noon Data//RaidersSave//highscore").exists()) {
+		   new File(newView.getDefaultDirectory()+"//High Noon Data//RaidersSave//highscore").mkdirs();
+		  }
+		 choose.setCurrentDirectory(new File(newView.getDefaultDirectory()+"//High Noon Data//RaidersSave//highscore"));
 		try {
 			scoreWrite = new PrintWriter(
 					new FileWriter("//" + choose.getCurrentDirectory() + "//" + "HighScore" + MainGame.EXT));
@@ -371,10 +375,11 @@ public class HighScore implements Screen, Printable {
 	}
 
 	public void scoreRead() {
-		if (!(new File(System.getProperty("user.dir") + "//highscore").exists())) {
-			new File(System.getProperty("user.dir") + "//highscore").mkdirs();
-		}
-		choose.setCurrentDirectory(new File(System.getProperty("user.dir") + "//highscore"));
+		 newView = choose.getFileSystemView();
+		  if (!new File(newView.getDefaultDirectory()+"//High Noon Data//RaidersSave//highscore").exists()) {
+		   new File(newView.getDefaultDirectory()+"//High Noon Data//RaidersSave//highscore").mkdirs();
+		  }
+		 choose.setCurrentDirectory(new File(newView.getDefaultDirectory()+"//High Noon Data//RaidersSave//highscore"));
 
 		listSaveEasy = new ArrayList<Save>();
 		listSaveMed = new ArrayList<Save>();
@@ -543,6 +548,7 @@ public class HighScore implements Screen, Printable {
 
 	@Override
 	public void render(float delta) {
+		String[] wordSplit;
 		scoreboardFont.setColor(Color.BLACK);
 		// TODO Auto-generated method stub
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -584,13 +590,31 @@ public class HighScore implements Screen, Printable {
 		else{
 			scoreboardHardSprite.draw(batch);
 			for (int x = 0; x < (listSaveHard.size() > 5 ? 5 : listSaveHard.size()); x++){
-				scoreboardFont.draw(batch, listSaveHard.get(x).getName(), 150, 550-(85*x));
+				wordSplit=listSaveHard.get(x).getName().split("\\s+"); 
+				if(wordSplit.length>2){
+					for(int a=2;a<wordSplit.length;a++){
+						wordSplit[1]=wordSplit[1]+" "+wordSplit[a];
+					}
+					wordSplit=Arrays.copyOf(wordSplit, 2);
+				}
+			for(int a=0;a<wordSplit.length;a++){
+				scoreboardFont.draw(batch,wordSplit[a], 150, 550-(85*x+a*25));
+			}
 				scoreboardFont.draw(batch, "Hard", 320, 550-(85*x));
 				scoreboardFont.draw(batch, ""+listSaveHard.get(x).getTotalTime(), 430, 550-(85*x));
 			}
 			if (listSaveHard.size()>5){
 				for (int x = 5; x < (listSaveHard.size()> 10 ? 10 : listSaveHard.size()); x++){
-					scoreboardFont.draw(batch, listSaveHard.get(x).getName(), 710, 550 - (85*(x-5)));
+					wordSplit=listSaveHard.get(x).getName().split("\\s+"); 
+					if(wordSplit.length>2){
+						for(int a=2;a<wordSplit.length;a++){
+							wordSplit[1]=wordSplit[1]+" "+wordSplit[a];
+						}
+						wordSplit=Arrays.copyOf(wordSplit, 2);
+					}
+					for(int a=0;a<wordSplit.length;a++){
+					scoreboardFont.draw(batch, wordSplit[a], 710, 550 - (85*(x-5)+a*25));
+					}
 					scoreboardFont.draw(batch, "Hard", 870, 550-(85*(x-5)));
 					scoreboardFont.draw(batch, ""+listSaveHard.get(x).getTotalTime(), 980, 550-(85*(x-5)));
 				}

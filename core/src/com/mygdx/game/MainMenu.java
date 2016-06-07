@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -81,6 +82,11 @@ public class MainMenu implements Screen {
 	Image ttl;
 
 	Skin skin;
+	
+	boolean upPressed;
+	boolean downPressed;
+	boolean leftPressed;
+	boolean rightPressed;
 
 	// Pixmap pix;
 
@@ -218,9 +224,11 @@ public class MainMenu implements Screen {
 
 		quitButton.addAction(Actions.fadeIn(1.5f));
 
+		
+		
 		playButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-			game.setScreen (new NameInput (batch,game));
+					game.setScreen (new NameInput (batch,game));
 			}
 		});
 
@@ -238,8 +246,6 @@ public class MainMenu implements Screen {
 				dispose();
 				game.setSaveManager(new SaveManager());
 				game.setScreen(new HighScore(batch, game));
-				// batch and game
-
 			}
 		});
 
@@ -278,6 +284,17 @@ public class MainMenu implements Screen {
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		batch.begin();
+		
+		if (Gdx.input.isKeyPressed(Keys.UP)){
+			
+		}
+			if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
+				game.setScreen(new NameInput (batch,game));
+			}
+		
+		batch.end();
+		
 		stage.act();
 		stage.draw();
 		ttl.act(delta);

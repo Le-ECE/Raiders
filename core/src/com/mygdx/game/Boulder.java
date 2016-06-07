@@ -176,24 +176,24 @@ public class Boulder{
 			if (direction.equals("right")){
 				if (tempX == startX.get(index)) returningArr[index] = true;
 				if (tempX == startX.get(index) + distance) returningArr[index] = false;
-					GameScreen.boulderXArr.set(index, tempX+=(returningArr[index]?2:-2));
+					GameScreen.boulderXArr.set(index, tempX+=(returningArr[index]?1:-1));
 			}
 			else{
 				if (tempX == startX.get(index)) returningArr[index] = true;
 				if (tempX == startX.get(index) - distance) returningArr[index] = false;
-					GameScreen.boulderXArr.set(index, tempX+=(returningArr[index]?-2:2));
+					GameScreen.boulderXArr.set(index, tempX+=(returningArr[index]?-1:1));
 			}
 		}
 		else{
 			if (direction.equals("up")){
 				if (tempY == startY.get(index)) returningArr[index] = true;
 				if (tempY == startY.get(index) + distance) returningArr[index] = false;
-					GameScreen.boulderYArr.set(index, tempY+=(returningArr[index]?2:-2));
+					GameScreen.boulderYArr.set(index, tempY+=(returningArr[index]?1:-1));
 			}
 			else{
 				if (tempY == startY.get(index)) returningArr[index] = true;
 				if (tempY == startY.get(index) - distance) returningArr[index] = false;
-					GameScreen.boulderYArr.set(index, tempY+=(returningArr[index]?-2:2));
+					GameScreen.boulderYArr.set(index, tempY+=(returningArr[index]?-1:1));
 			}
 		}
 	}

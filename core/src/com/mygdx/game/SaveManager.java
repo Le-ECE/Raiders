@@ -1,14 +1,19 @@
 package com.mygdx.game;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Calendar;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileSystemView;
 
 public class SaveManager {
 
  JFileChooser choose = new JFileChooser();
+ FileSystemView newView; 
  private Save loadedSave;
 
  public SaveManager() {
@@ -24,11 +29,12 @@ public class SaveManager {
  }
 
  public void writeSave() {
-  if (!(new File(System.getProperty("user.dir") + "//saves").exists())) {
-   new File(System.getProperty("user.dir") + "//saves").mkdirs();
+	 newView = choose.getFileSystemView();
+  if (!new File(newView.getDefaultDirectory()+"//High Noon Data//RaidersSave//saves").exists()) {
+   new File(newView.getDefaultDirectory()+"//High Noon Data//RaidersSave//saves").mkdirs();
   }
-  choose.setCurrentDirectory(new File(System.getProperty("user.dir") + "//saves"));
-
+ choose.setCurrentDirectory(new File(newView.getDefaultDirectory()+"//High Noon Data//RaidersSave//saves"));
+ 
   String saveName = "";
 
   Calendar newCalendar = Calendar.getInstance();
@@ -40,7 +46,7 @@ public class SaveManager {
   String writeName = loadedSave.getName() + " " + saveName + MainGame.EXT;
   try {
    PrintWriter saveWriter = new PrintWriter(
-     new FileWriter("//" + choose.getCurrentDirectory() + "//" + writeName));
+     new FileWriter("//" + choose.getCurrentDirectory() +"//"+ writeName));
  
    saveWriter.println(loadedSave.getName());
    saveWriter.println(loadedSave.getDifficulty());

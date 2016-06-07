@@ -195,7 +195,7 @@
     <property name="yoyo" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="31" name="boulder2" x="108" y="287.334" width="61.3333" height="57.3333">
+  <object id="31" name="boulder2" x="108" y="249.334" width="61.3333" height="57.3333">
    <properties>
     <property name="direction" value="right"/>
     <property name="distance" type="int" value="300"/>

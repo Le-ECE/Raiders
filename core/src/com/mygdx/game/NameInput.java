@@ -37,15 +37,16 @@ public class NameInput implements Screen {
 	String name;
 	
 	int errorCheck;
-	boolean notNull;
-	boolean underRange;
-	boolean notSpecial;
+
 	
 	public NameInput (SpriteBatch batch, MainGame game){
 		this.batch = batch;
 		this.game = game;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
 	@Override
 	public void show() {
 
@@ -145,6 +146,9 @@ public class NameInput implements Screen {
 		//userNameField.getOnscreenKeyboard();
 	}
 	
+	/**
+	 * @return
+	 */
 	public int nameCheck(){
 		char[] illegalChar = { 47, 92, 58, 42, 63, 34, 60, 62 };
 
@@ -187,6 +191,9 @@ public class NameInput implements Screen {
 		}
 			
 
+/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#render(float)
+	 */
 	@Override
 	public void render(float delta) {
 		
@@ -223,13 +230,18 @@ public class NameInput implements Screen {
 		}
 		batch.end();
 	}
-
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#resize(int, int)
+	 */
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#pause()
+	 */
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
@@ -242,16 +254,25 @@ public class NameInput implements Screen {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#hide()
+	 */
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
 		
+	dispose();
 	}
 
+/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#dispose()
+	 */
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
+		backgroundText.dispose();
+		font.dispose();
+		titleText.dispose();
 	}
 
 }
