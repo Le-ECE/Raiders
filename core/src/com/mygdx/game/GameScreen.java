@@ -667,14 +667,18 @@ public class GameScreen implements Screen {
 	 * timer when the game is not paused or finished. Third if structure is used
 	 * to update the game whenever it is not paused. If it is paused, this if
 	 * statement draws the pause overlay. First for loop draws all of the
-	 * boulders when the game is paused. Fourth if statement is used to quit to
-	 * the main menu when the quit button is pressed. Fifth if statement is used
-	 * to resume the game when the back button is pressed. Sixth if statement is
+	 * boulders when the game is paused. Fourth if statement is used to save the
+	 * game when the Save button is clicked. Fifth if statement is used to quit to
+	 * the main menu when the quit button is pressed. Sixth if statement is used
+	 * to resume the game when the back button is pressed. Seventh if statement is
 	 * used to resume the game when the escape key is pressed while the game is
-	 * in pause state. Seventh if statement is used to draw the treasure item if
-	 * the map properties state that the map contains one.
+	 * in pause state. Eighth if statement is used to draw the treasure item if
+	 * the map properties state that the map contains one. Ninth if statement closes
+	 * the game if the user presses the CTRL + W shortcut.
 	 */
-	//post doc notes : fixed paused buttons and added saves
+	/*
+	 * post java doc: 
+	 */
 	@Override
 	public void render(float delta) {
 
@@ -724,21 +728,6 @@ public class GameScreen implements Screen {
 			darkBackSprite.draw(batch);
 			saveDarkSprite.draw(batch);
 			darkQuitSprite.draw(batch);
-			
-			//remove
-			
-			//if (Gdx.input.isKeyJustPressed(Keys.R)) {
-			//	if (difficulty % 2 == 0) {
-			//		time = 0;
-			//		timeSeconds = 0;
-			//		createMap();
-			//	} else if (difficulty % 2 != 0) {
-			//		difficulty -= 1;
-			//		time = 0;
-			//		timeSeconds = 0;
-			//		createMap();
-			//	}
-			//	}
 
 			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY()+150)||Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 				backSprite.draw(batch);
@@ -774,6 +763,11 @@ public class GameScreen implements Screen {
 		// draw treasure
 		if (Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure", String.class)) && !retrieved) {
 			treasureSprite.draw(batch);
+		}
+		
+		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+			batch.dispose();
+			Gdx.app.exit();
 		}
 
 		batch.end();

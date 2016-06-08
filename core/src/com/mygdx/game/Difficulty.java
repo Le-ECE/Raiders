@@ -304,7 +304,27 @@ public class Difficulty implements Screen {
 	 * and such to be easier. Things are displayed on the screen using a
 	 * SpriteBatch, which acts as a container of sorts for the screen
 	 * elements.Various for loops are used to detect user input, as for
-	 * collision and detection.
+	 * collision and detection. The first if statement is used to draw the
+	 * appropriate sprite depending on if the easy button is selected or not.
+	 * The second if statement is used to draw the appropriate sprite depending
+	 * on if the medium button is selected or not. The third if statement is
+	 * used to draw the appropriate sprite depending on if the hard button is
+	 * selected or not. The fourth if statement is used to scroll up the
+	 * difficulty buttons if the up arrow key is pressed. The fifth if statement
+	 * is used to scroll down the difficulty buttons if the down arrow key is
+	 * pressed. The sixth if statement is used to allow the user to go back to
+	 * the main menu if the back button is pressed. The seventh if statement is
+	 * used to allow the user to select the easy difficulty, and deselects the
+	 * other ones. The eighth if statement is used to allow the user to select
+	 * the medium difficulty, and deselects the other ones. The ninth if statement
+	 * is used to allow the user to select the hard difficulty, and deselects the
+	 * other ones. The tenth if statement allows the user to enter the game with
+	 * the difficulty selected when they press the Go button. The eleventh if
+	 * statement allows the user to close the game when they press the CTRL + W
+	 * shortcut.
+	 */
+	/*
+	 * post java doc: 
 	 */
 	@Override
 	public void render(float delta) {
@@ -402,16 +422,15 @@ public class Difficulty implements Screen {
 			if (difficulty > -1) {
 				goSprite.draw(batch);
 				if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-					game.setScreen(new GameScreen(batch, game, name, difficulty, 0));// add
-																						// current
-																						// time
-																						// from
-																						// save
+					game.setScreen(new GameScreen(batch, game, name, difficulty, 0));																// save
 					dispose();
 				}
 			}
 		}
-
+		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+			batch.dispose();
+			Gdx.app.exit();
+		}
 		batch.end();
 	}
 

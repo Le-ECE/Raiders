@@ -298,7 +298,15 @@ public class MainMenu implements Screen {
 	 * updated every frame through this method. Stage.draw() is called to draw
 	 * all of the elements contained in the stage (such as buttons) onto the
 	 * screen. The first if statement is used to set the screen to the NameInput
-	 * class if the enter key is pressed.
+	 * class if the enter key is pressed. The second if statement is used to close
+	 * the game when the user presses CTRL + W shortcut. The third if statement is
+	 * used to provide the Play button function when the user presses the CTRL + UP
+	 * shortcut. The fourth if statement is used to provide the Load button function
+	 * when the user presses the CTRL + ENTER shortcut. The fifth if statement is
+	 * used to provide the Score button when the user presses the CTRL + LEFT shortcut.
+	 * The sixth if statement is used to provide the Rules button function when the
+	 * user presses the CTRL + RIGHT shortcut. The seventh if statement is used to
+	 * provide the Quit function when the user presses the CTRL + DOWN shortcut.
 	 */
 	@Override
 	public void render(float delta) {
@@ -311,7 +319,39 @@ public class MainMenu implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			game.setScreen(new NameInput(batch, game));
 		}
-
+		
+		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+			batch.dispose();
+			Gdx.app.exit();
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.UP)){
+			game.setScreen(new NameInput (batch,game));
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.ENTER)){
+			dispose();
+			game.setSaveManager (new SaveManager());
+			game.setScreen (new LoadSave (batch,game));
+		}
+		
+		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.LEFT)){
+			dispose();
+			game.setSaveManager(new SaveManager());
+			game.setScreen(new HighScore(batch, game));
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.RIGHT)){
+			dispose();
+			game.setScreen(new Instructions(batch, game));
+		}
+		
+		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.DOWN)){
+			batch.dispose();
+			dispose();
+			Gdx.app.exit();
+		}
+		
 		batch.end();
 
 		stage.act();

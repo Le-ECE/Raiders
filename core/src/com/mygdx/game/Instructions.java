@@ -109,24 +109,26 @@ public class Instructions implements Screen {
 
 	private MainGame game;
 
-	Texture screen1Text;
-	Texture screen2Text;
-	Texture screen3Text;
-	Texture screen4Text;
-	Texture screen5Text;
-	Texture nextText;
-	Texture prevText;
-	Texture nextDarkText;
-	Texture prevDarkText;
-	Texture backgroundText;
-	Texture backText;
-	Texture backDarkText;
+	private Texture screen1Text;
+	private Texture screen2Text;
+	private Texture screen3Text;
+	private Texture screen4Text;
+	private Texture screen5Text;
+	private Texture screen6Text;
+	private Texture nextText;
+	private Texture prevText;
+	private Texture nextDarkText;
+	private Texture prevDarkText;
+	private Texture backgroundText;
+	private Texture backText;
+	private Texture backDarkText;
 
 	private Sprite screen1Sprite;
 	private Sprite screen2Sprite;
 	private Sprite screen3Sprite;
 	private Sprite screen4Sprite;
 	private Sprite screen5Sprite;
+	private Sprite screen6Sprite;
 	private Sprite nextSprite;
 	private Sprite prevSprite;
 	private Sprite nextDarkSprite;
@@ -171,7 +173,7 @@ public class Instructions implements Screen {
 	@Override
 	public void show() {
 		// initialize array
-		screenList = new Sprite[5];
+		screenList = new Sprite[6];
 
 		// create background texture
 		backgroundText = new Texture("splash.png");
@@ -217,6 +219,11 @@ public class Instructions implements Screen {
 		screen5Text = new Texture("screen5.png");
 		screen5Sprite = new Sprite(screen5Text);
 		screenList[4] = screen5Sprite;
+		
+		//create screen 6
+		screen6Text = new Texture ("screen6.png");
+		screen6Sprite = new Sprite (screen6Text);
+		screenList[5] = screen6Sprite;
 
 		// create next button
 		nextText = new Texture("next_arrow.png");
@@ -279,7 +286,12 @@ public class Instructions implements Screen {
 	 * statement is used to determine what happens when the user hovers their
 	 * cursor over the back button. The eleventh if statement is used to
 	 * determine change the screen to the main menu if the user clicks the mouse
-	 * button while the cursor is hovered over the back button.
+	 * button while the cursor is hovered over the back button. The twelfth
+	 * if statement is used to close the game when the user presses the CTRL + W
+	 * shortcut.
+	 */
+	/*
+	 * post java doc: 
 	 */
 	@Override
 	public void render(float delta) {
@@ -311,7 +323,7 @@ public class Instructions implements Screen {
 			nextSprite.draw(batch);
 			if (Gdx.input.justTouched() || rightKey) {
 				rightKey = false;
-				if (pageNum == 4) {
+				if (pageNum == 5) {
 					pageNum = 0;
 				} else {
 					pageNum++;
@@ -323,7 +335,7 @@ public class Instructions implements Screen {
 			if (Gdx.input.justTouched() || leftKey) {
 				leftKey = false;
 				if (pageNum == 0) {
-					pageNum = 4;
+					pageNum = 5;
 				} else {
 					pageNum--;
 				}
@@ -335,6 +347,11 @@ public class Instructions implements Screen {
 				escKey = false;
 				game.setScreen(new MainMenu(batch, game));
 			}
+		}
+		
+		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+			batch.dispose();
+			Gdx.app.exit();
 		}
 
 		batch.end();

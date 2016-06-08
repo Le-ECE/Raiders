@@ -272,8 +272,12 @@ public class NameInput implements Screen {
 	 * displays if the nameCheck method returns 3. If it does, it gives a notification that
 	 * the username cannot contain special characters. The sixth if statement is used
 	 * to determine what displays if the nameCheck method returns 4. If it does, the screen
-	 * is set to the Difficulty selection menu, with the name passed through.
+	 * is set to the Difficulty selection menu, with the name passed through. The seventh
+	 * is statement is used to close the game when the user presses the CTRL + W shortcut.
 	 * 
+	 */
+	/*
+	 * post java doc: 
 	 */
 	@Override
 	public void render(float delta) {
@@ -305,6 +309,11 @@ public class NameInput implements Screen {
 			dispose();
 			game.setSaveManager(new SaveManager());
 			game.setScreen(new Difficulty(batch, game, name));
+		}
+		
+		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+			batch.dispose();
+			Gdx.app.exit();
 		}
 		batch.end();
 	}

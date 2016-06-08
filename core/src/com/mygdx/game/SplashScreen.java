@@ -167,7 +167,11 @@ public class SplashScreen implements Screen {
 	 * and such to be easier. Things are displayed on the screen using a
 	 * SpriteBatch, which acts as a container of sorts for the screen
 	 * elements. The first if statement is used to skip the splashscreen if the
-	 * user presses the space key or the enter key.
+	 * user presses the space key or the enter key. The second if statement is
+	 * used to close the game when the user presses the CTRL + W shortcut.
+	 */
+	/*
+	 * post java doc: 
 	 */
 	@Override
 	public void render(float delta) {
@@ -191,6 +195,11 @@ public class SplashScreen implements Screen {
 
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE) || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
+		}
+		
+		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+			batch.dispose();
+			Gdx.app.exit();
 		}
 	}
 

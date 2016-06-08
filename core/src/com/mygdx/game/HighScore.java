@@ -652,13 +652,18 @@ public class HighScore implements Screen, Printable {
 	 * the page counter is reset to the minimum to allow for looping. The
 	 * twelfth if statement is used to determine what happens if the page number
 	 * is at minimum. If it is, the page counter is set to the maximum to allow
-	 * for looping. The thirteemth if statement determines what happens if the
+	 * for looping. The thirteenth if statement determines what happens if the
 	 * cursor is hovered over the back button. The fourteenth if statement is
 	 * used to change the screen to the main menu if the mouse button is click
 	 * while the cursor is over the button. The fifteenth if statement is used
 	 * to determine what happens if the cursor is hovering over the print
 	 * button. The sixteenth if statement runs the print() method if the mouse
-	 * button is clicked while hovering over the button.
+	 * button is clicked while hovering over the button, or if the CTRL + P
+	 * shortcut is used. The seventeenth if statement is used to close the game
+	 * when the CTRL + W shortcut is pressed.
+	 */
+	/*
+	 * post java doc: 
 	 */
 	@Override
 	public void render(float delta) {
@@ -764,13 +769,18 @@ public class HighScore implements Screen, Printable {
 			}
 		}
 
-		if (printRect.contains(Gdx.input.getX(), Gdx.input.getY() - 645) || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		if (printRect.contains(Gdx.input.getX(), Gdx.input.getY() - 645) || Gdx.input.isKeyJustPressed(Keys.ENTER)||Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.P)) {
 			printSprite.draw(batch);
-			if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)||Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.P)) {
 				printer();
 			}
 		}
 
+		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+			batch.dispose();
+			Gdx.app.exit();
+		}
+		
 		batch.end();
 
 	}
