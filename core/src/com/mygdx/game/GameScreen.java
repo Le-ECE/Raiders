@@ -224,6 +224,10 @@ public class GameScreen implements Screen {
 	private Animation animation_left;
 	private Animation animation_up;
 	private Animation animation_down;
+	private Animation boulder_up;
+	private Animation boulder_down;
+	private Animation boulder_left;
+	private Animation boulder_right;
 
 	private Music desertMusic;
 	private Music earthMusic;
@@ -628,6 +632,11 @@ public class GameScreen implements Screen {
 		animation_left = new Animation(0.13f, frames_left);
 		animation_right = new Animation(0.13f, frames_right);
 		animation_down = new Animation(0.13f, frames_down);
+		
+		boulder_up=new Animation(0.13f, frames_up);
+		boulder_down=new Animation(0.13f, frames_down);
+		boulder_left=new Animation(0.13f, frames_left);
+		boulder_right=new Animation(0.13f, frames_right);
 
 		pauseTextSprite.setPosition(0, 780 - pauseTextSprite.getHeight());
 
@@ -817,9 +826,28 @@ public class GameScreen implements Screen {
 			boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
 
 			boulderCollision[x] = new Rectangle(boulderXArr.get(x), boulderYArr.get(x), 64, 64);
-
-			boulder1Sprite.draw(batch);
-		}
+			if(paused){
+			batch.draw(boulder1Sprite, boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
+			}
+			else if(directionArr.get(x).equals("up")){
+				batch.draw(boulder_up.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 48f, 96f);
+			}
+			else if(directionArr.get(x).equals("down")){
+				batch.draw(boulder_down.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 48f, 96f);
+			}
+			else if(directionArr.get(x).equals("left")){
+				batch.draw(boulder_left.getKeyFrame(time, true),boulderXArr.get(x), boulderYArr.get(x), 48f, 96f);
+			}
+			else if(directionArr.get(x).equals("right")){
+				batch.draw(boulder_right.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 48f, 96f);
+			}
+			else{
+				batch.draw(boulder1Sprite, boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);	
+			}
+				
+			}
+			//boulder1Sprite.draw(batch);
+		
 
 		endCheck();
 
