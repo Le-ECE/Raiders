@@ -46,7 +46,7 @@ import tween.SpriteManager;
  * as for the map properties.
  * 
  * @author Brian Tran
- * @version 4.0 07.06.2016
+ * @version 4.0 08.06.2016
  * 
  * <p>
  * <b>Instance Variables</b>
@@ -256,6 +256,8 @@ public class GameScreen implements Screen {
 	private Sprite goSprite;
 	private Sprite treasureSprite;
 	private Sprite treasureOverlaySprite;
+	private Sprite saveSprite;
+	private Sprite saveDarkSprite;
 
 	private Rectangle body;
 	private Rectangle interp;
@@ -263,6 +265,7 @@ public class GameScreen implements Screen {
 	private Rectangle quitRect;
 	private Rectangle endRect;
 	private Rectangle menuRect;
+	private Rectangle saveRect;
 	private Rectangle goRect;
 
 	private ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
@@ -294,6 +297,8 @@ public class GameScreen implements Screen {
 	private Texture goDarkText;
 	private Texture treasureText;
 	private Texture treasureOverlayText;
+	private Texture saveButton;
+	private Texture saveDark;
 
 	private Ellipse start;
 
@@ -396,6 +401,8 @@ public class GameScreen implements Screen {
 		pauseText.dispose();
 		backButton.dispose();
 		quitButton.dispose();
+		saveButton.dispose();
+		saveDark.dispose();
 		backDark.dispose();
 		quitDark.dispose();
 		boulder1.dispose();
@@ -467,16 +474,31 @@ public class GameScreen implements Screen {
 		// back rectangle
 		backRect = new Rectangle(backSprite.getX(), backSprite.getY(), backSprite.getWidth(), backSprite.getHeight());
 
+		// save button
+		saveButton = new Texture("assets/save.png");
+		saveSprite = new Sprite(saveButton);
+		saveSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 250f);
+		saveSprite.setSize(290f, 110f);
+
+		// save dark button
+		saveDark = new Texture("assets/save_dark.png");
+		saveDarkSprite = new Sprite(saveDark);
+		saveDarkSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 250f);
+		saveDarkSprite.setSize(290f, 110f);
+
+		// save rectangle
+		saveRect = new Rectangle(saveSprite.getX(), saveSprite.getY(), saveSprite.getWidth(), saveSprite.getHeight());
+
 		// quit button
 		quitButton = new Texture("assets/quit.png");
 		quitSprite = new Sprite(quitButton);
-		quitSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 250f);
+		quitSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 100f);
 		quitSprite.setSize(290f, 110f);
 
 		// quit dark button
 		quitDark = new Texture("assets/quit_dark.png");
 		darkQuitSprite = new Sprite(quitDark);
-		darkQuitSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 250f);
+		darkQuitSprite.setPosition(Gdx.graphics.getWidth() / 2 - 145, 100f);
 		darkQuitSprite.setSize(290f, 110f);
 
 		// quit rectangle
@@ -612,17 +634,17 @@ public class GameScreen implements Screen {
 		// pause text animation
 		Tween.set(pauseTextSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(pauseTextSprite, SpriteManager.ALPHA, 0.5f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-				.start(tweenManager);
+		.start(tweenManager);
 
 		// success animation
 		Tween.set(successSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(successSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-				.start(tweenManager);
+		.start(tweenManager);
 
 		// treasure animation
 		Tween.set(treasureSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(treasureSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-				.start(tweenManager);
+		.start(tweenManager);
 	}
 
 	/**
@@ -691,18 +713,18 @@ public class GameScreen implements Screen {
 			pauseTextSprite.draw(batch);
 			darkBackSprite.draw(batch);
 			darkQuitSprite.draw(batch);
-			if (Gdx.input.isKeyJustPressed(Keys.R)) {
-				if (difficulty % 2 == 0) {
-					time = 0;
-					timeSeconds = 0;
-					createMap();
-				} else if (difficulty % 2 != 0) {
-					difficulty -= 1;
-					time = 0;
-					timeSeconds = 0;
-					createMap();
-				}
-			}
+			//if (Gdx.input.isKeyJustPressed(Keys.R)) {
+			//	if (difficulty % 2 == 0) {
+			//		time = 0;
+			//		timeSeconds = 0;
+			//		createMap();
+			//	} else if (difficulty % 2 != 0) {
+			//		difficulty -= 1;
+			//		time = 0;
+			//		timeSeconds = 0;
+			//		createMap();
+			//	}
+			//	}
 
 			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY()) || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 				quitSprite.draw(batch);
@@ -710,18 +732,38 @@ public class GameScreen implements Screen {
 					game.setScreen(new MainMenu(batch, game));
 				}
 			}
-			if (quitRect.contains(Gdx.input.getX(), Gdx.input.getY())) {
+			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY()+150)||Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+
+
+
 				backSprite.draw(batch);
-				if (Gdx.input.justTouched()) {
+				if (Gdx.input.justTouched()||Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 					paused = false;
 					Gdx.input.setCursorCatched(!catched);
 					catched = !catched;
 				}
 			}
-			if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-				paused = false;
-				Gdx.input.setCursorCatched(!catched);
-				catched = !catched;
+
+			if (saveRect.contains(Gdx.input.getX(), Gdx.input.getY()-150) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+
+				saveSprite.draw(batch);
+				if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) {
+					saveGame();
+					game.getSaveManager().writeSave();
+					paused = false;
+					Gdx.input.setCursorCatched(!catched);
+					catched = !catched;
+				}
+			}
+
+			if (quitRect.contains(Gdx.input.getX(), Gdx.input.getY()-450) || Gdx.input.isKeyJustPressed(Keys.ENTER)) { //145
+
+
+
+				quitSprite.draw(batch);
+				if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+					game.setScreen(new MainMenu(batch, game));
+				}
 			}
 		} else {
 			drawOverlay();
@@ -1062,7 +1104,7 @@ public class GameScreen implements Screen {
 		Gdx.input.setCursorCatched(false);
 
 		batch.draw(pauseOverlay, 0, 0);
-		successSprite.draw(batch);
+		successSprite.draw(batch); 
 		scoreSprite.draw(batch);
 		menuDarkSprite.draw(batch);
 		goDarkSprite.draw(batch);
