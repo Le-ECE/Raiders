@@ -665,6 +665,7 @@ public class GameScreen implements Screen {
 	 * in pause state. Seventh if statement is used to draw the treasure item if
 	 * the map properties state that the map contains one.
 	 */
+	//post doc notes : fixed paused buttons and added saves
 	@Override
 	public void render(float delta) {
 
@@ -712,7 +713,11 @@ public class GameScreen implements Screen {
 			batch.draw(pauseOverlay, 0, 0);
 			pauseTextSprite.draw(batch);
 			darkBackSprite.draw(batch);
+			saveDarkSprite.draw(batch);
 			darkQuitSprite.draw(batch);
+			
+			//remove
+			
 			//if (Gdx.input.isKeyJustPressed(Keys.R)) {
 			//	if (difficulty % 2 == 0) {
 			//		time = 0;
@@ -726,16 +731,7 @@ public class GameScreen implements Screen {
 			//	}
 			//	}
 
-			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY()) || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-				quitSprite.draw(batch);
-				if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-					game.setScreen(new MainMenu(batch, game));
-				}
-			}
 			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY()+150)||Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-
-
-
 				backSprite.draw(batch);
 				if (Gdx.input.justTouched()||Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 					paused = false;
@@ -756,10 +752,7 @@ public class GameScreen implements Screen {
 				}
 			}
 
-			if (quitRect.contains(Gdx.input.getX(), Gdx.input.getY()-450) || Gdx.input.isKeyJustPressed(Keys.ENTER)) { //145
-
-
-
+			if (quitRect.contains(Gdx.input.getX(), Gdx.input.getY()-450) || Gdx.input.isKeyJustPressed(Keys.ENTER)) { 
 				quitSprite.draw(batch);
 				if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 					game.setScreen(new MainMenu(batch, game));
@@ -1142,7 +1135,6 @@ public class GameScreen implements Screen {
 
 				} else {
 					game.setScreen(new HighScore(batch, game));
-					;
 				}
 
 			}
