@@ -17,8 +17,8 @@
 /boulder_2.png
 /boulder_3.png
 /cavern_ruins.png
+/chm_button.png
 /column.png
-/com/
 /cursor.png
 /desert_music.mp3
 /difficulty_title.png
@@ -90,7 +90,11 @@
 /splashtitle.png
 /textcursor.png
 /textfield_background.png
+/com/
 /title.png
 /title_new.png
 /treasure_overlay.png
 /up_walk.png
+/roll_down.png
+/roll_right.png
+/roll_up.png
