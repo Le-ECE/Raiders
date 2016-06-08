@@ -6,8 +6,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Pixmap;
 
 /**
- * The MainGame, which extends the Game class, is currently responsible for
- * starting the execution of the application by calling upon the MainMenu class.
+ * The MainGame, which extends the Game class, is responsible for starting
+ * the program by setting the game screen to the SplashScreen class. The
+ * MainGame class also contains 
  * 
  * @author Brian Tran
  * @version 4.0 03/06/2016
@@ -57,10 +58,20 @@ public class MainGame extends Game {
 
 	}
 
+	/**
+	 * This method returns the current save manager.
+	 * 
+	 * @return mainSaveManager SaveManager currently used
+	 */
 	public SaveManager getSaveManager() {
 		return this.mainSaveManager;
 	}
 
+	/**
+	 * This method sets the current save manager using a parameter.
+	 * 
+	 * @param passSaveManager SaveManager used to set the current SaveManager
+	 */
 	public void setSaveManager(SaveManager passSaveManager) {
 		this.mainSaveManager = passSaveManager;
 	}
@@ -73,7 +84,7 @@ public class MainGame extends Game {
 	}
 
 	/**
-	 * Calls the constructor of the Game class.
+	 * Calls the render method of the Game class.
 	 */
 	@Override
 	public void render() {

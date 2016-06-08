@@ -1,3 +1,9 @@
+package tween;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
+import aurelienribon.tweenengine.TweenAccessor;
+
 /**
  * This class allows for the changing of Alpha values in text
  * based on an imported sprite.
@@ -5,13 +11,6 @@
  * @author Robin Stu modified by Brian Tran
  * @version 2.0 19/05/2016
  */
-
-package tween;
-
-import com.badlogic.gdx.graphics.g2d.Sprite;
-
-import aurelienribon.tweenengine.TweenAccessor;
-
 public class SpriteManager implements TweenAccessor<Sprite> {
 
 	public static final int ALPHA = 0;

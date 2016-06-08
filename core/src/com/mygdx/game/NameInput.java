@@ -19,6 +19,47 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+/**
+ * The NameInput, which implements the Screen interface, is responsible for
+ * displaying a screen that allows the user to enter a String as their username.
+ * This username will be used later on for highscores, and for saves. The
+ * NameInput screen contains a title, labeled "Enter you name", a textfield, and
+ * two buttons. The textfield (uses libGDX TextField) allows the user to type
+ * and store their username. The two buttons are "Go", and "Back". Upon pressing
+ * the "Go" button, the user is taken to the Difficulty selection menu if their
+ * username is valid (is not null / does not exceed 25 characters / does not
+ * contain illegal characters). Upon pressing the "Back" button, the user is
+ * taken back to the main menu.
+ * 
+ * @author Brian Tran
+ * @version 4.0 07.06.2016
+ * 
+ *          <p>
+ *          <b>Instance Variables</b>
+ *          <p>
+ *          <b>batch</b> Instance of SpriteBatch used to render on screen
+ *          elements
+ *          <p>
+ *          <b>game</b> Instance of MainGame used to manage multiple screens.
+ *          <p>
+ *          <b>backgroundText</b> Instance of Texture used to load background
+ *          image
+ *          <p>
+ *          <b>titleText</b> Instance of Texture used to load title image
+ *          <p>
+ *          <b>userNameField</b> Instance of TextField used to take user String
+ *          input
+ *          <p>
+ *          <b>stage</b> Instance of Stage used to contain on screen elements
+ *          (such as buttons)
+ *          <p>
+ *          <b>font</b> Instance of BitmapFont used to store and draw text in
+ *          custom fonts
+ *          <p>
+ *          <b>name</b> String used to represent inputted username
+ *          <p>
+ *          <b>errorCheck</b> int used as errorcheck for username
+ */
 public class NameInput implements Screen {
 
 	SpriteBatch batch;
@@ -38,15 +79,25 @@ public class NameInput implements Screen {
 
 	int errorCheck;
 
+	/**
+	 * The NameInput constructor is used to take in a SpriteBatch and a MainGame
+	 * from other classes as parameters. This allows for the NameInput class to
+	 * make use of the SpriteBatch and MainGame without having to create new
+	 * ones. SpriteBatch being used for rendering on screem elements, and
+	 * MainGame being used to manage on screen elements.
+	 * 
+	 * @param batch SpriteBatch used to render on-screen elements
+	 * @param game MainGame used to manage multiple screens
+	 */
 	public NameInput(SpriteBatch batch, MainGame game) {
 		this.batch = batch;
 		this.game = game;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.Screen#show()
+	/**
+	 * The show method is an overridden method from the Screen interface. The
+	 * show method is responsible for initializing variables, setting button
+	 * styles, and managing input.
 	 */
 	@Override
 	public void show() {
@@ -150,7 +201,23 @@ public class NameInput implements Screen {
 	}
 
 	/**
-	 * @return
+	 * The nameCheck method is used to determine if the name the user has
+	 * entered is valid. This means that the name does not exceed 25
+	 * characters, is not null, and does not contain any illegal characters.
+	 * The nameCheck method is a return method that returns an int based
+	 * on what sort of error the name contains. The first if statement is
+	 * used to determine if the name the user enters is empty. If it is,
+	 * the method returns 1 and sets the text field to be empty. The second
+	 * if statement is used to determine if the name exceeds 25 characters.
+	 * If it does, the method returns 2 and sets the text field to be empty.
+	 * Otherwise, the first and second for loops, as well as the
+	 * third if statement are used to determine if the name the user enters
+	 * contains any illegal characters. If so, the textfield is set to empty,
+	 * and the method returns 3. The third for loop and fourth if statement
+	 * are used to format the name and capitalize it. If it gets to this stage,
+	 * the method returns 4.
+	 * 
+	 * @return int used to determine what type of error the name contains
 	 */
 	public int nameCheck() {
 		char[] illegalChar = { 47, 92, 58, 42, 63, 34, 60, 62 };
@@ -191,10 +258,22 @@ public class NameInput implements Screen {
 		return 4;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * The render method is an overridden method from the Screen interface. The
+	 * render method loops every frame of the game. The render method is used to
+	 * elements to the screen, as well as take in user input. The first if statement
+	 * is used to bring the user back to the main menu if the user presses the escape
+	 * key. The second if statement is used to enter and check the name if the user
+	 * presses the enter key. The third if statement is used to determine what displays
+	 * if the nameCheck method returns 1. If it does, it gives a notification that the
+	 * name cannot be blank. The fourth if statement is used to determine what displays
+	 * if the nameCheck method returns 2. If it does, it gives a notification that the
+	 * name cannot exceed 25 characters. The fifth if statement is used to determine what
+	 * displays if the nameCheck method returns 3. If it does, it gives a notification that
+	 * the username cannot contain special characters. The sixth if statement is used
+	 * to determine what displays if the nameCheck method returns 4. If it does, the screen
+	 * is set to the Difficulty selection menu, with the name passed through.
 	 * 
-	 * @see com.badlogic.gdx.Screen#render(float)
 	 */
 	@Override
 	public void render(float delta) {
@@ -258,10 +337,8 @@ public class NameInput implements Screen {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.Screen#hide()
+	/**
+	 * The hide method runs the dispose method everytime the screen is switched.
 	 */
 	@Override
 	public void hide() {
@@ -270,10 +347,9 @@ public class NameInput implements Screen {
 		dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.Screen#dispose()
+	/**
+	 * The dispose method is used to dispose of textures and resources in order
+	 * to free up system memory.
 	 */
 	@Override
 	public void dispose() {

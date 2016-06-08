@@ -21,6 +21,7 @@ import tween.SpriteManager;
  * The SplashScreen class shows an animation of the main character running
  * across the screen with a boulder following, displaying the company name on
  * the screen. Once the company name fades, the game is taken to the main menu.
+ * 
  * <p>
  * <b>Instance Variables</b>
  * <p>
@@ -63,7 +64,7 @@ import tween.SpriteManager;
  * <b>tweenManager</b> Instance of TweenManager used to animate the text.
  * 
  * @author Brian Tran
- * @version 2.0.0 19/05/2016
+ * @version 4.0 07.06.2016
  *
  */
 
@@ -106,7 +107,9 @@ public class SplashScreen implements Screen {
 	/**
 	 * The show method is used to initialize all of the variables, as well as
 	 * set all the positions, and sizes for each of the sprites to be drawn on
-	 * screen. The show method runs every time the application is ran.
+	 * screen. The show method runs every time the application is ran. The first
+	 * and second for loop are used to add the contents of the 2D array to a
+	 * TextureRegion 1D array.
 	 */
 	@Override
 	public void show() {
@@ -163,8 +166,8 @@ public class SplashScreen implements Screen {
 	 * every frame with new information. This allows for animations of sprites
 	 * and such to be easier. Things are displayed on the screen using a
 	 * SpriteBatch, which acts as a container of sorts for the screen
-	 * elements.Various for loops are used to detect user input, as for
-	 * collision and detection.
+	 * elements. The first if statement is used to skip the splashscreen if the
+	 * user presses the space key or the enter key.
 	 */
 	@Override
 	public void render(float delta) {
@@ -219,24 +222,21 @@ public class SplashScreen implements Screen {
 	}
 
 	/**
-	 * Unused overridden method.
+	 * This method runs the dispose method whenever the screen is changed.
 	 */
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		dispose();
 	}
 
 	/**
-	 * This method disposes of all unused resources in order to prevent more
-	 * memory from being taken up.
+	 * This method disposes of all unused resources in order to free up
+	 * system memory.
 	 */
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		walk.dispose();
 		roll.dispose();
-		// background.dispose();
 		splashTitle.dispose();
 
 	}

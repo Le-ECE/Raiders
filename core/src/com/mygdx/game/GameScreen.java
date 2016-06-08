@@ -1,3 +1,36 @@
+
+
+package com.mygdx.game;
+
+import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.EllipseMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Ellipse;
+import com.badlogic.gdx.math.Rectangle;
+
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenManager;
+import tween.SpriteManager;
+
 /**
  * The GameScreen class is used to display the main character sprite's movement,
  * as well as render the maps and collision for the game.
@@ -13,7 +46,7 @@
  * as for the map properties.
  * 
  * @author Brian Tran
- * @version 4.0 03.06.2016
+ * @version 4.0 07.06.2016
  * 
  * <p>
  * <b>Instance Variables</b>
@@ -186,38 +219,6 @@
  * <p>
  * <b>dialogFont</b> Instance of BitmapFont used to display custom windows fonts for dialog boxes.
  */
-
-package com.mygdx.game;
-
-import java.util.ArrayList;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.EllipseMapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Ellipse;
-import com.badlogic.gdx.math.Rectangle;
-
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenManager;
-import tween.SpriteManager;
-
 public class GameScreen implements Screen {
 	private Animation animation_right;
 	private Animation animation_left;
@@ -253,8 +254,8 @@ public class GameScreen implements Screen {
 	private Sprite menuSprite;
 	private Sprite goDarkSprite;
 	private Sprite goSprite;
-	private Sprite treasureSprite; // jd
-	private Sprite treasureOverlaySprite; // jd
+	private Sprite treasureSprite;
+	private Sprite treasureOverlaySprite;
 
 	private Rectangle body;
 	private Rectangle interp;

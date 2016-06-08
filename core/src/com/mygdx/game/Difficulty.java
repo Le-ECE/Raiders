@@ -176,6 +176,8 @@ public class Difficulty implements Screen {
 	 *            SpriteBatch used to display all sprites and elements.
 	 * @param game
 	 *            MainGame used to change game screens.
+	 * @param name
+	 * 			  String used to store username.
 	 */
 	public Difficulty(SpriteBatch batch, MainGame game, String name) {
 		this.name = name;

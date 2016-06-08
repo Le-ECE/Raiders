@@ -23,12 +23,24 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  * options that will allow them to play the game at varying difficulties, view
  * the instructions to the game, quit the game, and more. The main menu also
  * displays a graphic background, with custom made buttons and the title of the
- * project. Upon pressing the "Play" button, the user is currently taken to the
- * basic game screen, however things such as name entries and difficulty
- * selection will be implemented.
+ * project. Upon pressing the "Play" button, the user is taken to a screen where
+ * they can input their name. From that screen, if a valid name has been entered,
+ * the user is taken to a difficulty selection menu, which will then take them
+ * to the game with a map loaded depending on the difficulty. Upon pressing the
+ * "Load" button, the user is taken to a screen where they may choose which save
+ * to load from a save file the user saves to. Upon choosing a save, the user
+ * is taken to the game screen with all of the save data to start with. Upon
+ * pressing the "Scores" button, the user is taken to a screen containing three
+ * pages of the top 10 times for each difficulty. From this screen, the user
+ * may print the scores, or go back to the menu. Upon pressing the "Rules" button,
+ * the user is taken to a screen with multiple pages that contains information
+ * regarding the game, and how to play it. Upon pressing the "Quit" button, the
+ * game closes. Upon pressing the "?" button in the top right of the menu, a
+ * .chm file is opened that contains more in-depth information about the game,
+ * as well as credit for various artwork used in the game.
  * 
  * @author Brian Tran
- * @version 2.0 19/05/2016
+ * @version 4.0 07.06.2016
  * 
  *          <p>
  *          <b>Instance Variables</b>
@@ -42,24 +54,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  *          <b>batch</b> Instance of SpriteBatch that acts as a container for
  *          onscreen elements
  *          <p>
- *          <b>bg</b> Instance of Texture that stores an image that acts as the
- *          menu background
- *          <p>
- *          <b>pB</b> Instance of Texture that stores an image that acts as the
- *          play button.
- *          <p>
- *          <b>qB</b> Instance of Texture that stores an image that acts as the
- *          quit button.
- *          <p>
- *          <b>title</b> Instance of Texture that stores an image that acts as
- *          the title.
- *          <p>
- *          <b>ttl</b> Instance of Image that loads the image of the title.
- *          <p>
- *          <b>bG</b> Instance of Image that loads the image of the background.
- *          <p>
  *          <b>skin</b> Instance of Skin that allows for the customization of
  *          onscreen elements.
+ *          <p>
+ *          <b>bG</b> Instance of Image used to draw the background image.
+ *          <p>
+ *          <b>ttl</b> Instance of Image used to draw the title image.
  * 
  */
 public class MainMenu implements Screen {
@@ -75,13 +75,6 @@ public class MainMenu implements Screen {
 
 	Skin skin;
 
-	boolean upPressed;
-	boolean downPressed;
-	boolean leftPressed;
-	boolean rightPressed;
-
-	// Pixmap pix;
-
 	public MainMenu(SpriteBatch batch, MainGame game) {
 		this.batch = batch;
 		this.game = game;
@@ -93,7 +86,9 @@ public class MainMenu implements Screen {
 	 * method also allows for button inputs to be taken by using a GDX built in
 	 * method called setInputProcessor. Buttons and their listeners that take in
 	 * user input from the buttons are added as well. Finally, the buttons,
-	 * title, and background are added to the stage.
+	 * title, and background are added to the stage. The first if statement
+	 * is used to determine if the main menu music is currently playing. If
+	 * not, main menu music is played from a certain point.
 	 */
 	@Override
 	public void show() {
@@ -121,7 +116,6 @@ public class MainMenu implements Screen {
 		chmB = new Texture("assets/chm_button.png");
 		skin = new Skin();
 		iB = new Texture("assets/instructions_button.png");
-		// pix = new Pixmap(100, 100, Format.RGBA8888);
 
 		title = new Texture("assets/title_new.png");
 		ttl = new Image(title);
@@ -303,7 +297,8 @@ public class MainMenu implements Screen {
 	 * runs once every frame. As a result, graphics and screen elements are
 	 * updated every frame through this method. Stage.draw() is called to draw
 	 * all of the elements contained in the stage (such as buttons) onto the
-	 * screen.
+	 * screen. The first if statement is used to set the screen to the NameInput
+	 * class if the enter key is pressed.
 	 */
 	@Override
 	public void render(float delta) {
@@ -313,9 +308,6 @@ public class MainMenu implements Screen {
 
 		batch.begin();
 
-		if (Gdx.input.isKeyPressed(Keys.UP)) {
-
-		}
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			game.setScreen(new NameInput(batch, game));
 		}
@@ -369,11 +361,8 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void dispose() {
-		// batch.dispose();
 		stage.dispose();
 		skin.dispose();
-		// mainMusic.dispose();
-		// pix.dispose();
 	}
 
 }

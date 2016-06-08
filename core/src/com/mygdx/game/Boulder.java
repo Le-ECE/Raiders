@@ -31,7 +31,6 @@ import com.badlogic.gdx.math.Rectangle;
  *          <p>
  *          <b>returningArr</b> boolean array representing a boulder returning
  *          from end position
- *          <p>
  *
  */
 public class Boulder {
@@ -110,7 +109,7 @@ public class Boulder {
 	 * loop runs through the properties of each boulder, add every direction
 	 * property to the String array.
 	 * 
-	 * @return
+	 * @return directionArr String array list representing directions
 	 */
 	public ArrayList<String> getDirection() {
 
