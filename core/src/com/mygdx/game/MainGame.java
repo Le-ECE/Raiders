@@ -15,21 +15,25 @@ import com.badlogic.gdx.graphics.Pixmap;
  *          <p>
  *          <b>Instance Variables</b>
  *          <p>
- *          <b>pm</b> Instance of Pixmap that allows for the image importing of the cursor image for custom cursors.
+ *          <b>pm</b> Instance of Pixmap that allows for the image importing of
+ *          the cursor image for custom cursors.
  *          <p>
- *          <b>mainMusic</b> Instance of Music that allows for streaming of audio
+ *          <b>mainMusic</b> Instance of Music that allows for streaming of
+ *          audio
  *          <p>
  *          <b>EXT</b> Final String as extension
  *          <p>
- *          <b>mainSaveManager</b> Instance of SaveManager used to save data to files
+ *          <b>mainSaveManager</b> Instance of SaveManager used to save data to
+ *          files
  *
  */
 public class MainGame extends Game {
 
 	public static Music mainMusic;
-	public static final String EXT=".sav";
+	public static final String EXT = ".sav";
 	Pixmap pm;
 	private SaveManager mainSaveManager;
+
 	/**
 	 * create() is an overridden method that is responsible for setting the
 	 * cursor of the game to a custom texture, as well as initializing the batch
@@ -38,7 +42,7 @@ public class MainGame extends Game {
 	@Override
 	public void create() {
 
-		//set music
+		// set music
 		mainMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/main_music.mp3"));
 		mainMusic.setLooping(true);
 		mainMusic.play();
@@ -53,12 +57,12 @@ public class MainGame extends Game {
 
 	}
 
-	public SaveManager getSaveManager(){
+	public SaveManager getSaveManager() {
 		return this.mainSaveManager;
 	}
 
-	public void setSaveManager(SaveManager passSaveManager){
-		this.mainSaveManager=passSaveManager;
+	public void setSaveManager(SaveManager passSaveManager) {
+		this.mainSaveManager = passSaveManager;
 	}
 
 	/**

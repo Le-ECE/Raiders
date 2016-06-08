@@ -122,351 +122,352 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class Difficulty implements Screen {
 
- private int difficulty = -1;
- private String name;
- private int highLight;
- 
- private boolean drawDarkEasy = true;
- private boolean drawDarkMedium = true;
- private boolean drawDarkHard = true;
+	private int difficulty = -1;
+	private String name;
+	private int highLight;
 
- Texture easy;
- Texture background;
- Texture medium;
- Texture hard;
- Texture title;
- Texture easyDark;
- Texture medDark;
- Texture hardDark;
- Texture back;
- Texture backDark;
- Texture go;
- Texture goDark;
+	private boolean drawDarkEasy = true;
+	private boolean drawDarkMedium = true;
+	private boolean drawDarkHard = true;
 
- Rectangle goRect;
- Rectangle easyRect;
- Rectangle medRect;
- Rectangle hardRect;
- Rectangle backRect;
+	Texture easy;
+	Texture background;
+	Texture medium;
+	Texture hard;
+	Texture title;
+	Texture easyDark;
+	Texture medDark;
+	Texture hardDark;
+	Texture back;
+	Texture backDark;
+	Texture go;
+	Texture goDark;
 
- Sprite goDarkSprite;
- Sprite goSprite;
- Sprite titleSprite;
- Sprite easySprite;
- Sprite mediumSprite;
- Sprite hardSprite;
- Sprite backgroundSprite;
- Sprite easyDarkSprite;
- Sprite medDarkSprite;
- Sprite hardDarkSprite;
- Sprite backSprite;
- Sprite backDarkSprite;
+	Rectangle goRect;
+	Rectangle easyRect;
+	Rectangle medRect;
+	Rectangle hardRect;
+	Rectangle backRect;
 
- private SpriteBatch batch;
+	Sprite goDarkSprite;
+	Sprite goSprite;
+	Sprite titleSprite;
+	Sprite easySprite;
+	Sprite mediumSprite;
+	Sprite hardSprite;
+	Sprite backgroundSprite;
+	Sprite easyDarkSprite;
+	Sprite medDarkSprite;
+	Sprite hardDarkSprite;
+	Sprite backSprite;
+	Sprite backDarkSprite;
 
- private MainGame game;
- 
- public static boolean playing;
+	private SpriteBatch batch;
 
- /**
-  * The Difficulty constructor takes in a SpriteBatch and a MainGame in order
-  * to allow for the rendering of elements and the changing of screens.
-  * 
-  * @param batch
-  *            SpriteBatch used to display all sprites and elements.
-  * @param game
-  *            MainGame used to change game screens.
-  */
- public Difficulty(SpriteBatch batch, MainGame game,String name) {
-  this.name=name;
-  this.batch = batch;
-  this.game = game;
- }
+	private MainGame game;
 
- /**
-  * The show method is used to initialize all of the variables, as well as
-  * set all the positions, and sizes for each of the sprites to be drawn on
-  * screen. The show method runs every time the application is ran.
-  */
- @Override
- public void show() {
+	public static boolean playing;
 
-  // go dark create
-  goDark = new Texture("assets/go_dark.png");
+	/**
+	 * The Difficulty constructor takes in a SpriteBatch and a MainGame in order
+	 * to allow for the rendering of elements and the changing of screens.
+	 * 
+	 * @param batch
+	 *            SpriteBatch used to display all sprites and elements.
+	 * @param game
+	 *            MainGame used to change game screens.
+	 */
+	public Difficulty(SpriteBatch batch, MainGame game, String name) {
+		this.name = name;
+		this.batch = batch;
+		this.game = game;
+	}
 
-  // go dark sprite create
-  goDarkSprite = new Sprite(goDark);
-  goDarkSprite.setSize(250, 105);
-  goDarkSprite.setPosition(((Gdx.graphics.getWidth() / 4) * 3) - (goDarkSprite.getWidth() / 2), 10);
+	/**
+	 * The show method is used to initialize all of the variables, as well as
+	 * set all the positions, and sizes for each of the sprites to be drawn on
+	 * screen. The show method runs every time the application is ran.
+	 */
+	@Override
+	public void show() {
 
-  // go create
-  go = new Texture("assets/go.png");
+		// go dark create
+		goDark = new Texture("assets/go_dark.png");
 
-  // go sprite create
-  goSprite = new Sprite(go);
-  goSprite.setSize(250, 105);
-  goSprite.setPosition(((Gdx.graphics.getWidth() / 4) * 3) - (goSprite.getWidth() / 2), 10);
+		// go dark sprite create
+		goDarkSprite = new Sprite(goDark);
+		goDarkSprite.setSize(250, 105);
+		goDarkSprite.setPosition(((Gdx.graphics.getWidth() / 4) * 3) - (goDarkSprite.getWidth() / 2), 10);
 
-  // back dark create
-  backDark = new Texture("assets/back_dark.png");
+		// go create
+		go = new Texture("assets/go.png");
 
-  // back dark sprite create
-  backDarkSprite = new Sprite(backDark);
-  backDarkSprite.setSize(250, 105);
-  backDarkSprite.setPosition((Gdx.graphics.getWidth() / 4) - (backDarkSprite.getWidth() / 2), 10);
+		// go sprite create
+		goSprite = new Sprite(go);
+		goSprite.setSize(250, 105);
+		goSprite.setPosition(((Gdx.graphics.getWidth() / 4) * 3) - (goSprite.getWidth() / 2), 10);
 
-  // back create
-  back = new Texture("assets/backbutton.png");
+		// back dark create
+		backDark = new Texture("assets/back_dark.png");
 
-  // back sprite create
-  backSprite = new Sprite(back);
-  backSprite.setSize(250, 105);
-  backSprite.setPosition((Gdx.graphics.getWidth() / 4) - (backSprite.getWidth() / 2), 10);
+		// back dark sprite create
+		backDarkSprite = new Sprite(backDark);
+		backDarkSprite.setSize(250, 105);
+		backDarkSprite.setPosition((Gdx.graphics.getWidth() / 4) - (backDarkSprite.getWidth() / 2), 10);
 
-  // title create
-  title = new Texture("assets/difficulty_title.png");
-  // easy button create
-  easy = new Texture("assets/easy.png");
-  // medium button create
-  medium = new Texture("assets/medium.png");
-  // hard button create
-  hard = new Texture("assets/hard.png");
+		// back create
+		back = new Texture("assets/backbutton.png");
 
-  // easy dark create
-  easyDark = new Texture("assets/easy_dark.png");
-  // medium dark create
-  medDark = new Texture("assets/medium_dark.png");
-  // hard dark create
-  hardDark = new Texture("assets/hard_dark.png");
+		// back sprite create
+		backSprite = new Sprite(back);
+		backSprite.setSize(250, 105);
+		backSprite.setPosition((Gdx.graphics.getWidth() / 4) - (backSprite.getWidth() / 2), 10);
 
-  // title sprite create
-  titleSprite = new Sprite(title);
-  titleSprite.setPosition(0, 768 - titleSprite.getHeight());
-  titleSprite.setSize(1200, 300);
-  // easy sprite create
-  easySprite = new Sprite(easy);
-  easySprite.setSize(290, 110);
-  easySprite.setPosition((Gdx.graphics.getWidth() / 2) - (easySprite.getWidth() / 2), 400);
+		// title create
+		title = new Texture("assets/difficulty_title.png");
+		// easy button create
+		easy = new Texture("assets/easy.png");
+		// medium button create
+		medium = new Texture("assets/medium.png");
+		// hard button create
+		hard = new Texture("assets/hard.png");
 
-  // medium sprite create
-  mediumSprite = new Sprite(medium);
-  mediumSprite.setSize(290, 110);
-  mediumSprite.setPosition((Gdx.graphics.getWidth() / 2) - (mediumSprite.getWidth() / 2), 280);
+		// easy dark create
+		easyDark = new Texture("assets/easy_dark.png");
+		// medium dark create
+		medDark = new Texture("assets/medium_dark.png");
+		// hard dark create
+		hardDark = new Texture("assets/hard_dark.png");
 
-  // hard sprite create
-  hardSprite = new Sprite(hard);
-  hardSprite.setSize(290, 110);
-  hardSprite.setPosition((Gdx.graphics.getWidth() / 2) - (hardSprite.getWidth() / 2), 160);
+		// title sprite create
+		titleSprite = new Sprite(title);
+		titleSprite.setPosition(0, 768 - titleSprite.getHeight());
+		titleSprite.setSize(1200, 300);
+		// easy sprite create
+		easySprite = new Sprite(easy);
+		easySprite.setSize(290, 110);
+		easySprite.setPosition((Gdx.graphics.getWidth() / 2) - (easySprite.getWidth() / 2), 400);
 
-  // easy dark sprite create
-  easyDarkSprite = new Sprite(easyDark);
-  easyDarkSprite.setSize(290, 110);
-  easyDarkSprite.setPosition((Gdx.graphics.getWidth() / 2) - (easyDarkSprite.getWidth() / 2), 400);
+		// medium sprite create
+		mediumSprite = new Sprite(medium);
+		mediumSprite.setSize(290, 110);
+		mediumSprite.setPosition((Gdx.graphics.getWidth() / 2) - (mediumSprite.getWidth() / 2), 280);
 
-  // medium dark sprite create
-  medDarkSprite = new Sprite(medDark);
-  medDarkSprite.setSize(290, 110);
-  medDarkSprite.setPosition((Gdx.graphics.getWidth() / 2) - (medDarkSprite.getWidth() / 2), 280);
+		// hard sprite create
+		hardSprite = new Sprite(hard);
+		hardSprite.setSize(290, 110);
+		hardSprite.setPosition((Gdx.graphics.getWidth() / 2) - (hardSprite.getWidth() / 2), 160);
 
-  // hard dark sprite create
-  hardDarkSprite = new Sprite(hardDark);
-  hardDarkSprite.setSize(290, 110);
-  hardDarkSprite.setPosition((Gdx.graphics.getWidth() / 2) - (hardDarkSprite.getWidth() / 2), 160);
+		// easy dark sprite create
+		easyDarkSprite = new Sprite(easyDark);
+		easyDarkSprite.setSize(290, 110);
+		easyDarkSprite.setPosition((Gdx.graphics.getWidth() / 2) - (easyDarkSprite.getWidth() / 2), 400);
 
-  // easy rectangle create
-  easyRect = new Rectangle(easySprite.getX(), easySprite.getY(), easySprite.getWidth(), easySprite.getHeight());
+		// medium dark sprite create
+		medDarkSprite = new Sprite(medDark);
+		medDarkSprite.setSize(290, 110);
+		medDarkSprite.setPosition((Gdx.graphics.getWidth() / 2) - (medDarkSprite.getWidth() / 2), 280);
 
-  // medium rectangle create
-  medRect = new Rectangle(mediumSprite.getX(), mediumSprite.getY(), mediumSprite.getWidth(),
-    mediumSprite.getHeight());
+		// hard dark sprite create
+		hardDarkSprite = new Sprite(hardDark);
+		hardDarkSprite.setSize(290, 110);
+		hardDarkSprite.setPosition((Gdx.graphics.getWidth() / 2) - (hardDarkSprite.getWidth() / 2), 160);
 
-  // hard rectangle create
-  hardRect = new Rectangle(hardSprite.getX(), hardSprite.getY(), hardSprite.getWidth(), hardSprite.getHeight());
+		// easy rectangle create
+		easyRect = new Rectangle(easySprite.getX(), easySprite.getY(), easySprite.getWidth(), easySprite.getHeight());
 
-  // back rectangle create
-  backRect = new Rectangle(backSprite.getX(), backSprite.getY(), backSprite.getWidth(), backSprite.getHeight());
+		// medium rectangle create
+		medRect = new Rectangle(mediumSprite.getX(), mediumSprite.getY(), mediumSprite.getWidth(),
+				mediumSprite.getHeight());
 
-  // go rectangle create
-  goRect = new Rectangle(goSprite.getX(), goSprite.getY(), goSprite.getWidth(), goSprite.getHeight());
+		// hard rectangle create
+		hardRect = new Rectangle(hardSprite.getX(), hardSprite.getY(), hardSprite.getWidth(), hardSprite.getHeight());
 
-  // background create
-  background = new Texture("assets/splash.png");
+		// back rectangle create
+		backRect = new Rectangle(backSprite.getX(), backSprite.getY(), backSprite.getWidth(), backSprite.getHeight());
 
-  highLight=1;
- }
+		// go rectangle create
+		goRect = new Rectangle(goSprite.getX(), goSprite.getY(), goSprite.getWidth(), goSprite.getHeight());
 
- /**
-  * The render() method is an overridden method from the GDX library. The
-  * render method is run every frame, and as a result, updates the screen
-  * every frame with new information. This allows for animations of sprites
-  * and such to be easier. Things are displayed on the screen using a
-  * SpriteBatch, which acts as a container of sorts for the screen
-  * elements.Various for loops are used to detect user input, as for
-  * collision and detection.
-  */
- @Override
- public void render(float delta) {
-  Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-  batch.begin();
+		// background create
+		background = new Texture("assets/splash.png");
 
-  batch.draw(background, 0, 0, 1200f, 768f);
-  titleSprite.draw(batch);
+		highLight = 1;
+	}
 
-  backDarkSprite.draw(batch);
-  goDarkSprite.draw(batch);
+	/**
+	 * The render() method is an overridden method from the GDX library. The
+	 * render method is run every frame, and as a result, updates the screen
+	 * every frame with new information. This allows for animations of sprites
+	 * and such to be easier. Things are displayed on the screen using a
+	 * SpriteBatch, which acts as a container of sorts for the screen
+	 * elements.Various for loops are used to detect user input, as for
+	 * collision and detection.
+	 */
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
 
-  if (drawDarkEasy)
-   easyDarkSprite.draw(batch);
-  else {
-   medDarkSprite.draw(batch);
-   hardDarkSprite.draw(batch);
-   easySprite.draw(batch);
-  }
-  if (drawDarkMedium)
-   medDarkSprite.draw(batch);
-  else {
-   easyDarkSprite.draw(batch);
-   mediumSprite.draw(batch);
-   hardDarkSprite.draw(batch);
-  }
-  if (drawDarkHard)
-   hardDarkSprite.draw(batch);
-  else {
-   easyDarkSprite.draw(batch);
-   medDarkSprite.draw(batch);
-   hardSprite.draw(batch);
-  }
+		batch.draw(background, 0, 0, 1200f, 768f);
+		titleSprite.draw(batch);
 
-  
-  
-  if(Gdx.input.isKeyJustPressed(Keys.UP)){
-    if (Gdx.input.isKeyJustPressed(Keys.DPAD_UP)){
-  if(highLight==1)
-    highLight=3;
-  else 
-    highLight--;
-    }
-  }
-     
-      if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
-         if (Gdx.input.isKeyJustPressed(Keys.DPAD_DOWN)){
-  if(highLight==3)
-    highLight=1;
-  else 
-    highLight++;
-  }
-      }
-  
-  if (backRect.contains(Gdx.input.getX(), Gdx.input.getY() - 600) || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-   backSprite.draw(batch);
-   if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-    game.setScreen(new MainMenu(batch, game));
-   }
-  }
-  if (easyRect.contains(Gdx.input.getX(), Gdx.input.getY() + 185)||highLight==1) {
-    if(easyRect.contains(Gdx.input.getX(), Gdx.input.getY() + 185))
-   easySprite.draw(batch);
-   if (Gdx.input.justTouched()||highLight==1) {
-     highLight=1;
-    difficulty = 0;
-    drawDarkEasy = false;
-    drawDarkMedium = true;
-    drawDarkHard = true;
-   }
-  }
-  if (medRect.contains(Gdx.input.getX(), Gdx.input.getY() - 70)||highLight==2) {
-    if(medRect.contains(Gdx.input.getX(), Gdx.input.getY() - 70))
-   mediumSprite.draw(batch);
-   if (Gdx.input.justTouched()||highLight==2) {
-     highLight=2;
-    difficulty = 2;
-    drawDarkMedium = false;
-    drawDarkEasy = true;
-    drawDarkHard = true;
-    mediumSprite.draw(batch);
-   }
-  }
-  if (hardRect.contains(Gdx.input.getX(), Gdx.input.getY() - 300)||highLight==3) {
-  if (hardRect.contains(Gdx.input.getX(), Gdx.input.getY() - 300))
-    hardSprite.draw(batch);
-   if (Gdx.input.justTouched()||highLight==3) {
-     highLight=3;
-    difficulty = 4;
-    drawDarkHard = false;
-    drawDarkEasy = true;
-    drawDarkMedium = true;
-    hardSprite.draw(batch);
-   }
-  }
-  if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 625)|| Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-   if (difficulty > -1) {
-    goSprite.draw(batch);
-    if (Gdx.input.justTouched()||Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-     game.setScreen(new GameScreen(batch, game,name, difficulty,0));//add current time from save
-     dispose();
-    }
-   }
-  }
+		backDarkSprite.draw(batch);
+		goDarkSprite.draw(batch);
 
-  batch.end();
- }
+		if (drawDarkEasy)
+			easyDarkSprite.draw(batch);
+		else {
+			medDarkSprite.draw(batch);
+			hardDarkSprite.draw(batch);
+			easySprite.draw(batch);
+		}
+		if (drawDarkMedium)
+			medDarkSprite.draw(batch);
+		else {
+			easyDarkSprite.draw(batch);
+			mediumSprite.draw(batch);
+			hardDarkSprite.draw(batch);
+		}
+		if (drawDarkHard)
+			hardDarkSprite.draw(batch);
+		else {
+			easyDarkSprite.draw(batch);
+			medDarkSprite.draw(batch);
+			hardSprite.draw(batch);
+		}
 
- /**
-  * Unused overridden method.
-  */
- @Override
- public void resize(int width, int height) {
-  // TODO Auto-generated method stub
+		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+			if (Gdx.input.isKeyJustPressed(Keys.DPAD_UP)) {
+				if (highLight == 1)
+					highLight = 3;
+				else
+					highLight--;
+			}
+		}
 
- }
+		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+			if (Gdx.input.isKeyJustPressed(Keys.DPAD_DOWN)) {
+				if (highLight == 3)
+					highLight = 1;
+				else
+					highLight++;
+			}
+		}
 
- /**
-  * Unused overridden method.
-  */
- @Override
- public void pause() {
-  // TODO Auto-generated method stub
+		if (backRect.contains(Gdx.input.getX(), Gdx.input.getY() - 600) || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			backSprite.draw(batch);
+			if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+				game.setScreen(new MainMenu(batch, game));
+			}
+		}
+		if (easyRect.contains(Gdx.input.getX(), Gdx.input.getY() + 185) || highLight == 1) {
+			if (easyRect.contains(Gdx.input.getX(), Gdx.input.getY() + 185))
+				easySprite.draw(batch);
+			if (Gdx.input.justTouched() || highLight == 1) {
+				highLight = 1;
+				difficulty = 0;
+				drawDarkEasy = false;
+				drawDarkMedium = true;
+				drawDarkHard = true;
+			}
+		}
+		if (medRect.contains(Gdx.input.getX(), Gdx.input.getY() - 70) || highLight == 2) {
+			if (medRect.contains(Gdx.input.getX(), Gdx.input.getY() - 70))
+				mediumSprite.draw(batch);
+			if (Gdx.input.justTouched() || highLight == 2) {
+				highLight = 2;
+				difficulty = 2;
+				drawDarkMedium = false;
+				drawDarkEasy = true;
+				drawDarkHard = true;
+				mediumSprite.draw(batch);
+			}
+		}
+		if (hardRect.contains(Gdx.input.getX(), Gdx.input.getY() - 300) || highLight == 3) {
+			if (hardRect.contains(Gdx.input.getX(), Gdx.input.getY() - 300))
+				hardSprite.draw(batch);
+			if (Gdx.input.justTouched() || highLight == 3) {
+				highLight = 3;
+				difficulty = 4;
+				drawDarkHard = false;
+				drawDarkEasy = true;
+				drawDarkMedium = true;
+				hardSprite.draw(batch);
+			}
+		}
+		if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 625) || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			if (difficulty > -1) {
+				goSprite.draw(batch);
+				if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+					game.setScreen(new GameScreen(batch, game, name, difficulty, 0));// add
+																						// current
+																						// time
+																						// from
+																						// save
+					dispose();
+				}
+			}
+		}
 
- }
+		batch.end();
+	}
 
- /**
-  * Unused overridden method.
-  */
- @Override
- public void resume() {
-  // TODO Auto-generated method stub
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
 
- }
+	}
 
- /**
-  * Unused overridden method.
-  */
- @Override
- public void hide() {
-  this.dispose();
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
 
- }
+	}
 
- /**
-  * This method disposes of all unused resources in order to prevent more
-  * memory from being taken up.
-  */
- @Override
- public void dispose() {
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
 
-  easy.dispose();
-  background.dispose();
-  medium.dispose();
-  hard.dispose();
-  title.dispose();
-  easyDark.dispose();
-  medDark.dispose();
-  hardDark.dispose();
-  back.dispose();
-  backDark.dispose();
-  go.dispose();
-  goDark.dispose();
-  
- }
+	}
+
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void hide() {
+		this.dispose();
+
+	}
+
+	/**
+	 * This method disposes of all unused resources in order to prevent more
+	 * memory from being taken up.
+	 */
+	@Override
+	public void dispose() {
+		easy.dispose();
+		background.dispose();
+		medium.dispose();
+		hard.dispose();
+		title.dispose();
+		easyDark.dispose();
+		medDark.dispose();
+		hardDark.dispose();
+		back.dispose();
+		backDark.dispose();
+		go.dispose();
+		goDark.dispose();
+
+	}
 
 }

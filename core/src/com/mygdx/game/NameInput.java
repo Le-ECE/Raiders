@@ -20,251 +20,259 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class NameInput implements Screen {
-	
+
 	SpriteBatch batch;
-	
+
 	MainGame game;
 
 	Texture backgroundText;
 	Texture titleText;
-	
+
 	TextField userNameField;
-	
+
 	Stage stage;
-	
+
 	BitmapFont font;
-	
+
 	String name;
-	
+
 	int errorCheck;
 
-	
-	public NameInput (SpriteBatch batch, MainGame game){
+	public NameInput(SpriteBatch batch, MainGame game) {
 		this.batch = batch;
 		this.game = game;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#show()
 	 */
 	@Override
 	public void show() {
 
-		errorCheck=0;
-		
-		font = new BitmapFont (Gdx.files.internal("assets/riskofrain_bitmap.fnt"),Gdx.files.internal("assets/riskofrain_bitmap_0.png"),false);
-		
+		errorCheck = 0;
+
+		font = new BitmapFont(Gdx.files.internal("assets/riskofrain_bitmap.fnt"),
+				Gdx.files.internal("assets/riskofrain_bitmap_0.png"), false);
+
 		stage = new Stage();
-		
+
 		Gdx.input.setInputProcessor(stage);
-		
+
 		Skin skin = new Skin();
-		
-		Texture tfBackgroundText = new Texture ("assets/textfield_background.png");
-		
-		Texture cursorText = new Texture ("assets/textcursor.png");
-		
-		Sprite cursorSprite = new Sprite (cursorText);
-		cursorSprite.setSize(15,50);
-		
-		Image tfBackgroundImg = new Image (tfBackgroundText);
+
+		Texture tfBackgroundText = new Texture("assets/textfield_background.png");
+
+		Texture cursorText = new Texture("assets/textcursor.png");
+
+		Sprite cursorSprite = new Sprite(cursorText);
+		cursorSprite.setSize(15, 50);
+
+		Image tfBackgroundImg = new Image(tfBackgroundText);
 		tfBackgroundImg.setSize(600, 70);
-		tfBackgroundImg.setPosition((Gdx.graphics.getWidth()/2)-(tfBackgroundImg.getWidth()/2), 400);
-		
-		skin.add ("textfieldbackground", tfBackgroundImg);
+		tfBackgroundImg.setPosition((Gdx.graphics.getWidth() / 2) - (tfBackgroundImg.getWidth() / 2), 400);
+
+		skin.add("textfieldbackground", tfBackgroundImg);
 		skin.add("textfieldfont", font);
-		skin.add("textfieldcursor", new Texture ("assets/cursor.png"));
-		skin.add("gobuttontexture", new Texture ("assets/go.png"));
-		skin.add("backbuttontexture", new Texture ("assets/backbutton.png"));
+		skin.add("textfieldcursor", new Texture("assets/cursor.png"));
+		skin.add("gobuttontexture", new Texture("assets/go.png"));
+		skin.add("backbuttontexture", new Texture("assets/backbutton.png"));
 		skin.add("cursor", cursorSprite);
-		
-		//create go button style
+
+		// create go button style
 		TextButtonStyle goBS = new TextButtonStyle();
 		goBS.up = skin.newDrawable("gobuttontexture", Color.LIGHT_GRAY);
 		goBS.down = skin.newDrawable("gobuttontexture", Color.DARK_GRAY);
 		goBS.over = skin.newDrawable("gobuttontexture");
 		goBS.font = new BitmapFont();
-		
-		//create back button style
+
+		// create back button style
 		TextButtonStyle bBS = new TextButtonStyle();
-		bBS.up = skin.newDrawable("backbuttontexture",Color.LIGHT_GRAY);
+		bBS.up = skin.newDrawable("backbuttontexture", Color.LIGHT_GRAY);
 		bBS.down = skin.newDrawable("backbuttontexture", Color.DARK_GRAY);
 		bBS.over = skin.newDrawable("backbuttontexture");
 		bBS.font = new BitmapFont();
-		
-		//create background
-		backgroundText = new Texture ("assets/splash.png");
-		Image backgroundImage = new Image (backgroundText);
+
+		// create background
+		backgroundText = new Texture("assets/splash.png");
+		Image backgroundImage = new Image(backgroundText);
 		backgroundImage.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
-		//create title
-		titleText = new Texture ("assets/nameTitle.png");
-		Image titleImage = new Image (titleText);
-		titleImage.setPosition((Gdx.graphics.getWidth()/2)-(titleImage.getWidth()/2), Gdx.graphics.getHeight()-titleImage.getHeight());
-		
+
+		// create title
+		titleText = new Texture("assets/nameTitle.png");
+		Image titleImage = new Image(titleText);
+		titleImage.setPosition((Gdx.graphics.getWidth() / 2) - (titleImage.getWidth() / 2),
+				Gdx.graphics.getHeight() - titleImage.getHeight());
+
 		TextFieldStyle style = new TextFieldStyle();
 		style.font = skin.getFont("textfieldfont");
 		style.background = null;
 		style.fontColor = Color.BLACK;
-		style.cursor = skin.getDrawable ("cursor");
-		
-		//create text field
-		userNameField = new TextField ("",style);
+		style.cursor = skin.getDrawable("cursor");
+
+		// create text field
+		userNameField = new TextField("", style);
 		userNameField.setPosition(310, 400);
 		userNameField.setSize(550, 70);
-		
-		//create go button 
-		TextButton goButton = new TextButton ("", goBS);
+
+		// create go button
+		TextButton goButton = new TextButton("", goBS);
 		goButton.setPosition(700, 100);
 		goButton.setSize(290f, 110f);
-		
-		goButton.addCaptureListener(new ChangeListener(){
-			public void changed (ChangeEvent event, Actor actor){
+
+		goButton.addCaptureListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
 				name = userNameField.getText();
-				errorCheck=nameCheck();
+				errorCheck = nameCheck();
 			}
 		});
-		
-		//create back button
-		TextButton backButton = new TextButton ("", bBS);
+
+		// create back button
+		TextButton backButton = new TextButton("", bBS);
 		backButton.setPosition(200, 100);
 		backButton.setSize(290f, 110f);
-		
-		backButton.addCaptureListener(new ChangeListener(){
-			public void changed (ChangeEvent event, Actor actor){
-				game.setScreen(new MainMenu (batch, game));
+
+		backButton.addCaptureListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				game.setScreen(new MainMenu(batch, game));
 			}
 		});
-		
-		stage.addActor (backgroundImage);
+
+		stage.addActor(backgroundImage);
 		stage.addActor(titleImage);
 		stage.addActor(tfBackgroundImg);
 		stage.addActor(userNameField);
 		stage.addActor(goButton);
 		stage.addActor(backButton);
 		stage.setKeyboardFocus(userNameField);
-		//userNameField.getOnscreenKeyboard();
+		// userNameField.getOnscreenKeyboard();
 	}
-	
+
 	/**
 	 * @return
 	 */
-	public int nameCheck(){
+	public int nameCheck() {
 		char[] illegalChar = { 47, 92, 58, 42, 63, 34, 60, 62 };
 
-		
-		if (name.trim().isEmpty()){
+		if (name.trim().isEmpty()) {
 			userNameField.setText("");
 			return 1;
 		}
-		if (name.trim().length() >= 25){
-				userNameField.setText("");
+		if (name.trim().length() >= 25) {
+			userNameField.setText("");
 			return 2;
-			}
-			else{
-		
-				for (int x = 0; x < name.length();x++){
-					for (int y = 0; y < illegalChar.length; y++){
-						if (name.charAt(x) == illegalChar [y]){
-							userNameField.setText("");
-							return 3;
-						}
+		} else {
+
+			for (int x = 0; x < name.length(); x++) {
+				for (int y = 0; y < illegalChar.length; y++) {
+					if (name.charAt(x) == illegalChar[y]) {
+						userNameField.setText("");
+						return 3;
 					}
 				}
 			}
-
-			char currentChar = ' ';
-			String formatString = "";
-
-			String[] arrayString = name.split("\\s+");
-
-			for (int a = 0; a < arrayString.length; a++) {
-				currentChar = arrayString[a].charAt(0);
-				if (currentChar >= 'a' && currentChar <= 'z') {
-					currentChar = Character.toUpperCase(currentChar);
-				}
-				formatString = formatString + currentChar + arrayString[a].substring(1) + " ";
-
-			}
-			name = formatString.trim();
-		return 4;
 		}
-			
 
-/* (non-Javadoc)
+		char currentChar = ' ';
+		String formatString = "";
+
+		String[] arrayString = name.split("\\s+");
+
+		for (int a = 0; a < arrayString.length; a++) {
+			currentChar = arrayString[a].charAt(0);
+			if (currentChar >= 'a' && currentChar <= 'z') {
+				currentChar = Character.toUpperCase(currentChar);
+			}
+			formatString = formatString + currentChar + arrayString[a].substring(1) + " ";
+
+		}
+		name = formatString.trim();
+		return 4;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#render(float)
 	 */
 	@Override
 	public void render(float delta) {
-		
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 		batch.begin();
-		
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {	
-			game.setScreen(new MainMenu (batch, game));		
+
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			game.setScreen(new MainMenu(batch, game));
 		}
-		
+
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			name = userNameField.getText();
-			errorCheck=nameCheck();	
+			errorCheck = nameCheck();
 		}
-		
-		if (errorCheck==1){
-			font.setColor (Color.YELLOW);
+
+		if (errorCheck == 1) {
+			font.setColor(Color.YELLOW);
 			font.draw(batch, "Your name cannot be blank.", 290, 390);
-		}
-		else 	if (errorCheck==2){
-			font.setColor (Color.YELLOW);
+		} else if (errorCheck == 2) {
+			font.setColor(Color.YELLOW);
 			font.draw(batch, "Please enter a name under 25 letters long.", 290, 390);
-		}
-		else if (errorCheck==3){
-			font.setColor (Color.YELLOW);
+		} else if (errorCheck == 3) {
+			font.setColor(Color.YELLOW);
 			font.draw(batch, "Please enter a name without special characters.", 290, 390);
-		}
-		else if (errorCheck==4){
+		} else if (errorCheck == 4) {
 			dispose();
 			game.setSaveManager(new SaveManager());
 			game.setScreen(new Difficulty(batch, game, name));
 		}
 		batch.end();
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#resize(int, int)
 	 */
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#pause()
 	 */
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#hide()
 	 */
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
-	dispose();
+
+		dispose();
 	}
 
-/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#dispose()
 	 */
 	@Override

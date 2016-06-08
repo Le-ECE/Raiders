@@ -69,20 +69,12 @@ public class MainMenu implements Screen {
 
 	SpriteBatch batch;
 
-	Texture bg;
-	Texture pB;
-	Texture lB;
-	Texture hB;
-	Texture qB;
-	Texture title;
-	Texture iB;
-
 	Image bG;
 
 	Image ttl;
 
 	Skin skin;
-	
+
 	boolean upPressed;
 	boolean downPressed;
 	boolean leftPressed;
@@ -106,6 +98,15 @@ public class MainMenu implements Screen {
 	@Override
 	public void show() {
 
+		Texture bg;
+		Texture pB;
+		Texture lB;
+		Texture hB;
+		Texture qB;
+		Texture title;
+		Texture iB;
+		Texture chmB;
+
 		if (!MainGame.mainMusic.isPlaying()) {
 			MainGame.mainMusic.play();
 			MainGame.mainMusic.setPosition(14f);
@@ -117,6 +118,7 @@ public class MainMenu implements Screen {
 		hB = new Texture("assets/high_score.png");
 		pB = new Texture("assets/playbutton.png");
 		qB = new Texture("assets/quit.png");
+		chmB = new Texture("assets/chm_button.png");
 		skin = new Skin();
 		iB = new Texture("assets/instructions_button.png");
 		// pix = new Pixmap(100, 100, Format.RGBA8888);
@@ -145,10 +147,12 @@ public class MainMenu implements Screen {
 		skin.add("overlay", qB);
 		skin.add("score", hB);
 		skin.add("instructions", iB);
+		skin.add("help", chmB);
 		skin.add("pb", new Texture("assets/playbutton.png"));
 		skin.add("lb", new Texture("assets/load.png"));
 		skin.add("hb", new Texture("assets/high_score.png"));
 		skin.add("iB", new Texture("assets/instructions_button.png"));
+		skin.add("chmB", new Texture("assets/chm_button.png"));
 		skin.add("qover", new Texture("assets/quit.png"));
 
 		TextButtonStyle tb = new TextButtonStyle();
@@ -156,6 +160,7 @@ public class MainMenu implements Screen {
 		TextButtonStyle tb2 = new TextButtonStyle();
 		TextButtonStyle tb3 = new TextButtonStyle();
 		TextButtonStyle tb4 = new TextButtonStyle();
+		TextButtonStyle tb5 = new TextButtonStyle();
 		tb.up = skin.newDrawable("red", Color.LIGHT_GRAY);
 		tb.down = skin.newDrawable("red", Color.DARK_GRAY);
 		tb.over = skin.newDrawable("pb");
@@ -181,11 +186,17 @@ public class MainMenu implements Screen {
 		tb4.over = skin.newDrawable("iB");
 		tb4.font = new BitmapFont();
 
+		tb5.up = skin.newDrawable("help", Color.LIGHT_GRAY);
+		tb5.down = skin.newDrawable("help", Color.DARK_GRAY);
+		tb5.over = skin.newDrawable("chmB");
+		tb5.font = new BitmapFont();
+
 		final TextButton playButton = new TextButton("", tb);
 		final TextButton loadButton = new TextButton("", tb2);
 		final TextButton quitButton = new TextButton("", tb1);
 		final TextButton highScoreButton = new TextButton("", tb3);
 		final TextButton instructionsButton = new TextButton("", tb4);
+		final TextButton helpButton = new TextButton("", tb5);
 
 		playButton.setPosition(475, 400);
 		playButton.setWidth(250f);
@@ -224,11 +235,16 @@ public class MainMenu implements Screen {
 
 		quitButton.addAction(Actions.fadeIn(1.5f));
 
-		
-		
+		helpButton.setPosition(1085, 510);
+		helpButton.setWidth(64f);
+		helpButton.setHeight(64f);
+		helpButton.setColor(helpButton.getColor().r, helpButton.getColor().g, helpButton.getColor().b, 0);
+
+		helpButton.addAction(Actions.fadeIn(1.5f));
+
 		playButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-					game.setScreen (new NameInput (batch,game));
+				game.setScreen(new NameInput(batch, game));
 			}
 		});
 
@@ -264,11 +280,22 @@ public class MainMenu implements Screen {
 			}
 		});
 
+		helpButton.addCaptureListener(new ChangeListener() {
+			public void changed(ChangeEvent event, Actor actor) {
+				try {
+					Runtime.getRuntime().exec("hh.exe help.chm");
+				} catch (Exception e) {
+
+				}
+			}
+		});
+
 		stage.addActor(playButton);
 		stage.addActor(loadButton);
 		stage.addActor(highScoreButton);
 		stage.addActor(instructionsButton);
 		stage.addActor(quitButton);
+		stage.addActor(helpButton);
 	}
 
 	/**
@@ -285,16 +312,16 @@ public class MainMenu implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batch.begin();
-		
-		if (Gdx.input.isKeyPressed(Keys.UP)){
-			
+
+		if (Gdx.input.isKeyPressed(Keys.UP)) {
+
 		}
-			if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
-				game.setScreen(new NameInput (batch,game));
-			}
-		
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			game.setScreen(new NameInput(batch, game));
+		}
+
 		batch.end();
-		
+
 		stage.act();
 		stage.draw();
 		ttl.act(delta);
@@ -344,10 +371,6 @@ public class MainMenu implements Screen {
 	public void dispose() {
 		// batch.dispose();
 		stage.dispose();
-		bg.dispose();
-		pB.dispose();
-		qB.dispose();
-		title.dispose();
 		skin.dispose();
 		// mainMusic.dispose();
 		// pix.dispose();

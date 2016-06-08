@@ -191,7 +191,6 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
@@ -254,8 +253,8 @@ public class GameScreen implements Screen {
 	private Sprite menuSprite;
 	private Sprite goDarkSprite;
 	private Sprite goSprite;
-	private Sprite treasureSprite; //jd
-	private Sprite treasureOverlaySprite; //jd
+	private Sprite treasureSprite; // jd
+	private Sprite treasureOverlaySprite; // jd
 
 	private Rectangle body;
 	private Rectangle interp;
@@ -267,10 +266,10 @@ public class GameScreen implements Screen {
 
 	private ArrayList<Rectangle> collisionArray = new ArrayList<Rectangle>();
 	private ArrayList<Rectangle> boulderArr = new ArrayList<Rectangle>();
-	public static ArrayList<Integer>boulderXArr;
-	public static ArrayList<Integer>boulderYArr;
-	private ArrayList <Integer> distanceArr;
-	private ArrayList <String> directionArr; 
+	public static ArrayList<Integer> boulderXArr;
+	public static ArrayList<Integer> boulderYArr;
+	private ArrayList<Integer> distanceArr;
+	private ArrayList<String> directionArr;
 
 	private ArrayList<TiledMap> mapList = new ArrayList<TiledMap>();
 
@@ -293,7 +292,7 @@ public class GameScreen implements Screen {
 	private Texture goText;
 	private Texture goDarkText;
 	private Texture treasureText;
-	private Texture treasureOverlayText; 
+	private Texture treasureOverlayText;
 
 	private Ellipse start;
 
@@ -325,23 +324,29 @@ public class GameScreen implements Screen {
 
 	private Boulder b;
 
-	private Rectangle [] boulderCollision; 
+	private Rectangle[] boulderCollision;
 
 	/**
 	 * The GameScreen constructor is responsible for taking values in from other
 	 * classes in order to be used.
-	 * @param batch SpriteBatch used for rendering screen elements
-	 * @param game MainGame used for switching between screens
-	 * @param name String used for username storage
-	 * @param difficulty int used for difficulty selection
-	 * @param timeSeconds int used for time storage
+	 * 
+	 * @param batch
+	 *            SpriteBatch used for rendering screen elements
+	 * @param game
+	 *            MainGame used for switching between screens
+	 * @param name
+	 *            String used for username storage
+	 * @param difficulty
+	 *            int used for difficulty selection
+	 * @param timeSeconds
+	 *            int used for time storage
 	 */
-	public GameScreen(SpriteBatch batch, MainGame game,String name, int difficulty,int timeSeconds) {
+	public GameScreen(SpriteBatch batch, MainGame game, String name, int difficulty, int timeSeconds) {
 		this.batch = batch;
 		this.game = game;
-		this.name=name;
+		this.name = name;
 		this.difficulty = difficulty;
-		this.timeSeconds=timeSeconds;
+		this.timeSeconds = timeSeconds;
 	}
 
 	/**
@@ -404,12 +409,12 @@ public class GameScreen implements Screen {
 	}
 
 	/**
-	 * The show() method is an overridden method from the Screen interface. This method
-	 * is run once at the beginning of the application run time. This method
-	 * is used to create and initialize variables as well as run settings that should
-	 * be run at the beginning of the application, such as the playing of music. First
-	 * and second for loop is used to fill the texture region arrays with images from the
-	 * spritesheet to be used for animation.
+	 * The show() method is an overridden method from the Screen interface. This
+	 * method is run once at the beginning of the application run time. This
+	 * method is used to create and initialize variables as well as run settings
+	 * that should be run at the beginning of the application, such as the
+	 * playing of music. First and second for loop is used to fill the texture
+	 * region arrays with images from the spritesheet to be used for animation.
 	 */
 	@Override
 	public void show() {
@@ -427,9 +432,11 @@ public class GameScreen implements Screen {
 
 		musicPlay();
 
-		//create font
-		timerFont = new BitmapFont (Gdx.files.internal("assets/8bit_bitmap.fnt"),Gdx.files.internal("assets/8bit_bitmap_0.png"),false);
-		dialogFont = new BitmapFont (Gdx.files.internal ("assets/riskofrain_bitmap.fnt"), Gdx.files.internal("assets/riskofrain_bitmap_0.png"),false);
+		// create font
+		timerFont = new BitmapFont(Gdx.files.internal("assets/8bit_bitmap.fnt"),
+				Gdx.files.internal("assets/8bit_bitmap_0.png"), false);
+		dialogFont = new BitmapFont(Gdx.files.internal("assets/riskofrain_bitmap.fnt"),
+				Gdx.files.internal("assets/riskofrain_bitmap_0.png"), false);
 
 		// set accessor
 		Tween.registerAccessor(Sprite.class, new SpriteManager());
@@ -474,9 +481,9 @@ public class GameScreen implements Screen {
 		// quit rectangle
 		quitRect = new Rectangle(quitSprite.getX(), quitSprite.getY(), quitSprite.getWidth(), quitSprite.getHeight());
 
-		//create treasure
-		treasureText = new Texture ("assets/Oscar.png");
-		treasureSprite = new Sprite (treasureText);
+		// create treasure
+		treasureText = new Texture("assets/Oscar.png");
+		treasureSprite = new Sprite(treasureText);
 
 		treasureSprite.setPosition(900f, 100f);
 
@@ -491,29 +498,29 @@ public class GameScreen implements Screen {
 		occupyArray("assets/snow_map.tmx");
 		occupyArray("assets/snow_map2.tmx");
 
-		treasureOverlayText = new Texture ("assets/treasure_overlay.png");
-		treasureOverlaySprite = new Sprite (treasureOverlayText);
+		treasureOverlayText = new Texture("assets/treasure_overlay.png");
+		treasureOverlaySprite = new Sprite(treasureOverlayText);
 
 		// sets current map based on difficulty
 		setCurrentMap(difficulty);
 
 		// create boulder object
-		b = new Boulder (currentMap);
+		b = new Boulder(currentMap);
 
-		//occupy x array
+		// occupy x array
 		boulderXArr = b.getStartX();
 
-		//occupy y array
+		// occupy y array
 		boulderYArr = b.getStartY();
 
-		//occupy distance array
+		// occupy distance array
 		distanceArr = b.getDistance();
 
-		//occupy direction array
+		// occupy direction array
 		directionArr = b.getDirection();
 
-		//create boulder collision array
-		boulderCollision = new Rectangle [directionArr.size()];
+		// create boulder collision array
+		boulderCollision = new Rectangle[directionArr.size()];
 
 		// create success text
 		successText = new Texture("assets/levelcomplete_text.png");
@@ -604,17 +611,17 @@ public class GameScreen implements Screen {
 		// pause text animation
 		Tween.set(pauseTextSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(pauseTextSprite, SpriteManager.ALPHA, 0.5f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-		.start(tweenManager);
+				.start(tweenManager);
 
 		// success animation
 		Tween.set(successSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(successSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-		.start(tweenManager);
+				.start(tweenManager);
 
-		//treasure animation
+		// treasure animation
 		Tween.set(treasureSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(treasureSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-		.start(tweenManager);
+				.start(tweenManager);
 	}
 
 	/**
@@ -622,19 +629,18 @@ public class GameScreen implements Screen {
 	 * render method is run every frame, and as a result, updates the screen
 	 * every frame with new information. This allows for animations of sprites
 	 * and such to be easier. Things are displayed on the screen using a
-	 * SpriteBatch, which acts as a container of sorts for the screen
-	 * elements. First if statement is used to save the game state when the
-	 * keyboard shortcut Ctrl + S is used. Second if statement is used to
-	 * increment the timer when the game is not paused or finished. Third if
-	 * structure is used to update the game whenever it is not paused. If it
-	 * is paused, this if statement draws the pause overlay. First for loop
-	 * draws all of the boulders when the game is paused. Fourth if statement
-	 * is used to quit to the main menu when the quit button is pressed. Fifth
-	 * if statement is used to resume the game when the back button is pressed.
-	 * Sixth if statement is used to resume the game when the escape key is
-	 * pressed while the game is in pause state. Seventh if statement is used
-	 * to draw the treasure item if the map properties state that the map
-	 * contains one.
+	 * SpriteBatch, which acts as a container of sorts for the screen elements.
+	 * First if statement is used to save the game state when the keyboard
+	 * shortcut Ctrl + S is used. Second if statement is used to increment the
+	 * timer when the game is not paused or finished. Third if structure is used
+	 * to update the game whenever it is not paused. If it is paused, this if
+	 * statement draws the pause overlay. First for loop draws all of the
+	 * boulders when the game is paused. Fourth if statement is used to quit to
+	 * the main menu when the quit button is pressed. Fifth if statement is used
+	 * to resume the game when the back button is pressed. Sixth if statement is
+	 * used to resume the game when the escape key is pressed while the game is
+	 * in pause state. Seventh if statement is used to draw the treasure item if
+	 * the map properties state that the map contains one.
 	 */
 	@Override
 	public void render(float delta) {
@@ -648,12 +654,13 @@ public class GameScreen implements Screen {
 
 		body.setPosition(indianaX, indianaY);
 
-		if((Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)||Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT))&&Gdx.input.isKeyPressed(Keys.S)&&!gameEnded){
+		if ((Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT))
+				&& Gdx.input.isKeyPressed(Keys.S) && !gameEnded) {
 			saveGame();
 			game.getSaveManager().writeSave();
 		}
 
-		if (!paused&&!gameEnded) 
+		if (!paused && !gameEnded)
 			time += Gdx.graphics.getDeltaTime();
 
 		// set camera view
@@ -665,11 +672,11 @@ public class GameScreen implements Screen {
 
 		batch.begin();
 
-		//draw font
+		// draw font
 		timerFont.setColor(Color.BLACK);
-		timerFont.draw(batch, "Time [ "+(timeSeconds+(int)time)+" ]", 100f, 700f);
+		timerFont.draw(batch, "Time [ " + (timeSeconds + (int) time) + " ]", 100f, 700f);
 		timerFont.setColor(Color.WHITE);
-		timerFont.draw(batch, "Time [ "+(timeSeconds+(int)time)+" ]", 105f, 705f);
+		timerFont.draw(batch, "Time [ " + (timeSeconds + (int) time) + " ]", 105f, 705f);
 
 		if (!paused && !gameEnded) {
 			gameUpdate();
@@ -683,13 +690,12 @@ public class GameScreen implements Screen {
 			pauseTextSprite.draw(batch);
 			darkBackSprite.draw(batch);
 			darkQuitSprite.draw(batch);
-			if (Gdx.input.isKeyJustPressed(Keys.R)){
-				if (difficulty % 2 == 0){
+			if (Gdx.input.isKeyJustPressed(Keys.R)) {
+				if (difficulty % 2 == 0) {
 					time = 0;
 					timeSeconds = 0;
 					createMap();
-				}
-				else if (difficulty %2 !=0){
+				} else if (difficulty % 2 != 0) {
 					difficulty -= 1;
 					time = 0;
 					timeSeconds = 0;
@@ -697,10 +703,9 @@ public class GameScreen implements Screen {
 				}
 			}
 
-
-			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY())||Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY()) || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 				quitSprite.draw(batch);
-				if (Gdx.input.justTouched()||Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+				if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 					game.setScreen(new MainMenu(batch, game));
 				}
 			}
@@ -721,8 +726,8 @@ public class GameScreen implements Screen {
 			drawOverlay();
 		}
 
-		//draw treasure
-		if (Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure", String.class))&&!retrieved){
+		// draw treasure
+		if (Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure", String.class)) && !retrieved) {
 			treasureSprite.draw(batch);
 		}
 
@@ -735,60 +740,60 @@ public class GameScreen implements Screen {
 	 * everytime the render method runs, as long as the game is not in a paused
 	 * state. First for loop is used to update every boulder with the Boulder
 	 * class, and to reset and draw the boulders in their new locations. First
-	 * if statement is used to respawn the player if they collide with a boulder.
-	 * Second if statement is used to set the retrieved boolean to true if the
-	 * player has retrieved the treasure item. Third if statement is used to
-	 * set paused boolean to true and to set mouse cursor to catched if the
+	 * if statement is used to respawn the player if they collide with a
+	 * boulder. Second if statement is used to set the retrieved boolean to true
+	 * if the player has retrieved the treasure item. Third if statement is used
+	 * to set paused boolean to true and to set mouse cursor to catched if the
 	 * escape key is pressed. Fourth if statement is used to determine actions
 	 * that are performed if the D key or the right arrow key is pressed. Fifth
 	 * if statement updates player location as long as they don't collide with
-	 * the map. Sixth if statement resets player location if the collide with 
+	 * the map. Sixth if statement resets player location if the collide with
 	 * outer map boundaries. Seventh if statement sets player movement direction
-	 * to right. Eighth if statement determines actions to be performed if the
-	 * A key or the left arrow key is pressed. Ninth if statement updates player
+	 * to right. Eighth if statement determines actions to be performed if the A
+	 * key or the left arrow key is pressed. Ninth if statement updates player
 	 * location as long as they don't collide with the map. Tenth if statement
 	 * resets player location if they collide with the outer map boundaries.
 	 * Eleventh if statement sets player direction to left. Twelfth if statement
 	 * determines actions to be performed if the S key or the down arrow key is
 	 * pressed. Thirteenth if statement updates player location as long as they
-	 * don't collide with the map. Fourteenth if statement resets player location
-	 * if they collide with the outer map boundaries. Fifteenth if statement sets
-	 * the player direction to down. Sixteenth if statement determines actions to
-	 * be performed if the W key or the up arrow key is pressed. Seventeenth if
-	 * statement updates player location as long as they don't collide with the map.
-	 * Eighteenth if statement resets player location if they collide with outer
-	 * map boundaries. Nineteenth if statement sets the player direction to up.
-	 * Twentieth if statement sets player direction to none. Twenty-first if
-	 * statement saves the game and resets timer/direction values if the player
-	 * completes the game.
+	 * don't collide with the map. Fourteenth if statement resets player
+	 * location if they collide with the outer map boundaries. Fifteenth if
+	 * statement sets the player direction to down. Sixteenth if statement
+	 * determines actions to be performed if the W key or the up arrow key is
+	 * pressed. Seventeenth if statement updates player location as long as they
+	 * don't collide with the map. Eighteenth if statement resets player
+	 * location if they collide with outer map boundaries. Nineteenth if
+	 * statement sets the player direction to up. Twentieth if statement sets
+	 * player direction to none. Twenty-first if statement saves the game and
+	 * resets timer/direction values if the player completes the game.
 	 */
 	public void gameUpdate() {
 
-		String collide="";
+		String collide = "";
 
 		interpY = indianaY;
 		priority = false;
 		direction = "none";
 
-		//boulder draw
+		// boulder draw
 		for (int x = 0; x < boulderArr.size(); x++) {
 			b.update(x, distanceArr.get(x).intValue(), directionArr.get(x));
 			boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
 
-			boulderCollision[x] = new Rectangle (boulderXArr.get(x),boulderYArr.get(x),64,64);
+			boulderCollision[x] = new Rectangle(boulderXArr.get(x), boulderYArr.get(x), 64, 64);
 
 			boulder1Sprite.draw(batch);
 		}
 
 		endCheck();
 
-		if (collidesWithBoulders()){
+		if (collidesWithBoulders()) {
 			indianaX = start.x;
 			indianaY = start.y;
 
 		}
 
-		if (treasureRetrieved()){
+		if (treasureRetrieved()) {
 			retrieved = true;
 		}
 
@@ -797,105 +802,101 @@ public class GameScreen implements Screen {
 			catched = !catched;
 			paused = true;
 		}
-if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)==false){
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) == false && Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT) == false) {
 
-		if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
-			interp.setPosition(indianaX + 4, interpY);
-			if (!collidesWithMap()&&!collide.equals("right")) {
-				indianaX += Gdx.graphics.getDeltaTime() * speed;
+			if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
+				interp.setPosition(indianaX + 4, interpY);
+				if (!collidesWithMap() && !collide.equals("right")) {
+					indianaX += Gdx.graphics.getDeltaTime() * speed;
+				} else {
+					collide = "right";
+				}
+				endCheck();
+
+				interp.setPosition(indianaX, interpY);
+
+				if (indianaX + indianaJones.getWidth() >= 1200) {
+					indianaX = 1200 - indianaJones.getWidth();
+				}
+				if (!priority)
+					direction = "right";
+				priority = true;
+
 			}
-			else{
-				collide = "right";
+			if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
+
+				interp.setPosition(indianaX - 4, interpY);
+
+				if (!collidesWithMap() && !collide.equals("left")) {
+					indianaX -= Gdx.graphics.getDeltaTime() * speed;
+				} else {
+					collide = "left";
+				}
+				endCheck();
+
+				interp.setPosition(indianaX, interpY);
+
+				if (indianaX <= -17) {
+					indianaX = -17;
+				}
+				if (!priority)
+					direction = "left";
+				priority = true;
+
 			}
-			endCheck();
+			if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
 
-			interp.setPosition(indianaX, interpY);
+				interp.setPosition(indianaX, interpY - 4);
 
-			if (indianaX + indianaJones.getWidth() >= 1200) {
-				indianaX = 1200 - indianaJones.getWidth();
+				if (!collidesWithMap() && !collide.equals("down")) {
+					indianaY -= Gdx.graphics.getDeltaTime() * speed;
+				} else {
+					collide = "down";
+				}
+				endCheck();
+
+				interp.setPosition(indianaX, interpY);
+
+				if (indianaY <= 0) {
+					indianaY = 0;
+				}
+				if (!priority)
+					direction = "down";
+				priority = true;
+
 			}
-			if (!priority)
-				direction = "right";
-			priority = true;
+			if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
 
+				interp.setPosition(indianaX, interpY + 4);
+
+				if (!collidesWithMap() && !collide.equals("up")) {
+					indianaY += Gdx.graphics.getDeltaTime() * speed;
+				} else {
+					collide = "up";
+				}
+				endCheck();
+
+				interp.setPosition(indianaX, interpY);
+
+				if (indianaY + indianaJones.getHeight() >= 768) {
+					indianaY = 768 - indianaJones.getHeight();
+				}
+				if (!priority)
+					direction = "up";
+				priority = true;
+
+			} else {
+				if (!priority)
+					direction = "none";
+				priority = true;
+
+			}
 		}
-		if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
-
-			interp.setPosition(indianaX - 4, interpY);
-
-			if (!collidesWithMap()&&!collide.equals("left")) {
-				indianaX -= Gdx.graphics.getDeltaTime() * speed;
-			}
-			else{
-				collide = "left";
-			}
-			endCheck();
-
-			interp.setPosition(indianaX, interpY);
-
-			if (indianaX <= -17) {
-				indianaX = -17;
-			}
-			if (!priority)
-				direction = "left";
-			priority = true;
-
-		}
-		if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
-
-			interp.setPosition(indianaX, interpY - 4);
-
-			if (!collidesWithMap()&&!collide.equals("down")) {
-				indianaY -= Gdx.graphics.getDeltaTime() * speed;
-			}
-			else{
-				collide = "down";
-			}
-			endCheck();
-
-			interp.setPosition(indianaX, interpY);
-
-			if (indianaY <= 0) {
-				indianaY = 0;
-			}
-			if (!priority)
-				direction = "down";
-			priority = true;
-
-		}
-		if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
-
-			interp.setPosition(indianaX, interpY + 4);
-
-			if (!collidesWithMap()&&!collide.equals("up")) {
-				indianaY += Gdx.graphics.getDeltaTime() * speed;
-			}
-			else{
-				collide = "up";
-			}
-			endCheck();
-
-			interp.setPosition(indianaX, interpY);
-
-			if (indianaY + indianaJones.getHeight() >= 768) {
-				indianaY = 768 - indianaJones.getHeight();
-			}
-			if (!priority)
-				direction = "up";
-			priority = true;
-
-		} else {
-			if (!priority)
-				direction = "none";
-			priority = true;
-
-		}
-}
 		if (gameEnded) {
 			saveGame();
-			timeSeconds=0;
-			time=0;
-			direction="none";
+			timeSeconds = 0;
+			time = 0;
+			direction = "none";
 
 		}
 		priorityDraw();
@@ -904,9 +905,9 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 	/**
 	 * This method uses a for loop and an if statement to determine if the
 	 * user's walking hitbox collides with the map boundaries. If the user
-	 * collides with the map, a result of true is returned. First for loop
-	 * runs through the array of collision rectangles. First if statement
-	 * determines if the player collides with any of the collision rectangles.
+	 * collides with the map, a result of true is returned. First for loop runs
+	 * through the array of collision rectangles. First if statement determines
+	 * if the player collides with any of the collision rectangles.
 	 * 
 	 * @return result boolean based on if player collides with map
 	 */
@@ -922,9 +923,10 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 	}
 
 	/**
-	 * This method determines if the player collides with the end point of
-	 * the level. First if statement determines if the player's hitbox rectangle
+	 * This method determines if the player collides with the end point of the
+	 * level. First if statement determines if the player's hitbox rectangle
 	 * collides with the rectangle of the end location.
+	 * 
 	 * @return result Boolean based on if the player collides with end point
 	 */
 	private boolean mapEnds() {
@@ -941,11 +943,11 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 	 * multiple keys at once, only the first key's animation will play, instead
 	 * of having multiple walking animations play at the same time. First if
 	 * statement draws the up animation if the direction of the player is up.
-	 * Second if statement draws the down animation if the direction of the player
-	 * is down. Third if statement draws the left animation if the direction of
-	 * the player is left. Fourth if statement draws the right animation if the
-	 * direction of the player is right. Fifth if statement draws a still image
-	 * if the direction of the player is none.
+	 * Second if statement draws the down animation if the direction of the
+	 * player is down. Third if statement draws the left animation if the
+	 * direction of the player is left. Fourth if statement draws the right
+	 * animation if the direction of the player is right. Fifth if statement
+	 * draws a still image if the direction of the player is none.
 	 */
 	private void priorityDraw() {
 		if (direction.equals("up"))
@@ -995,35 +997,34 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 	/**
 	 * This method checks if the user has ended the stage or level. If the stage
 	 * that the user has completed is not the final stage of the difficulty, a
-	 * new map (the last stage) is loaded. If the stage that the user has completed
-	 * is the final stage of the difficulty, a game winning overlay with the
-	 * user's name and score is displayed and the game is saved. First if statement
-	 * determines if the user has completed the level. Second if statement determines
-	 * the actions to be performed if the stage the user has completed was the first
-	 * stage of the difficulty. Third if statement draws the overlay and sets gameEnded
-	 * to true if the map does not contain a treasure or if the treasure has been
-	 * retrieved. 
+	 * new map (the last stage) is loaded. If the stage that the user has
+	 * completed is the final stage of the difficulty, a game winning overlay
+	 * with the user's name and score is displayed and the game is saved. First
+	 * if statement determines if the user has completed the level. Second if
+	 * statement determines the actions to be performed if the stage the user
+	 * has completed was the first stage of the difficulty. Third if statement
+	 * draws the overlay and sets gameEnded to true if the map does not contain
+	 * a treasure or if the treasure has been retrieved.
 	 */
 	private void endCheck() {
-		if(mapEnds()){
+		if (mapEnds()) {
 
 			if (difficulty % 2 == 0) {
 				difficulty++;
 				setCurrentMap(difficulty);
-				b = new Boulder (currentMap);
+				b = new Boulder(currentMap);
 				createMap();
 				System.out.println("stage end");
-			} 
-			else {
-				if (retrieved||!Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure",String.class))){
+			} else {
+				if (retrieved
+						|| !Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure", String.class))) {
 					System.out.println("level complete");
 					gameEnded = true;
 					drawOverlay();
+				} else {
+					treasureOverlaySprite.draw(batch);
 				}
-				else{
-					treasureOverlaySprite.draw (batch);
-				}
-				if (retrieved){
+				if (retrieved) {
 					saveGame();
 					HighScore.addSave(game.getSaveManager().getSave());
 				}
@@ -1032,28 +1033,29 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 	}
 
 	/**
-	 * This method calls the save method in the SaveManager class from the MainGame
-	 * class. The method stores the user's name, the difficulty of the stage they
-	 * are currently on, and the total time that has elapsed.
+	 * This method calls the save method in the SaveManager class from the
+	 * MainGame class. The method stores the user's name, the difficulty of the
+	 * stage they are currently on, and the total time that has elapsed.
 	 */
-	public void saveGame(){
+	public void saveGame() {
 		totalTime = time;
-		game.getSaveManager().setSave(new Save(name,difficulty,timeSeconds+(int)totalTime));
+		game.getSaveManager().setSave(new Save(name, difficulty, timeSeconds + (int) totalTime));
 	}
 
 	/**
-	 * This method draws the game ending overlay, which happens when the user has
-	 * completed the final stage of the difficulty. This game ending overlay contains
-	 * the user's name within a dialog box as well as the time it took for the user
-	 * to complete the entire difficulty level. The first if statement determines
-	 * what actions to be performed when the user's cursor is over the menu button. The
-	 * second if statement changes the game screen to the main menu if the user clicks
-	 * their mouse while the cursor is over the menu button. The third if statement
-	 * determines what actions to be performed when the user's cursor is over the go
-	 * button. The fourth if statement renders the new map and resets values when
-	 * the user clicks their mouse while the cursor is over the go button. The fifth if
-	 * statement determine actions to occur based on whether the level they completed
-	 * is the last one or not.
+	 * This method draws the game ending overlay, which happens when the user
+	 * has completed the final stage of the difficulty. This game ending overlay
+	 * contains the user's name within a dialog box as well as the time it took
+	 * for the user to complete the entire difficulty level. The first if
+	 * statement determines what actions to be performed when the user's cursor
+	 * is over the menu button. The second if statement changes the game screen
+	 * to the main menu if the user clicks their mouse while the cursor is over
+	 * the menu button. The third if statement determines what actions to be
+	 * performed when the user's cursor is over the go button. The fourth if
+	 * statement renders the new map and resets values when the user clicks
+	 * their mouse while the cursor is over the go button. The fifth if
+	 * statement determine actions to occur based on whether the level they
+	 * completed is the last one or not.
 	 */
 	private void drawOverlay() {
 		Gdx.input.setCursorCatched(false);
@@ -1064,15 +1066,15 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 		menuDarkSprite.draw(batch);
 		goDarkSprite.draw(batch);
 
-		//timer font
+		// timer font
 		timerFont.setColor(Color.BLACK);
-		timerFont.draw(batch, ""+(int)totalTime+" Seconds", 685f, 470f);
+		timerFont.draw(batch, "" + (int) totalTime + " Seconds", 685f, 470f);
 		timerFont.setColor(Color.WHITE);
-		timerFont.draw(batch, ""+(int)totalTime+" Seconds", 690f, 475f);
+		timerFont.draw(batch, "" + (int) totalTime + " Seconds", 690f, 475f);
 
-		//dialog font
+		// dialog font
 		dialogFont.setColor(Color.BLACK);
-		dialogFont.draw(batch, name+"!", 630f, 275f);
+		dialogFont.draw(batch, name + "!", 630f, 275f);
 
 		if (menuRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			menuSprite.draw(batch);
@@ -1084,20 +1086,20 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 		if (goRect.contains(Gdx.input.getX(), Gdx.input.getY() - 610) || Gdx.input.isKeyPressed(Keys.ENTER)) {
 			goSprite.draw(batch);
 			if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ENTER)) {
-				if(difficulty<5){
+				if (difficulty < 5) {
 					catched = true;
 					difficulty++;
 					gameEnded = false;
 					setCurrentMap(difficulty);
 					musicPlay();
-					timeSeconds=0;
-					time=0;
-					direction="none";
+					timeSeconds = 0;
+					time = 0;
+					direction = "none";
 					createMap();
 
-				}
-				else{
-					game.setScreen(new HighScore(batch,game));;
+				} else {
+					game.setScreen(new HighScore(batch, game));
+					;
 				}
 
 			}
@@ -1105,21 +1107,22 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 	}
 
 	/**
-	 * This method is responsible for rendering the map, and resetting all of the
-	 * array values (such as collision array and boulder array). This method is
-	 * used for when a new map is switched. The first for loop occupies the collision
-	 * array with rectangles taken from the map file. The first if statement determines
-	 * if the current object is a Rectangle. If so, it is added to the collision array.
-	 * The second for loop runs through the map objects that represent the start and end
-	 * points in the map file. The second if statement determines if the object is an
-	 * Ellipse. If so, the start value is set to the Ellipse. The third if statement
-	 * determines if the object is a Rectangle. If so, the end value is set to the Rectangle.
-	 * The fourth if statement resets the retrieved value to false if the map contains
-	 * a treasure item.
+	 * This method is responsible for rendering the map, and resetting all of
+	 * the array values (such as collision array and boulder array). This method
+	 * is used for when a new map is switched. The first for loop occupies the
+	 * collision array with rectangles taken from the map file. The first if
+	 * statement determines if the current object is a Rectangle. If so, it is
+	 * added to the collision array. The second for loop runs through the map
+	 * objects that represent the start and end points in the map file. The
+	 * second if statement determines if the object is an Ellipse. If so, the
+	 * start value is set to the Ellipse. The third if statement determines if
+	 * the object is a Rectangle. If so, the end value is set to the Rectangle.
+	 * The fourth if statement resets the retrieved value to false if the map
+	 * contains a treasure item.
 	 */
 	private void createMap() {
 
-		b = new Boulder (currentMap);
+		b = new Boulder(currentMap);
 
 		tmRender = new OrthogonalTiledMapRenderer(currentMap);
 
@@ -1152,8 +1155,8 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 
 		directionArr = b.getDirection();
 
-		//create boulder collision array
-		boulderCollision = new Rectangle [directionArr.size()];
+		// create boulder collision array
+		boulderCollision = new Rectangle[directionArr.size()];
 
 		boulder1 = new Texture("assets/boulder_1.png");
 		boulder1Sprite = new Sprite(boulder1);
@@ -1178,11 +1181,10 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 		indianaX = start.x;
 		indianaY = start.y;
 
-		if (Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure",String.class))){
+		if (Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure", String.class))) {
 			retrieved = false;
-		}
-		else{
-			retrieved = true; 
+		} else {
+			retrieved = true;
 		}
 
 	}
@@ -1194,7 +1196,7 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 	 * the user is on the second difficulty. The third if statement plays the
 	 * ice theme if the user is on the third difficulty.
 	 */
-	public void musicPlay(){
+	public void musicPlay() {
 		if (difficulty == 0) {
 			desertMusic.play();
 			earthMusic.stop();
@@ -1218,12 +1220,12 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 	 * 
 	 * @return result Boolean based on if the user collides with a boulder
 	 */
-	public boolean collidesWithBoulders(){
+	public boolean collidesWithBoulders() {
 		boolean result = false;
 
-		for (int x = 0; x < boulderCollision.length; x++){
-			if (boulderCollision != null){
-				if (interp.overlaps(boulderCollision[x])){
+		for (int x = 0; x < boulderCollision.length; x++) {
+			if (boulderCollision != null) {
+				if (interp.overlaps(boulderCollision[x])) {
 					result = true;
 					break;
 				}
@@ -1233,17 +1235,17 @@ if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)==false&&Gdx.input.isKeyPressed(Keys
 	}
 
 	/**
-	 * This method determines if the user has collected the treasure item or not.
-	 * The first if statement determines if the user has collided with the
+	 * This method determines if the user has collected the treasure item or
+	 * not. The first if statement determines if the user has collided with the
 	 * rectangle representing the treasure item.
 	 * 
 	 * @return result Boolean based on if the user collided with treasure item
 	 */
-	private boolean treasureRetrieved(){
+	private boolean treasureRetrieved() {
 		Rectangle treasureRect = treasureSprite.getBoundingRectangle();
 		boolean result = false;
 
-		if (interp.overlaps(treasureRect)){
+		if (interp.overlaps(treasureRect)) {
 			result = true;
 		}
 		return result;

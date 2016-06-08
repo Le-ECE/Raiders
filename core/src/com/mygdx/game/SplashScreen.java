@@ -69,176 +69,176 @@ import tween.SpriteManager;
 
 public class SplashScreen implements Screen {
 
- SpriteBatch batch;
+	SpriteBatch batch;
 
- MainGame game;
+	MainGame game;
 
- Animation walkAnim;
- Animation rollAnim;
+	Animation walkAnim;
+	Animation rollAnim;
 
- TextureRegion[] framesWalk;
- TextureRegion[] framesRoll;
+	TextureRegion[] framesWalk;
+	TextureRegion[] framesRoll;
 
- Sprite splashTitleSprite;
+	Sprite splashTitleSprite;
 
- Texture walk;
- Texture roll;
- Texture background;
- Texture splashTitle;
+	Texture walk;
+	Texture roll;
+	Texture background;
+	Texture splashTitle;
 
- float time;
- float speed;
- float walkX;
+	float time;
+	float speed;
+	float walkX;
 
- TweenManager tweenManager;
+	TweenManager tweenManager;
 
- /**
-  * The constructor for this class takes in an instance of MainGame and in
-  * order to allow for changing of game screens.
-  * 
-  * @param game
-  *            MainGame instance used for changing screens
-  */
- public SplashScreen(MainGame game) {
-  this.game = game;
- }
+	/**
+	 * The constructor for this class takes in an instance of MainGame and in
+	 * order to allow for changing of game screens.
+	 * 
+	 * @param game
+	 *            MainGame instance used for changing screens
+	 */
+	public SplashScreen(MainGame game) {
+		this.game = game;
+	}
 
- /**
-  * The show method is used to initialize all of the variables, as well as
-  * set all the positions, and sizes for each of the sprites to be drawn on
-  * screen. The show method runs every time the application is ran.
-  */
- @Override
- public void show() {
-  batch = new SpriteBatch();
+	/**
+	 * The show method is used to initialize all of the variables, as well as
+	 * set all the positions, and sizes for each of the sprites to be drawn on
+	 * screen. The show method runs every time the application is ran.
+	 */
+	@Override
+	public void show() {
+		batch = new SpriteBatch();
 
-  tweenManager = new TweenManager();
-  Tween.registerAccessor(Sprite.class, new SpriteManager());
+		tweenManager = new TweenManager();
+		Tween.registerAccessor(Sprite.class, new SpriteManager());
 
-  speed = 250.0f;
+		speed = 250.0f;
 
-  background = new Texture("assets/splash.png");
+		background = new Texture("assets/splash.png");
 
-  splashTitle = new Texture("assets/splashtitle.png");
-  splashTitleSprite = new Sprite(splashTitle);
-  splashTitleSprite.setPosition(0f, 750 - splashTitleSprite.getHeight());
+		splashTitle = new Texture("assets/splashtitle.png");
+		splashTitleSprite = new Sprite(splashTitle);
+		splashTitleSprite.setPosition(0f, 750 - splashTitleSprite.getHeight());
 
-  roll = new Texture("assets/roll_left.png");
-  walk = new Texture("assets/left_walk.png");
+		roll = new Texture("assets/roll_left.png");
+		walk = new Texture("assets/left_walk.png");
 
-  TextureRegion[][] temp_left = TextureRegion.split(walk, 32, 64);
-  TextureRegion[][] temp_roll = TextureRegion.split(roll, 32, 32);
-  framesWalk = new TextureRegion[4];
-  framesRoll = new TextureRegion[4];
+		TextureRegion[][] temp_left = TextureRegion.split(walk, 32, 64);
+		TextureRegion[][] temp_roll = TextureRegion.split(roll, 32, 32);
+		framesWalk = new TextureRegion[4];
+		framesRoll = new TextureRegion[4];
 
-  int index = 0;
+		int index = 0;
 
-  for (int rows = 0; rows < 2; rows++) {
-   for (int col = 0; col < 2; col++) {
-    framesWalk[index] = temp_left[rows][col];
-    framesRoll[index] = temp_roll[rows][col];
-    index++;
-   }
-  }
+		for (int rows = 0; rows < 2; rows++) {
+			for (int col = 0; col < 2; col++) {
+				framesWalk[index] = temp_left[rows][col];
+				framesRoll[index] = temp_roll[rows][col];
+				index++;
+			}
+		}
 
-  walkAnim = new Animation(0.15f, framesWalk);
-  rollAnim = new Animation(0.10f, framesRoll);
+		walkAnim = new Animation(0.15f, framesWalk);
+		rollAnim = new Animation(0.10f, framesRoll);
 
-  Tween.set(splashTitleSprite, SpriteManager.ALPHA).target(0f).start(tweenManager);
-  Tween.to(splashTitleSprite, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f)
-    .setCallback(new TweenCallback() {
-     @Override
-     public void onEvent(int arg0, BaseTween<?> arg1) {
-      dispose();
-      ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
-     }
-    }).start(tweenManager);
+		Tween.set(splashTitleSprite, SpriteManager.ALPHA).target(0f).start(tweenManager);
+		Tween.to(splashTitleSprite, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f)
+				.setCallback(new TweenCallback() {
+					@Override
+					public void onEvent(int arg0, BaseTween<?> arg1) {
+						dispose();
+						((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
+					}
+				}).start(tweenManager);
 
-  Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
- }
+		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
+	}
 
- /**
-  * The render() method is an overridden method from the GDX library. The
-  * render method is run every frame, and as a result, updates the screen
-  * every frame with new information. This allows for animations of sprites
-  * and such to be easier. Things are displayed on the screen using a
-  * SpriteBatch, which acts as a container of sorts for the screen
-  * elements.Various for loops are used to detect user input, as for
-  * collision and detection.
-  */
- @Override
- public void render(float delta) {
+	/**
+	 * The render() method is an overridden method from the GDX library. The
+	 * render method is run every frame, and as a result, updates the screen
+	 * every frame with new information. This allows for animations of sprites
+	 * and such to be easier. Things are displayed on the screen using a
+	 * SpriteBatch, which acts as a container of sorts for the screen
+	 * elements.Various for loops are used to detect user input, as for
+	 * collision and detection.
+	 */
+	@Override
+	public void render(float delta) {
 
-  tweenManager.update(delta);
+		tweenManager.update(delta);
 
-  time += Gdx.graphics.getDeltaTime();
-  batch.begin();
+		time += Gdx.graphics.getDeltaTime();
+		batch.begin();
 
-  Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-  batch.draw(background, 0, 0, 1200f, 768f);
+		batch.draw(background, 0, 0, 1200f, 768f);
 
-  walkX += Gdx.graphics.getDeltaTime() * speed;
+		walkX += Gdx.graphics.getDeltaTime() * speed;
 
-  batch.draw(walkAnim.getKeyFrame(time, true), 1300 - walkX, 100, 64f, 128f);
-  batch.draw(rollAnim.getKeyFrame(time, true), 1450 - walkX, 100, 128f, 128f);
+		batch.draw(walkAnim.getKeyFrame(time, true), 1300 - walkX, 100, 64f, 128f);
+		batch.draw(rollAnim.getKeyFrame(time, true), 1450 - walkX, 100, 128f, 128f);
 
-  splashTitleSprite.draw(batch);
-  batch.end();
+		splashTitleSprite.draw(batch);
+		batch.end();
 
-  if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-   ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
-  }
- }
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE) || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
+		}
+	}
 
- /**
-  * Unused overridden method.
-  */
- @Override
- public void resize(int width, int height) {
-  // TODO Auto-generated method stub
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
 
- }
+	}
 
- /**
-  * Unused overridden method.
-  */
- @Override
- public void pause() {
-  // TODO Auto-generated method stub
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
 
- }
+	}
 
- /**
-  * Unused overridden method.
-  */
- @Override
- public void resume() {
-  // TODO Auto-generated method stub
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
 
- }
+	}
 
- /**
-  * Unused overridden method.
-  */
- @Override
- public void hide() {
-  // TODO Auto-generated method stub
-  dispose();
- }
+	/**
+	 * Unused overridden method.
+	 */
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		dispose();
+	}
 
- /**
-  * This method disposes of all unused resources in order to prevent more
-  * memory from being taken up.
-  */
- @Override
- public void dispose() {
-  // TODO Auto-generated method stub
-  walk.dispose();
-  roll.dispose();
-  // background.dispose();
-  splashTitle.dispose();
+	/**
+	 * This method disposes of all unused resources in order to prevent more
+	 * memory from being taken up.
+	 */
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		walk.dispose();
+		roll.dispose();
+		// background.dispose();
+		splashTitle.dispose();
 
- }
+	}
 
 }
