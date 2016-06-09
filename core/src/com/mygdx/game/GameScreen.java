@@ -240,6 +240,11 @@ public class GameScreen implements Screen {
 	private TextureRegion[] frames_left;
 	private TextureRegion[] frames_up;
 	private TextureRegion[] frames_down;
+	private TextureRegion[] roller_up;
+	private TextureRegion[] roller_down;
+	private TextureRegion[] roller_left;
+	private TextureRegion[] roller_right;
+	
 
 	private MainGame game;
 
@@ -303,6 +308,10 @@ public class GameScreen implements Screen {
 	private Texture treasureOverlayText;
 	private Texture saveButton;
 	private Texture saveDark;
+	private Texture roll_up;
+	private Texture roll_down;
+	private Texture roll_left;
+	private Texture roll_right;
 
 	private Ellipse start;
 
@@ -607,6 +616,11 @@ public class GameScreen implements Screen {
 		walk_left = new Texture("assets/left_walk.png");
 		walk_up = new Texture("assets/up_walk.png");
 		walk_down = new Texture("assets/down_walk.png");
+		
+		roll_up = new Texture("assets/roll_up.png");
+		roll_down = new Texture("assets/roll_down.png");
+		roll_left = new Texture("assets/roll_left.png");
+		roll_right = new Texture("assets/roll_right.png");
 
 		TextureRegion[][] temp_right = TextureRegion.split(walk_right, 32, 64);
 		frames_right = new TextureRegion[4];
@@ -616,6 +630,15 @@ public class GameScreen implements Screen {
 		frames_up = new TextureRegion[4];
 		TextureRegion[][] temp_down = TextureRegion.split(walk_down, 32, 64);
 		frames_down = new TextureRegion[4];
+		
+		TextureRegion[][] temp_roll_up = TextureRegion.split(roll_up, 32, 32);
+		roller_up = new TextureRegion[4];
+		TextureRegion[][] temp_roll_down = TextureRegion.split(roll_down, 32, 32);
+		roller_down = new TextureRegion[4];
+		TextureRegion[][] temp_roll_left = TextureRegion.split(roll_left, 32, 32);
+		roller_left = new TextureRegion[4];
+		TextureRegion[][] temp_roll_right = TextureRegion.split(roll_right, 32, 32);
+		roller_right = new TextureRegion[4];
 
 		int index = 0;
 		// transfer 2D array of sprite sheet to 1d array for animation
@@ -625,6 +648,10 @@ public class GameScreen implements Screen {
 				frames_left[index] = temp_left[rows][col];
 				frames_up[index] = temp_up[rows][col];
 				frames_down[index] = temp_down[rows][col];
+				roller_up[index]=temp_roll_up[rows][col];
+				roller_down[index]=temp_roll_down[rows][col];
+				roller_left[index]=temp_roll_left[rows][col];
+				roller_right[index]=temp_roll_right[rows][col];
 				index++;
 			}
 		}
@@ -633,10 +660,10 @@ public class GameScreen implements Screen {
 		animation_right = new Animation(0.13f, frames_right);
 		animation_down = new Animation(0.13f, frames_down);
 		
-		boulder_up=new Animation(0.13f, frames_up);
-		boulder_down=new Animation(0.13f, frames_down);
-		boulder_left=new Animation(0.13f, frames_left);
-		boulder_right=new Animation(0.13f, frames_right);
+		boulder_up=new Animation(0.07f, roller_up);
+		boulder_down=new Animation(0.07f, roller_down);
+		boulder_left=new Animation(0.07f, roller_left);
+		boulder_right=new Animation(0.07f, roller_right);
 
 		pauseTextSprite.setPosition(0, 780 - pauseTextSprite.getHeight());
 
@@ -820,20 +847,17 @@ public class GameScreen implements Screen {
 			boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
 
 			boulderCollision[x] = new Rectangle(boulderXArr.get(x), boulderYArr.get(x), 64, 64);
-			if(paused){
-			batch.draw(boulder1Sprite, boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
-			}
-			else if(directionArr.get(x).equals("up")){
-				batch.draw(boulder_up.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 48f, 96f);
+			if(directionArr.get(x).equals("up")){
+				batch.draw(boulder_up.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
 			}
 			else if(directionArr.get(x).equals("down")){
-				batch.draw(boulder_down.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 48f, 96f);
+				batch.draw(boulder_down.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
 			}
 			else if(directionArr.get(x).equals("left")){
-				batch.draw(boulder_left.getKeyFrame(time, true),boulderXArr.get(x), boulderYArr.get(x), 48f, 96f);
+				batch.draw(boulder_left.getKeyFrame(time, true),boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
 			}
 			else if(directionArr.get(x).equals("right")){
-				batch.draw(boulder_right.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 48f, 96f);
+				batch.draw(boulder_right.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
 			}
 			else{
 				batch.draw(boulder1Sprite, boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);	
