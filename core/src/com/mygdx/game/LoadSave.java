@@ -224,6 +224,9 @@ public class LoadSave implements Screen {
 	 */
 	@Override
 	public void render(float delta) {
+		batch.begin();
+
+		//backgroundSprite.draw(batch);
 		// when they press load button
 		//if (fileRead()) {
 		//	JOptionPane.showMessageDialog(null, "The save file is corrupt.", "Attention", JOptionPane.ERROR_MESSAGE);
