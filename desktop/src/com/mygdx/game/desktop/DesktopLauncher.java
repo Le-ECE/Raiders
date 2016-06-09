@@ -10,6 +10,9 @@ import com.mygdx.game.MainGame;
  * application on a desktop computer. Using the config class, information is
  * stored, such as resolution and other video options. The MainGame class is
  * called, which starts the program.
+ * 
+ * @author David Le
+ * @version 4.0 09.06.2016
  */
 public class DesktopLauncher {
 	public static void main(String[] arg) {
