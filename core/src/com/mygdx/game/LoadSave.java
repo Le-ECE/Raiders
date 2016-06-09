@@ -203,11 +203,11 @@ public class LoadSave implements Screen {
 		savePanelSprite = new Sprite(savePanelText);
 		savePanelSprite.setPosition(0, 0);
 
-		if (!(new File(System.getProperty("user.dir") + "//saves").exists())) {
-			new File(System.getProperty("user.dir") + "//saves").mkdirs();
-		}
-		choose.setCurrentDirectory(new File(System.getProperty("user.dir") + "//saves"));
-		fileSelector();
+	//	if (!(new File(System.getProperty("user.dir") + "//saves").exists())) {
+		//	new File(System.getProperty("user.dir") + "//saves").mkdirs();
+		//}
+		//choose.setCurrentDirectory(new File(System.getProperty("user.dir") + "//saves"));
+		//fileSelector();
 		// TODO Auto-generated method stub
 
 	}
@@ -225,13 +225,13 @@ public class LoadSave implements Screen {
 	@Override
 	public void render(float delta) {
 		// when they press load button
-		if (fileRead()) {
-			JOptionPane.showMessageDialog(null, "The save file is corrupt.", "Attention", JOptionPane.ERROR_MESSAGE);
-			game.setScreen(new MainMenu(batch, game));
-		} else {
-			game.getSaveManager().setSave(new Save(name, difficulty, timeSeconds));
-			game.setScreen(new GameScreen(batch, game, name, difficulty, timeSeconds));
-		}
+		//if (fileRead()) {
+		//	JOptionPane.showMessageDialog(null, "The save file is corrupt.", "Attention", JOptionPane.ERROR_MESSAGE);
+		//	game.setScreen(new MainMenu(batch, game));
+		//} else {
+		//	game.getSaveManager().setSave(new Save(name, difficulty, timeSeconds));
+		//	game.setScreen(new GameScreen(batch, game, name, difficulty, timeSeconds));
+		//}
 
 	}
 
