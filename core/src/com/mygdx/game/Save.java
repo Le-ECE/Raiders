@@ -16,12 +16,6 @@ public class Save {
 	private int timeSeconds;
 
 	/**
-	 * Empty constructor.
-	 */
-	public Save() {
-	}
-
-	/**
 	 * The Save constructor is used to take in the username, the current stage,
 	 * and the time the user has as parameters, and store them in the class 
 	 * through variables.

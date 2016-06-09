@@ -364,7 +364,6 @@ public class Instructions implements Screen {
 	 */
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -375,7 +374,6 @@ public class Instructions implements Screen {
 	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -386,7 +384,6 @@ public class Instructions implements Screen {
 	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 
 	}
 

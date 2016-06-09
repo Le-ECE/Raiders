@@ -329,7 +329,6 @@ public class GameScreen implements Screen {
 	private Animation first_sign;
 	private Animation second_sign;
 
-
 	private Music desertMusic;
 	private Music earthMusic;
 	private Music iceMusic;
@@ -347,7 +346,7 @@ public class GameScreen implements Screen {
 	private TextureRegion[] roller_right;
 	private TextureRegion[] first_sign_text;
 	private TextureRegion[] second_sign_text;
-	
+
 	private MainGame game;
 
 	private SpriteBatch batch;
@@ -477,7 +476,6 @@ public class GameScreen implements Screen {
 	 */
 	@Override
 	public void resize(int width, int height) {
-
 	}
 
 	/**
@@ -485,7 +483,6 @@ public class GameScreen implements Screen {
 	 */
 	@Override
 	public void pause() {
-
 	}
 
 	/**
@@ -493,7 +490,6 @@ public class GameScreen implements Screen {
 	 */
 	@Override
 	public void resume() {
-
 	}
 
 	/**
@@ -548,7 +544,6 @@ public class GameScreen implements Screen {
 	 * playing of music. First and second for loop is used to fill the texture
 	 * region arrays with images from the spritesheet to be used for animation.
 	 */
-	//post java doc - a bunch of animation
 	@Override
 	public void show() {
 		MainGame.mainMusic.dispose();
@@ -635,7 +630,6 @@ public class GameScreen implements Screen {
 
 		treasureSprite.setPosition(900f, 100f);
 
-
 		// tiledmap renderer
 		// fills array with maps
 		occupyArray("assets/dust_map.tmx");
@@ -714,8 +708,6 @@ public class GameScreen implements Screen {
 
 		indianaJones.setSize(32f, 64f);
 
-		// indianaX = start.x;
-		// indianaY = start.y;
 		createMap();
 
 		body = indianaJones.getBoundingRectangle();
@@ -731,9 +723,9 @@ public class GameScreen implements Screen {
 		roll_down = new Texture("assets/roll_down.png");
 		roll_left = new Texture("assets/roll_left.png");
 		roll_right = new Texture("assets/roll_right.png");
-		first_sign_texture=new Texture("assets/first_sign.png");
-		second_sign_texture=new Texture("assets/second_sign.png");
-		
+		first_sign_texture = new Texture("assets/first_sign.png");
+		second_sign_texture = new Texture("assets/second_sign.png");
+
 		TextureRegion[][] temp_right = TextureRegion.split(walk_right, 32, 64);
 		frames_right = new TextureRegion[4];
 		TextureRegion[][] temp_left = TextureRegion.split(walk_left, 32, 64);
@@ -754,7 +746,7 @@ public class GameScreen implements Screen {
 		first_sign_text = new TextureRegion[4];
 		TextureRegion[][] temp_second_sign = TextureRegion.split(second_sign_texture, 32, 32);
 		second_sign_text = new TextureRegion[4];
-		
+
 		int index = 0;
 		// transfer 2D array of sprite sheet to 1d array for animation
 		for (int rows = 0; rows < 2; rows++) {
@@ -772,20 +764,20 @@ public class GameScreen implements Screen {
 				index++;
 			}
 		}
-		
+
 		animation_up = new Animation(0.13f, frames_up);
 		animation_left = new Animation(0.13f, frames_left);
 		animation_right = new Animation(0.13f, frames_right);
 		animation_down = new Animation(0.13f, frames_down);
-		
+
 		boulder_up = new Animation(0.07f, roller_up);
 		boulder_down = new Animation(0.07f, roller_down);
 		boulder_left = new Animation(0.07f, roller_left);
 		boulder_right = new Animation(0.07f, roller_right);
-		
-	   first_sign= new Animation(1.5f, first_sign_text);
-	   second_sign= new Animation(0.15f, second_sign_text);
-	   
+
+		first_sign = new Animation(1.5f, first_sign_text);
+		second_sign = new Animation(0.15f, second_sign_text);
+
 		pauseTextSprite.setPosition(0, 780 - pauseTextSprite.getHeight());
 
 		// pause text animation
@@ -802,7 +794,7 @@ public class GameScreen implements Screen {
 		Tween.set(treasureSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(treasureSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
 				.start(tweenManager);
-		
+
 		Gdx.input.setCursorCatched(catched);
 	}
 
@@ -827,9 +819,6 @@ public class GameScreen implements Screen {
 	 * Ninth if statement closes the game if the user presses the CTRL + W
 	 * shortcut.
 	 */
-	/*
-	 * post java doc: fixed paused buttons and added saves
-	 */
 	@Override
 	public void render(float delta) {
 
@@ -848,7 +837,6 @@ public class GameScreen implements Screen {
 			Gdx.input.setCursorCatched(catched);
 			paused = false;
 
-
 		}
 
 		if (!paused && !gameEnded)
@@ -863,11 +851,11 @@ public class GameScreen implements Screen {
 
 		batch.begin();
 
-		if(difficulty==0){
-			batch.draw(first_sign.getKeyFrame(time, true), 193,512,64f,64f);
-			batch.draw(second_sign.getKeyFrame(time, true), 289,512,64f,64f);
+		if (difficulty == 0) {
+			batch.draw(first_sign.getKeyFrame(time, true), 193, 512, 64f, 64f);
+			batch.draw(second_sign.getKeyFrame(time, true), 289, 512, 64f, 64f);
 		}
-		
+
 		// draw font
 		timerFont.setColor(Color.BLACK);
 		timerFont.draw(batch, "Time [ " + (timeSeconds + (int) time) + " ]", 100f, 700f);
@@ -877,12 +865,12 @@ public class GameScreen implements Screen {
 		if (!paused && !gameEnded) {
 			gameUpdate();
 		} else if (paused) {
-			
-			if(difficulty==0){
-				batch.draw(first_sign.getKeyFrame(0, true), 193,512,64f,64f);
-				batch.draw(second_sign.getKeyFrame(0, true), 289,512,64f,64f);
+
+			if (difficulty == 0) {
+				batch.draw(first_sign.getKeyFrame(0, true), 193, 512, 64f, 64f);
+				batch.draw(second_sign.getKeyFrame(0, true), 289, 512, 64f, 64f);
 			}
-			
+
 			for (int x = 0; x < boulderArr.size(); x++) {
 				boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
 				boulder1Sprite.draw(batch);
@@ -926,8 +914,6 @@ public class GameScreen implements Screen {
 			drawOverlay();
 		}
 
-		
-		
 		// draw treasure
 		if (Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure", String.class)) && !retrieved) {
 			treasureSprite.draw(batch);
@@ -946,43 +932,45 @@ public class GameScreen implements Screen {
 	 * current location based on the keys the user enters. This method is called
 	 * everytime the render method runs, as long as the game is not in a paused
 	 * state. First for loop is used to update every boulder with the Boulder
-	 * class, and to reset and draw the boulders in their new locations. First if
-	 * statement is used to determine which boulder animation to use if the boulder
-	 * direction is "up". Second if statement reverses the animation if needed. Third
-	 * if statement is used to determine which boulder animation to use if the boulder
-	 * direction is "down". Fourth if statement reverses the animation if needed. Fifth
-	 * if statement is used to determine which boulder animation to use if the boulder
-	 * direction is "left". Sixth if statement reverses the animation if needed. Seventh
-	 * if statement determines what boulder animation to use if the boulder direction
-	 * is "right". Eighth if statement is used to reverse the animation if needed. Ninth
-	 * if statement is used to respawn the player if they collide with a
+	 * class, and to reset and draw the boulders in their new locations. First
+	 * if statement is used to determine which boulder animation to use if the
+	 * boulder direction is "up". Second if statement reverses the animation if
+	 * needed. Third if statement is used to determine which boulder animation
+	 * to use if the boulder direction is "down". Fourth if statement reverses
+	 * the animation if needed. Fifth if statement is used to determine which
+	 * boulder animation to use if the boulder direction is "left". Sixth if
+	 * statement reverses the animation if needed. Seventh if statement
+	 * determines what boulder animation to use if the boulder direction is
+	 * "right". Eighth if statement is used to reverse the animation if needed.
+	 * Ninth if statement is used to respawn the player if they collide with a
 	 * boulder. Tenth if statement is used to set the retrieved boolean to true
-	 * if the player has retrieved the treasure item. Eleventh if statement is used
-	 * to set paused boolean to true and to set mouse cursor to catched if the
-	 * escape key is pressed. Twelfth if statement is used to determine actions
-	 * that are performed if the D key or the right arrow key is pressed. Thirteenth
-	 * if statement updates player location as long as they don't collide with
-	 * the map. Fourteenth if statement resets player location if the collide with
-	 * outer map boundaries. Fifteenth if statement sets player movement direction
-	 * to right. Sixteenth if statement determines actions to be performed if the A
-	 * key or the left arrow key is pressed. Seventeenth if statement updates player
-	 * location as long as they don't collide with the map. Eighteenth if statement
-	 * resets player location if they collide with the outer map boundaries.
-	 * Nineteenth if statement sets player direction to left. Twentieth if statement
+	 * if the player has retrieved the treasure item. Eleventh if statement is
+	 * used to set paused boolean to true and to set mouse cursor to catched if
+	 * the escape key is pressed. Twelfth if statement is used to determine
+	 * actions that are performed if the D key or the right arrow key is
+	 * pressed. Thirteenth if statement updates player location as long as they
+	 * don't collide with the map. Fourteenth if statement resets player
+	 * location if the collide with outer map boundaries. Fifteenth if statement
+	 * sets player movement direction to right. Sixteenth if statement
+	 * determines actions to be performed if the A key or the left arrow key is
+	 * pressed. Seventeenth if statement updates player location as long as they
+	 * don't collide with the map. Eighteenth if statement resets player
+	 * location if they collide with the outer map boundaries. Nineteenth if
+	 * statement sets player direction to left. Twentieth if statement
 	 * determines actions to be performed if the S key or the down arrow key is
-	 * pressed. Twenty-first if statement updates player location as long as they
-	 * don't collide with the map. Twenty-second if statement resets player
+	 * pressed. Twenty-first if statement updates player location as long as
+	 * they don't collide with the map. Twenty-second if statement resets player
 	 * location if they collide with the outer map boundaries. Twenty-third if
 	 * statement sets the player direction to down. Twenty-fourth if statement
 	 * determines actions to be performed if the W key or the up arrow key is
-	 * pressed. Twenty-fifth if statement updates player location as long as they
-	 * don't collide with the map. Twenty-sixth if statement resets player
+	 * pressed. Twenty-fifth if statement updates player location as long as
+	 * they don't collide with the map. Twenty-sixth if statement resets player
 	 * location if they collide with outer map boundaries. Twenty-seventh if
-	 * statement sets the player direction to up. Twenty-eighth if statement sets
-	 * player direction to none. Twenty-ninth if statement saves the game and
-	 * resets timer/direction values if the player completes the game.
+	 * statement sets the player direction to up. Twenty-eighth if statement
+	 * sets player direction to none. Twenty-ninth if statement saves the game
+	 * and resets timer/direction values if the player completes the game.
 	 */
-	public void gameUpdate() {
+	private void gameUpdate() {
 
 		String collide = "";
 
@@ -998,23 +986,23 @@ public class GameScreen implements Screen {
 			boulderCollision[x] = new Rectangle(boulderXArr.get(x), boulderYArr.get(x), 64, 64);
 			if (directionArr.get(x).equals("up")) {
 				batch.draw(boulder_up.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
-				if (!b.returningArr[x]){
-					batch.draw(boulder_down.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x),64f,64f);
+				if (!b.returningArr[x]) {
+					batch.draw(boulder_down.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
 				}
 			} else if (directionArr.get(x).equals("down")) {
 				batch.draw(boulder_down.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
-				if (!b.returningArr[x]){
-					batch.draw(boulder_up.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x),64f,64f);
+				if (!b.returningArr[x]) {
+					batch.draw(boulder_up.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
 				}
 			} else if (directionArr.get(x).equals("left")) {
 				batch.draw(boulder_left.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
-				if (!b.returningArr[x]){
-					batch.draw(boulder_right.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x),64f,64f);
+				if (!b.returningArr[x]) {
+					batch.draw(boulder_right.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
 				}
 			} else if (directionArr.get(x).equals("right")) {
 				batch.draw(boulder_right.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
-				if (!b.returningArr[x]){
-					batch.draw(boulder_left.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x),64f,64f);
+				if (!b.returningArr[x]) {
+					batch.draw(boulder_left.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
 				}
 			} else {
 				batch.draw(boulder1Sprite, boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
@@ -1274,7 +1262,7 @@ public class GameScreen implements Screen {
 	 * MainGame class. The method stores the user's name, the difficulty of the
 	 * stage they are currently on, and the total time that has elapsed.
 	 */
-	public void saveGame() {
+	private void saveGame() {
 		totalTime = time;
 		game.getSaveManager().setSave(new Save(name, difficulty, timeSeconds + (int) totalTime));
 	}
@@ -1326,7 +1314,7 @@ public class GameScreen implements Screen {
 				if (difficulty < 5) {
 					difficulty++;
 					catched = true;
-					
+
 					gameEnded = false;
 					setCurrentMap(difficulty);
 					musicPlay();
@@ -1358,9 +1346,9 @@ public class GameScreen implements Screen {
 	 * contains a treasure item.
 	 */
 	private void createMap() {
-catched=true;
-paused=false;
-		
+		catched = true;
+		paused = false;
+
 		b = new Boulder(currentMap);
 
 		tmRender = new OrthogonalTiledMapRenderer(currentMap);
@@ -1435,7 +1423,7 @@ paused=false;
 	 * the user is on the second difficulty. The third if statement plays the
 	 * ice theme if the user is on the third difficulty.
 	 */
-	public void musicPlay() {
+	private void musicPlay() {
 		if (difficulty == 0) {
 			desertMusic.play();
 			earthMusic.stop();
@@ -1459,7 +1447,7 @@ paused=false;
 	 * 
 	 * @return result Boolean based on if the user collides with a boulder
 	 */
-	public boolean collidesWithBoulders() {
+	private boolean collidesWithBoulders() {
 		boolean result = false;
 
 		for (int x = 0; x < boulderCollision.length; x++) {

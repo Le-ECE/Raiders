@@ -144,54 +144,54 @@ public class HighScore implements Screen, Printable {
 
 	static MainGame game;
 
-	BitmapFont scoreboardFont;
+	private BitmapFont scoreboardFont;
 
-	ArrayList<Save> listSaveEasy;
-	ArrayList<Save> listSaveMed;
-	ArrayList<Save> listSaveHard;
+	private ArrayList<Save> listSaveEasy;
+	private ArrayList<Save> listSaveMed;
+	private ArrayList<Save> listSaveHard;
 
 	String currentName;
 
 	Save currentFile;
 
-	JFileChooser choose = new JFileChooser();
-	FileSystemView newView;
+	private JFileChooser choose = new JFileChooser();
+	private FileSystemView newView;
 
-	Rectangle nextRect;
-	Rectangle prevRect;
-	Rectangle backRect;
-	Rectangle printRect;
+	private Rectangle nextRect;
+	private Rectangle prevRect;
+	private Rectangle backRect;
+	private Rectangle printRect;
 
-	Texture scoreboardEasyText;
-	Texture scoreboardMedText;
-	Texture scoreboardHardText;
-	Texture backgroundText;
-	Texture nextText;
-	Texture nextDarkText;
-	Texture prevText;
-	Texture prevDarkText;
-	Texture backText;
-	Texture backDarkText;
-	Texture printText;
-	Texture printDarkText;
+	private Texture scoreboardEasyText;
+	private Texture scoreboardMedText;
+	private Texture scoreboardHardText;
+	private Texture backgroundText;
+	private Texture nextText;
+	private Texture nextDarkText;
+	private Texture prevText;
+	private Texture prevDarkText;
+	private Texture backText;
+	private Texture backDarkText;
+	private Texture printText;
+	private Texture printDarkText;
 
-	Sprite scoreboardEasySprite;
-	Sprite scoreboardMedSprite;
-	Sprite scoreboardHardSprite;
-	Sprite backgroundSprite;
+	private Sprite scoreboardEasySprite;
+	private Sprite scoreboardMedSprite;
+	private Sprite scoreboardHardSprite;
+	private Sprite backgroundSprite;
 
-	Sprite nextSprite;
-	Sprite nextDarkSprite;
-	Sprite prevSprite;
-	Sprite prevDarkSprite;
-	Sprite backSprite;
-	Sprite backDarkSprite;
-	Sprite printSprite;
-	Sprite printDarkSprite;
+	private Sprite nextSprite;
+	private Sprite nextDarkSprite;
+	private Sprite prevSprite;
+	private Sprite prevDarkSprite;
+	private Sprite backSprite;
+	private Sprite backDarkSprite;
+	private Sprite printSprite;
+	private Sprite printDarkSprite;
 
-	BufferedImage logo;
+	private BufferedImage logo;
 
-	int pageNum;
+	private int pageNum;
 
 	/**
 	 * The HighScore constructor is responsible for taking in a SpriteBatch and
@@ -234,6 +234,7 @@ public class HighScore implements Screen, Printable {
 		try {
 			logo = ImageIO.read(new File("assets/score_title.png"));
 		} catch (IOException e) {
+			game.setScreen(new MainMenu(batch, game));
 		}
 
 		g2d.translate(pf.getImageableX(), pf.getImageableY());
@@ -263,7 +264,7 @@ public class HighScore implements Screen, Printable {
 	 * This method controls the printing of the highscores. The first if
 	 * statement is used to print if the user agrees to the printing dialog.
 	 */
-	public void printer() {
+	private void printer() {
 
 		PrinterJob newJob = PrinterJob.getPrinterJob();
 
@@ -313,7 +314,7 @@ public class HighScore implements Screen, Printable {
 	 * This method is responsible for limiting the size of the save arrays in
 	 * the case that they exceed the size of 10.
 	 */
-	public void scoreLimit() {
+	private void scoreLimit() {
 		if (listSaveEasy.size() > 10)
 			listSaveEasy.subList(10, listSaveEasy.size()).clear();
 		if (listSaveMed.size() > 10)
@@ -333,7 +334,7 @@ public class HighScore implements Screen, Printable {
 	 * third for loop is used to write all of the save data from the hard
 	 * difficulty.
 	 */
-	public void scoreWrite() {
+	private void scoreWrite() {
 		PrintWriter scoreWrite;
 		newView = choose.getFileSystemView();
 		if (!new File(newView.getDefaultDirectory() + "//High Noon Data//RaidersSave//highscore").exists()) {
@@ -364,7 +365,7 @@ public class HighScore implements Screen, Printable {
 			}
 			scoreWrite.close();
 		} catch (IOException e) {
-			// should not have prompt
+			game.setScreen(new MainMenu(batch, game));
 		}
 	}
 
@@ -374,7 +375,7 @@ public class HighScore implements Screen, Printable {
 	 * selection sort algorithm to complete the sort. The first for loop is used
 	 * to run through the easy save array.
 	 */
-	public void scoreSorter() {
+	private void scoreSorter() {
 		int d;
 		Save temp;
 		for (int a = 0; a < listSaveEasy.size(); a++) {
@@ -436,7 +437,7 @@ public class HighScore implements Screen, Printable {
 	 * determine if the writable boolean is true. If it is, various if
 	 * statements are used to store the data into the arrays of Saves.
 	 */
-	public void scoreRead() {
+	private void scoreRead() {
 		newView = choose.getFileSystemView();
 		if (!new File(newView.getDefaultDirectory() + "//High Noon Data//RaidersSave//highscore").exists()) {
 			new File(newView.getDefaultDirectory() + "//High Noon Data//RaidersSave//highscore").mkdirs();
@@ -529,9 +530,6 @@ public class HighScore implements Screen, Printable {
 		scoreWrite();
 
 		pageNum = 0;
-
-		// call with button
-		// printer();
 
 		// create font
 		scoreboardFont = new BitmapFont(Gdx.files.internal("assets/riskofrain_bitmap.fnt"),
@@ -662,9 +660,6 @@ public class HighScore implements Screen, Printable {
 	 * shortcut is used. The seventeenth if statement is used to close the game
 	 * when the CTRL + W shortcut is pressed.
 	 */
-	/*
-	 * post java doc: 
-	 */
 	@Override
 	public void render(float delta) {
 		String[] wordSplit;
@@ -677,13 +672,31 @@ public class HighScore implements Screen, Printable {
 		if (pageNum == 0) {
 			scoreboardEasySprite.draw(batch);
 			for (int x = 0; x < (listSaveEasy.size() > 5 ? 5 : listSaveEasy.size()); x++) {
-				scoreboardFont.draw(batch, listSaveEasy.get(x).getName(), 150, 550 - (85 * x));
+				wordSplit = listSaveEasy.get(x).getName().split("\\s+");
+				if (wordSplit.length > 2) {
+					for (int a = 2; a < wordSplit.length; a++) {
+						wordSplit[1] = wordSplit[1] + " " + wordSplit[a];
+					}
+					wordSplit = Arrays.copyOf(wordSplit, 2);
+				}
+				for (int a = 0; a < wordSplit.length; a++) {
+					scoreboardFont.draw(batch, wordSplit[a], 150, 550 - (85 * x + a * 25));
+				}
 				scoreboardFont.draw(batch, "Easy", 320, 550 - (85 * x));
 				scoreboardFont.draw(batch, "" + listSaveEasy.get(x).getTotalTime(), 430, 550 - (85 * x));
 			}
 			if (listSaveEasy.size() > 5) {
 				for (int x = 5; x < (listSaveEasy.size() > 10 ? 10 : listSaveEasy.size()); x++) {
-					scoreboardFont.draw(batch, listSaveEasy.get(x).getName(), 710, 550 - (85 * (x - 5)));
+					wordSplit = listSaveEasy.get(x).getName().split("\\s+");
+					if (wordSplit.length > 2) {
+						for (int a = 2; a < wordSplit.length; a++) {
+							wordSplit[1] = wordSplit[1] + " " + wordSplit[a];
+						}
+						wordSplit = Arrays.copyOf(wordSplit, 2);
+					}
+					for (int a = 0; a < wordSplit.length; a++) {
+						scoreboardFont.draw(batch, wordSplit[a], 710, 550 - (85 * (x - 5) + a * 25));
+					}
 					scoreboardFont.draw(batch, "Easy", 870, 550 - (85 * (x - 5)));
 					scoreboardFont.draw(batch, "" + listSaveEasy.get(x).getTotalTime(), 980, 550 - (85 * (x - 5)));
 				}
@@ -691,13 +704,31 @@ public class HighScore implements Screen, Printable {
 		} else if (pageNum == 1) {
 			scoreboardMedSprite.draw(batch);
 			for (int x = 0; x < (listSaveMed.size() > 5 ? 5 : listSaveMed.size()); x++) {
-				scoreboardFont.draw(batch, listSaveMed.get(x).getName(), 150, 550 - (85 * x));
+				wordSplit = listSaveMed.get(x).getName().split("\\s+");
+				if (wordSplit.length > 2) {
+					for (int a = 2; a < wordSplit.length; a++) {
+						wordSplit[1] = wordSplit[1] + " " + wordSplit[a];
+					}
+					wordSplit = Arrays.copyOf(wordSplit, 2);
+				}
+				for (int a = 0; a < wordSplit.length; a++) {
+					scoreboardFont.draw(batch, wordSplit[a], 150, 550 - (85 * x + a * 25));
+				}
 				scoreboardFont.draw(batch, "Medium", 320, 550 - (85 * x));
 				scoreboardFont.draw(batch, "" + listSaveMed.get(x).getTotalTime(), 430, 550 - (85 * x));
 			}
 			if (listSaveMed.size() > 5) {
 				for (int x = 5; x < (listSaveMed.size() > 10 ? 10 : listSaveMed.size()); x++) {
-					scoreboardFont.draw(batch, listSaveMed.get(x).getName(), 710, 550 - (85 * (x - 5)));
+					wordSplit = listSaveMed.get(x).getName().split("\\s+");
+					if (wordSplit.length > 2) {
+						for (int a = 2; a < wordSplit.length; a++) {
+							wordSplit[1] = wordSplit[1] + " " + wordSplit[a];
+						}
+						wordSplit = Arrays.copyOf(wordSplit, 2);
+					}
+					for (int a = 0; a < wordSplit.length; a++) {
+						scoreboardFont.draw(batch, wordSplit[a], 710, 550 - (85 * (x - 5) + a * 25));
+					}
 					scoreboardFont.draw(batch, "Medium", 870, 550 - (85 * (x - 5)));
 					scoreboardFont.draw(batch, "" + listSaveMed.get(x).getTotalTime(), 980, 550 - (85 * (x - 5)));
 				}
@@ -769,18 +800,20 @@ public class HighScore implements Screen, Printable {
 			}
 		}
 
-		if (printRect.contains(Gdx.input.getX(), Gdx.input.getY() - 645) || Gdx.input.isKeyJustPressed(Keys.ENTER)||Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.P)) {
+		if (printRect.contains(Gdx.input.getX(), Gdx.input.getY() - 645) || Gdx.input.isKeyJustPressed(Keys.ENTER)
+				|| Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.P)) {
 			printSprite.draw(batch);
-			if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)||Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.P)) {
+			if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)
+					|| Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.P)) {
 				printer();
 			}
 		}
 
-		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.W)) {
 			batch.dispose();
 			Gdx.app.exit();
 		}
-		
+
 		batch.end();
 
 	}
@@ -790,7 +823,6 @@ public class HighScore implements Screen, Printable {
 	 */
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -799,7 +831,6 @@ public class HighScore implements Screen, Printable {
 	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -808,7 +839,6 @@ public class HighScore implements Screen, Printable {
 	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -817,7 +847,6 @@ public class HighScore implements Screen, Printable {
 	 */
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -826,8 +855,21 @@ public class HighScore implements Screen, Printable {
 	 */
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 
+
+		scoreboardEasyText.dispose();
+		 scoreboardMedText.dispose();
+		 scoreboardHardText.dispose();
+		 backgroundText.dispose();
+		 nextText.dispose();
+		 nextDarkText.dispose();
+		 prevText.dispose();
+		 prevDarkText.dispose();
+		 backText.dispose();
+		 backDarkText.dispose();
+		 printText.dispose();
+		 printDarkText.dispose();
+		
 	}
 
 }

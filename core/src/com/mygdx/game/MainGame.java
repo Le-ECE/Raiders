@@ -32,7 +32,7 @@ public class MainGame extends Game {
 
 	public static Music mainMusic;
 	public static final String EXT = ".sav";
-	Pixmap pm;
+	private Pixmap pm;
 	private SaveManager mainSaveManager;
 
 	/**
@@ -79,7 +79,7 @@ public class MainGame extends Game {
 	/**
 	 * Sets the current screen to the MainMenu screen.
 	 */
-	public void splashScreen() {
+	private void splashScreen() {
 		setScreen(new SplashScreen(this));
 	}
 

@@ -47,6 +47,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  *          <p>
  *          <b>titleText</b> Instance of Texture used to load title image
  *          <p>
+ *          <b>backButton</b> Instance of TextButton used to take in user input
+ *          for buttons
+ *          <p>
+ *          <b>goButton</b> Instance of TextButton used to take in user input
+ *          for buttons
+ *          <p>
  *          <b>userNameField</b> Instance of TextField used to take user String
  *          input
  *          <p>
@@ -62,27 +68,27 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  */
 public class NameInput implements Screen {
 
-	SpriteBatch batch;
+	private SpriteBatch batch;
 
-	MainGame game;
-	
-	Skin skin;
-	
-	Texture backgroundText;
-	Texture titleText;
-	
-	TextButton backButton;
-	TextButton goButton;
+	private MainGame game;
 
-	TextField userNameField;
+	private Skin skin;
 
-	Stage stage;
+	private Texture backgroundText;
+	private Texture titleText;
 
-	BitmapFont font;
+	private TextButton backButton;
+	private TextButton goButton;
 
-	String name;
+	private TextField userNameField;
 
-	int errorCheck;
+	private Stage stage;
+
+	private BitmapFont font;
+
+	private String name;
+
+	private int errorCheck;
 
 	/**
 	 * The NameInput constructor is used to take in a SpriteBatch and a MainGame
@@ -91,8 +97,10 @@ public class NameInput implements Screen {
 	 * ones. SpriteBatch being used for rendering on screem elements, and
 	 * MainGame being used to manage on screen elements.
 	 * 
-	 * @param batch SpriteBatch used to render on-screen elements
-	 * @param game MainGame used to manage multiple screens
+	 * @param batch
+	 *            SpriteBatch used to render on-screen elements
+	 * @param game
+	 *            MainGame used to manage multiple screens
 	 */
 	public NameInput(SpriteBatch batch, MainGame game) {
 		this.batch = batch;
@@ -135,7 +143,7 @@ public class NameInput implements Screen {
 		skin.add("gobuttontexture", new Texture("assets/go.png"));
 		skin.add("backbuttontexture", new Texture("assets/backbutton.png"));
 		skin.add("cursor", cursorSprite);
-		
+
 		// create go button style
 		TextButtonStyle goBS = new TextButtonStyle();
 		goBS.up = skin.newDrawable("gobuttontexture", Color.LIGHT_GRAY);
@@ -176,7 +184,7 @@ public class NameInput implements Screen {
 		goButton = new TextButton("", goBS);
 		goButton.setPosition(700, 100);
 		goButton.setSize(290f, 110f);
-		
+
 		goButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				name = userNameField.getText();
@@ -202,25 +210,23 @@ public class NameInput implements Screen {
 		stage.addActor(goButton);
 		stage.addActor(backButton);
 		stage.setKeyboardFocus(userNameField);
-		// userNameField.getOnscreenKeyboard();
 	}
 
 	/**
 	 * The nameCheck method is used to determine if the name the user has
-	 * entered is valid. This means that the name does not exceed 25
-	 * characters, is not null, and does not contain any illegal characters.
-	 * The nameCheck method is a return method that returns an int based
-	 * on what sort of error the name contains. The first if statement is
-	 * used to determine if the name the user enters is empty. If it is,
-	 * the method returns 1 and sets the text field to be empty. The second
-	 * if statement is used to determine if the name exceeds 25 characters.
-	 * If it does, the method returns 2 and sets the text field to be empty.
-	 * Otherwise, the first and second for loops, as well as the
-	 * third if statement are used to determine if the name the user enters
-	 * contains any illegal characters. If so, the textfield is set to empty,
-	 * and the method returns 3. The third for loop and fourth if statement
-	 * are used to format the name and capitalize it. If it gets to this stage,
-	 * the method returns 4.
+	 * entered is valid. This means that the name does not exceed 25 characters,
+	 * is not null, and does not contain any illegal characters. The nameCheck
+	 * method is a return method that returns an int based on what sort of error
+	 * the name contains. The first if statement is used to determine if the
+	 * name the user enters is empty. If it is, the method returns 1 and sets
+	 * the text field to be empty. The second if statement is used to determine
+	 * if the name exceeds 25 characters. If it does, the method returns 2 and
+	 * sets the text field to be empty. Otherwise, the first and second for
+	 * loops, as well as the third if statement are used to determine if the
+	 * name the user enters contains any illegal characters. If so, the
+	 * textfield is set to empty, and the method returns 3. The third for loop
+	 * and fourth if statement are used to format the name and capitalize it. If
+	 * it gets to this stage, the method returns 4.
 	 * 
 	 * @return int used to determine what type of error the name contains
 	 */
@@ -266,23 +272,25 @@ public class NameInput implements Screen {
 	/**
 	 * The render method is an overridden method from the Screen interface. The
 	 * render method loops every frame of the game. The render method is used to
-	 * elements to the screen, as well as take in user input. The first if statement
-	 * is used to bring the user back to the main menu if the user presses the escape
-	 * key. The second if statement is used to enter and check the name if the user
-	 * presses the enter key. The third if statement is used to determine what displays
-	 * if the nameCheck method returns 1. If it does, it gives a notification that the
-	 * name cannot be blank. The fourth if statement is used to determine what displays
-	 * if the nameCheck method returns 2. If it does, it gives a notification that the
-	 * name cannot exceed 25 characters. The fifth if statement is used to determine what
-	 * displays if the nameCheck method returns 3. If it does, it gives a notification that
-	 * the username cannot contain special characters. The sixth if statement is used
-	 * to determine what displays if the nameCheck method returns 4. If it does, the screen
-	 * is set to the Difficulty selection menu, with the name passed through. The seventh
-	 * is statement is used to close the game when the user presses the CTRL + W shortcut.
+	 * elements to the screen, as well as take in user input. The first if
+	 * statement is used to bring the user back to the main menu if the user
+	 * presses the escape key. The second if statement is used to enter and
+	 * check the name if the user presses the enter key. The third if statement
+	 * is used to determine what displays if the nameCheck method returns 1. If
+	 * it does, it gives a notification that the name cannot be blank. The
+	 * fourth if statement is used to determine what displays if the nameCheck
+	 * method returns 2. If it does, it gives a notification that the name
+	 * cannot exceed 25 characters. The fifth if statement is used to determine
+	 * what displays if the nameCheck method returns 3. If it does, it gives a
+	 * notification that the username cannot contain special characters. The
+	 * sixth if statement is used to determine what displays if the nameCheck
+	 * method returns 4. If it does, the screen is set to the Difficulty
+	 * selection menu, with the name passed through. The seventh is statement is
+	 * used to close the game when the user presses the CTRL + W shortcut.
 	 * 
 	 */
 	/*
-	 * post java doc: 
+	 * post java doc:
 	 */
 	@Override
 	public void render(float delta) {
@@ -316,8 +324,8 @@ public class NameInput implements Screen {
 			game.setSaveManager(new SaveManager());
 			game.setScreen(new Difficulty(batch, game, name));
 		}
-		
-		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.W)) {
 			batch.dispose();
 			Gdx.app.exit();
 		}
@@ -353,12 +361,12 @@ public class NameInput implements Screen {
 	}
 
 	/**
-	 * The hide method runs the dispose method everytime the screen is switched.
+	 * The hide method runs the dispose method and disables the back button
+	 * every time the screen is switched.
 	 */
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		backButton.setDisabled(true);
 		dispose();
 	}
 
@@ -368,12 +376,10 @@ public class NameInput implements Screen {
 	 */
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		backgroundText.dispose();
 		font.dispose();
 		skin.dispose();
 		titleText.dispose();
-
 	}
 
 }

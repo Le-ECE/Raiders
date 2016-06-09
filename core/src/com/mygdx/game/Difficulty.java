@@ -130,37 +130,36 @@ public class Difficulty implements Screen {
 	private boolean drawDarkMedium = true;
 	private boolean drawDarkHard = true;
 
-	Texture easy;
-	Texture background;
-	Texture medium;
-	Texture hard;
-	Texture title;
-	Texture easyDark;
-	Texture medDark;
-	Texture hardDark;
-	Texture back;
-	Texture backDark;
-	Texture go;
-	Texture goDark;
+	private Texture easy;
+	private Texture background;
+	private Texture medium;
+	private Texture hard;
+	private Texture title;
+	private Texture easyDark;
+	private Texture medDark;
+	private Texture hardDark;
+	private Texture back;
+	private Texture backDark;
+	private Texture go;
+	private Texture goDark;
 
-	Rectangle goRect;
-	Rectangle easyRect;
-	Rectangle medRect;
-	Rectangle hardRect;
-	Rectangle backRect;
+	private Rectangle goRect;
+	private Rectangle easyRect;
+	private Rectangle medRect;
+	private Rectangle hardRect;
+	private Rectangle backRect;
 
-	Sprite goDarkSprite;
-	Sprite goSprite;
-	Sprite titleSprite;
-	Sprite easySprite;
-	Sprite mediumSprite;
-	Sprite hardSprite;
-	Sprite backgroundSprite;
-	Sprite easyDarkSprite;
-	Sprite medDarkSprite;
-	Sprite hardDarkSprite;
-	Sprite backSprite;
-	Sprite backDarkSprite;
+	private Sprite goDarkSprite;
+	private Sprite goSprite;
+	private Sprite titleSprite;
+	private Sprite easySprite;
+	private Sprite mediumSprite;
+	private Sprite hardSprite;
+	private Sprite easyDarkSprite;
+	private Sprite medDarkSprite;
+	private Sprite hardDarkSprite;
+	private Sprite backSprite;
+	private Sprite backDarkSprite;
 
 	private SpriteBatch batch;
 
@@ -177,7 +176,7 @@ public class Difficulty implements Screen {
 	 * @param game
 	 *            MainGame used to change game screens.
 	 * @param name
-	 * 			  String used to store username.
+	 *            String used to store username.
 	 */
 	public Difficulty(SpriteBatch batch, MainGame game, String name) {
 		this.name = name;
@@ -316,15 +315,15 @@ public class Difficulty implements Screen {
 	 * the main menu if the back button is pressed. The seventh if statement is
 	 * used to allow the user to select the easy difficulty, and deselects the
 	 * other ones. The eighth if statement is used to allow the user to select
-	 * the medium difficulty, and deselects the other ones. The ninth if statement
-	 * is used to allow the user to select the hard difficulty, and deselects the
-	 * other ones. The tenth if statement allows the user to enter the game with
-	 * the difficulty selected when they press the Go button. The eleventh if
-	 * statement allows the user to close the game when they press the CTRL + W
-	 * shortcut.
+	 * the medium difficulty, and deselects the other ones. The ninth if
+	 * statement is used to allow the user to select the hard difficulty, and
+	 * deselects the other ones. The tenth if statement allows the user to enter
+	 * the game with the difficulty selected when they press the Go button. The
+	 * eleventh if statement allows the user to close the game when they press
+	 * the CTRL + W shortcut.
 	 */
 	/*
-	 * post java doc: 
+	 * post java doc:
 	 */
 	@Override
 	public void render(float delta) {
@@ -422,12 +421,12 @@ public class Difficulty implements Screen {
 			if (difficulty > -1) {
 				goSprite.draw(batch);
 				if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-					game.setScreen(new GameScreen(batch, game, name, difficulty, 0));																// save
+					game.setScreen(new GameScreen(batch, game, name, difficulty, 0)); // save
 					dispose();
 				}
 			}
 		}
-		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.W)) {
 			batch.dispose();
 			Gdx.app.exit();
 		}
@@ -439,8 +438,6 @@ public class Difficulty implements Screen {
 	 */
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -448,8 +445,6 @@ public class Difficulty implements Screen {
 	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -457,8 +452,6 @@ public class Difficulty implements Screen {
 	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -467,7 +460,6 @@ public class Difficulty implements Screen {
 	@Override
 	public void hide() {
 		this.dispose();
-
 	}
 
 	/**

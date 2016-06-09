@@ -24,20 +24,21 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  * the instructions to the game, quit the game, and more. The main menu also
  * displays a graphic background, with custom made buttons and the title of the
  * project. Upon pressing the "Play" button, the user is taken to a screen where
- * they can input their name. From that screen, if a valid name has been entered,
- * the user is taken to a difficulty selection menu, which will then take them
- * to the game with a map loaded depending on the difficulty. Upon pressing the
- * "Load" button, the user is taken to a screen where they may choose which save
- * to load from a save file the user saves to. Upon choosing a save, the user
- * is taken to the game screen with all of the save data to start with. Upon
- * pressing the "Scores" button, the user is taken to a screen containing three
- * pages of the top 10 times for each difficulty. From this screen, the user
- * may print the scores, or go back to the menu. Upon pressing the "Rules" button,
- * the user is taken to a screen with multiple pages that contains information
- * regarding the game, and how to play it. Upon pressing the "Quit" button, the
- * game closes. Upon pressing the "?" button in the top right of the menu, a
- * .chm file is opened that contains more in-depth information about the game,
- * as well as credit for various artwork used in the game.
+ * they can input their name. From that screen, if a valid name has been
+ * entered, the user is taken to a difficulty selection menu, which will then
+ * take them to the game with a map loaded depending on the difficulty. Upon
+ * pressing the "Load" button, the user is taken to a screen where they may
+ * choose which save to load from a save file the user saves to. Upon choosing a
+ * save, the user is taken to the game screen with all of the save data to start
+ * with. Upon pressing the "Scores" button, the user is taken to a screen
+ * containing three pages of the top 10 times for each difficulty. From this
+ * screen, the user may print the scores, or go back to the menu. Upon pressing
+ * the "Rules" button, the user is taken to a screen with multiple pages that
+ * contains information regarding the game, and how to play it. Upon pressing
+ * the "Quit" button, the game closes. Upon pressing the "?" button in the top
+ * right of the menu, a .chm file is opened that contains more in-depth
+ * information about the game, as well as credit for various artwork used in the
+ * game.
  * 
  * @author Brian Tran
  * @version 4.0 07.06.2016
@@ -86,9 +87,9 @@ public class MainMenu implements Screen {
 	 * method also allows for button inputs to be taken by using a GDX built in
 	 * method called setInputProcessor. Buttons and their listeners that take in
 	 * user input from the buttons are added as well. Finally, the buttons,
-	 * title, and background are added to the stage. The first if statement
-	 * is used to determine if the main menu music is currently playing. If
-	 * not, main menu music is played from a certain point.
+	 * title, and background are added to the stage. The first if statement is
+	 * used to determine if the main menu music is currently playing. If not,
+	 * main menu music is played from a certain point.
 	 */
 	@Override
 	public void show() {
@@ -298,15 +299,16 @@ public class MainMenu implements Screen {
 	 * updated every frame through this method. Stage.draw() is called to draw
 	 * all of the elements contained in the stage (such as buttons) onto the
 	 * screen. The first if statement is used to set the screen to the NameInput
-	 * class if the enter key is pressed. The second if statement is used to close
-	 * the game when the user presses CTRL + W shortcut. The third if statement is
-	 * used to provide the Play button function when the user presses the CTRL + UP
-	 * shortcut. The fourth if statement is used to provide the Load button function
-	 * when the user presses the CTRL + ENTER shortcut. The fifth if statement is
-	 * used to provide the Score button when the user presses the CTRL + LEFT shortcut.
-	 * The sixth if statement is used to provide the Rules button function when the
-	 * user presses the CTRL + RIGHT shortcut. The seventh if statement is used to
-	 * provide the Quit function when the user presses the CTRL + DOWN shortcut.
+	 * class if the enter key is pressed. The second if statement is used to
+	 * close the game when the user presses CTRL + W shortcut. The third if
+	 * statement is used to provide the Play button function when the user
+	 * presses the CTRL + UP shortcut. The fourth if statement is used to
+	 * provide the Load button function when the user presses the CTRL + ENTER
+	 * shortcut. The fifth if statement is used to provide the Score button when
+	 * the user presses the CTRL + LEFT shortcut. The sixth if statement is used
+	 * to provide the Rules button function when the user presses the CTRL +
+	 * RIGHT shortcut. The seventh if statement is used to provide the Quit
+	 * function when the user presses the CTRL + DOWN shortcut.
 	 */
 	@Override
 	public void render(float delta) {
@@ -319,39 +321,39 @@ public class MainMenu implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			game.setScreen(new NameInput(batch, game));
 		}
-		
-		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
+
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.W)) {
 			batch.dispose();
 			Gdx.app.exit();
 		}
-		
-		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.UP)){
-			game.setScreen(new NameInput (batch,game));
+
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.UP)) {
+			game.setScreen(new NameInput(batch, game));
 		}
-		
-		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.ENTER)){
+
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			dispose();
-			game.setSaveManager (new SaveManager());
-			new LoadSave (batch,game);
+			game.setSaveManager(new SaveManager());
+			new LoadSave(batch, game);
 		}
-		
-		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.LEFT)){
+
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.LEFT)) {
 			dispose();
 			game.setSaveManager(new SaveManager());
 			game.setScreen(new HighScore(batch, game));
 		}
-		
-		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.RIGHT)){
+
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
 			dispose();
 			game.setScreen(new Instructions(batch, game));
 		}
-		
-		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.DOWN)){
+
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.DOWN)) {
 			batch.dispose();
 			dispose();
 			Gdx.app.exit();
 		}
-		
+
 		batch.end();
 
 		stage.act();
@@ -364,7 +366,6 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -373,7 +374,6 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -382,7 +382,6 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -391,7 +390,6 @@ public class MainMenu implements Screen {
 	 */
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 
 	}
 
