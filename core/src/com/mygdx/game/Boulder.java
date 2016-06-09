@@ -186,7 +186,6 @@ public class Boulder {
 	public void update(int index, int distance, String direction) {
 		int tempX = GameScreen.boulderXArr.get(index);
 		int tempY = GameScreen.boulderYArr.get(index);
-		boolean reverse;
 
 		numOfBoulders = Integer.parseInt(map.getProperties().get("numOfBoulders", String.class));
 

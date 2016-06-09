@@ -246,7 +246,7 @@ public class MainMenu implements Screen {
 			public void changed(ChangeEvent event, Actor actor) {
 				dispose();
 				game.setSaveManager(new SaveManager());
-				game.setScreen(new LoadSave(batch, game));
+				new LoadSave(batch, game);
 
 			}
 		});
@@ -332,7 +332,7 @@ public class MainMenu implements Screen {
 		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			dispose();
 			game.setSaveManager (new SaveManager());
-			game.setScreen (new LoadSave (batch,game));
+			new LoadSave (batch,game);
 		}
 		
 		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.LEFT)){
