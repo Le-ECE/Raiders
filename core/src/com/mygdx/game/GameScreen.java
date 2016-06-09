@@ -702,7 +702,6 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
-		Gdx.input.setCursorCatched(catched);
 
 		tweenManager.update(delta);
 
