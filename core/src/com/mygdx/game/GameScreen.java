@@ -751,7 +751,7 @@ public class GameScreen implements Screen {
 		animation_left = new Animation(0.13f, frames_left);
 		animation_right = new Animation(0.13f, frames_right);
 		animation_down = new Animation(0.13f, frames_down);
-
+		
 		boulder_up = new Animation(0.07f, roller_up);
 		boulder_down = new Animation(0.07f, roller_down);
 		boulder_left = new Animation(0.07f, roller_left);
@@ -813,9 +813,11 @@ public class GameScreen implements Screen {
 				&& Gdx.input.isKeyPressed(Keys.S) && !gameEnded) {
 			saveGame();
 			game.getSaveManager().writeSave();
+			catched = true;
+			Gdx.input.setCursorCatched(catched);
 			paused = false;
-			Gdx.input.setCursorCatched(!catched);
-			catched = !catched;
+
+
 		}
 
 		if (!paused && !gameEnded)
