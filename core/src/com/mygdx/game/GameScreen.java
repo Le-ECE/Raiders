@@ -1,4 +1,5 @@
 
+
 package com.mygdx.game;
 
 import java.util.ArrayList;
@@ -32,290 +33,191 @@ import tween.SpriteManager;
 
 /**
  * The GameScreen class is used to display the main character sprite's movement,
- * as well as render the maps and collision for the game. The class also
- * includes a render of a custom made map, as well as drawings of sprites. All
- * of this is done on a single screen. A looping method as well as a series of
- * if statements (to check for collision) are used to allow the sprite to
- * traverse the screen. It takes a 'sprite sheet', which is a grid of animation
- * frames, and splits it into a 2D array of type TextureRegion, which is then
- * made into a 1D array of the same type. That array, in conjunction with the
- * built in Animation class, is used to animate the sprite's walking cycle.
- * For-each loops are used to render the collision rectangles for the custom map
- * files, as well as for the map properties.
+ * as well as render the maps and collision for the game.
+ * The class also includes a render of a custom made map, as well as
+ * drawings of sprites. All of this is done on a single screen.
+ * A looping method as well as a series of if statements (to check for
+ * collision) are used to allow the sprite to traverse the screen.
+ * It takes a 'sprite sheet', which is a grid of animation frames, and
+ * splits it into a 2D array of type TextureRegion, which is then made into
+ * a 1D array of the same type. That array, in conjunction with the built in
+ * Animation class, is used to animate the sprite's walking cycle. For-each loops
+ * are used to render the collision rectangles for the custom map files, as well
+ * as for the map properties.
  * 
  * @author Brian Tran
  * @version 4.0 08.06.2016
  * 
- *          <p>
- *          <b>Instance Variables</b>
- *          <p>
- *          <b>animation_right</b> Instance of Animation class used to animate
- *          right walking cycle
- *          <p>
- *          <b>animation_left</b> Instance of Animation class used to animate
- *          left walking cycle
- *          <p>
- *          <b>animation_up</b> Instance of Animation class used to animate up
- *          walking cycle
- *          <p>
- *          <b>animation_down</b> Instance of Animation class used to animate
- *          down walking cycle
- *          <p>
- *          <b>boulder_up</b> Instance of Animation class used to animate up
- *          rolling cycle
- *          <p>
- *          <b>boulder_down</b> Instance of Animation class used to animate down
- *          rolling cycle
- *          <p>
- *          <b>boulder_left</b> Instance of Animation class used to animate left
- *          rolling cycle
- *          <p>
- *          <b>boulder_right</b> Instance of Animation class used to animate
- *          right rolling cycle
- *          <p>
- *          <b>frames_right</b> TextureRegion array used to store frames for
- *          right walk cycle
- *          <p>
- *          <b>frames_left</b> TextureRegion array used to store frames for left
- *          walk cycle
- *          <p>
- *          <b>frames_up</b> TextureRegion array used to store frames for up
- *          walk cycle
- *          <p>
- *          <b>frames_down</b> TextureRegion array used to store frames for down
- *          walk cycle
- *          <p>
- *          <b>roller_up</b> TextureRegion array used to store frames for up
- *          roll cycle
- *          <p>
- *          <b>roller_down</b> TextureRegion array used to store frames for down
- *          roll cycle
- *          <p>
- *          <b>roller_left</b> TextureRegion array used to store frames for left
- *          roll cycle
- *          <p>
- *          <b>roller_right</b> TextureRegion array used to store frames for
- *          right roll cycle
- *          <p>
- *          <b>game</b> Instance of Game used to store screen information from
- *          MainGame
- *          <p>
- *          <b>batch</b> Instance of SpriteBatch used as container for screen
- *          elements
- *          <p>
- *          <b>indianaJones</b> Instance of Sprite used to store a custom
- *          texture sprite
- *          <p>
- *          <b>pauseTextSprite</b> Instance of Sprite used to store a custom
- *          texture sprite
- *          <p>
- *          <b>backSprite</b> Instance of Sprite used to store a custom texture
- *          sprite
- *          <p>
- *          <b>quitSprite</b> Instance of Sprite used to store a custom texture
- *          sprite
- *          <p>
- *          <b>darkBackSprite</b> Instance of Sprite used to store a custom
- *          texture sprite
- *          <p>
- *          <b>darkQuitSprite</b> Instance of Sprite used to store a custom
- *          texture sprite
- *          <p>
- *          <b>boulder1Sprite</b> Instance of Sprite used to store a custom
- *          texture sprite
- *          <p>
- *          <b>successSprite</b> Instance of Sprite used to store a custom
- *          texture sprite
- *          <p>
- *          <b>scoreSprite</b> Instance of Sprite used to store a custom texture
- *          sprite
- *          <p>
- *          <b>menuDarkSprite</b> Instance of Sprite used to store a custom
- *          texture sprite
- *          <p>
- *          <b>menuSprite</b> Instance of Sprite used to store a custom texture
- *          sprite
- *          <p>
- *          <b>goDarkSprite</b> Instance of Sprite used to store a custom
- *          texture sprite
- *          <p>
- *          <b>goSprite</b> Instance of Sprite used to store a custom texture
- *          sprite
- *          <p>
- *          <b>treasureSprite</b> Instance of Sprite used to store a custom
- *          texture sprite
- *          <p>
- *          <b>treasureOverlaySprite</b> Instance of Sprite used to store a
- *          custom texture sprite
- *          <p>
- *          <b>body</b> Instance of Rectangle used to detect collision of main
- *          sprite
- *          <p>
- *          <b>interp</b> Instance of Rectangle used to prerender collision of
- *          sprites
- *          <p>
- *          <b>backRect</b> Instance of Rectangle used to detect mouse input
- *          with back button
- *          <p>
- *          <b>quitRect</b> Instance of Rectangle used to detect mouse input
- *          with quit button
- *          <p>
- *          <b>endRect</b> Instance of Rectangle used to player collision with
- *          level end
- *          <p>
- *          <b>menuRect</b> Instance of Rectangle used to detect mouse input
- *          with menu button
- *          <p>
- *          <b>goRect</b> Instance of Rectangle used to detect mouse input with
- *          go button
- *          <p>
- *          <b>collisionArray</b> ArrayList of Rectangle used to store collision
- *          boxes of map
- *          <p>
- *          <b>boulderArr</b> ArrayList of Rectangle used to store boulder
- *          locations and properties
- *          <p>
- *          <b>boulderXArr</b> ArrayList of Integer used to store x-coordinates
- *          of all boulders on the map
- *          <p>
- *          <b>boulderYArr</b> ArrayList of Integer used to store y-coordinates
- *          of all boulders on the map
- *          <p>
- *          <b>distanceArr</b> ArrayList of Integer used to store max distance
- *          traveled of all boulders on the map
- *          <p>
- *          <b>directionArr</b> ArrayList of String used to store direction of
- *          boulder travel of all boulders on the map
- *          <p>
- *          <b>mapList</b> ArrayList of TiledMap used to store game maps
- *          <p>
- *          <b>Textures</b>
- *          <p>
- *          <b>pauseOverlay</b> Instance of Texture used to store texture for
- *          pause screen overlay
- *          <p>
- *          <b>pauseText</b> Instance of Texture used to store texture for pause
- *          text
- *          <p>
- *          <b>backButton</b> Instance of Texture used to store texture for back
- *          button
- *          <p>
- *          <b>quitButton</b> Instance of Texture used to store texture for quit
- *          button
- *          <p>
- *          <b>boulder1</b> Instance of Texture used to store texture for
- *          boulder
- *          <p>
- *          <b>successText</b> Instance of Texture used to store level end text
- *          <p>
- *          <b>scoreText</b> Instance of Texture used to store score text
- *          <p>
- *          <b>menuDarkText</b> Instance of Texture used to store dark menu
- *          button
- *          <p>
- *          <b>menuText</b> Instance of Texture used to store menu button
- *          <p>
- *          <b>goText</b> Instance of Texture used to store go button
- *          <p>
- *          <b>goDarkText</b> Instance of Texture used to store dark go button
- *          <p>
- *          <b>indianaText</b> Instance of Texture used to store texture for an
- *          image
- *          <p>
- *          <b>walk_right</b> Instance of Texture used to store sprite sheet for
- *          right walk cycle
- *          <p>
- *          <b>walk_left</b> Instance of Texture used to store sprite sheet for
- *          left walk cycle
- *          <p>
- *          <b>walk_up</b> Instance of Texture used to store sprite sheet for up
- *          walk cycle
- *          <p>
- *          <b>walk_down</b> Instance of Texture used to store sprite sheet for
- *          down walk cycle
- *          <p>
- *          <b>roll_up</b> Instance of Texture used to store sprite sheet for up
- *          roll cycle
- *          <p>
- *          <b>roll_down</b> Instance of Texture used to store sprite sheet for
- *          down roll cycle
- *          <p>
- *          <b>roll_left</b> Instance of Texture used to store sprite sheet for
- *          left roll cycle
- *          <p>
- *          <b>roll_right</b> Instance of Texture used to store sprite sheet for
- *          right roll cycle
- *          <p>
- *          <b>treasureText</b> Instance of Texture used to store texture for
- *          treasure item
- *          <p>
- *          <b>treasureOverlayText</b> Instance of Texture used to store texture
- *          for treasure overlay prompt
- *          <p>
- *          <b>start</b> Instance of Ellipse used to store player start position
- *          <p>
- *          <b>currentMap</b> Instance of TiledMap used to store the current
- *          custom .tmx map file
- *          <p>
- *          <b>tmRender</b> Instance of TileMapRenderer used to render custom
- *          .tmx map file
- *          <p>
- *          <b>tweenManager</b> Instance of TweenManager used to manage sprite
- *          animations
- *          <p>
- *          <b>camera</b> Instance of OrthographicCamera used to display the map
- *          <p>
- *          <b>totalTime</b> float value representing total time user took to
- *          complete the level
- *          <p>
- *          <b>interpY</b> float value representing y-coord of interp collision
- *          box
- *          <p>
- *          <b>indianaX</b> float value used to store x-coord of main sprite
- *          <p>
- *          <b>indianaY</b> float value used to store y-coord of main sprite
- *          <p>
- *          <b>speed</b> float value used to determine move speed of main sprite
- *          (pixels per second)
- *          <p>
- *          <b>time</b> float value used to store duration of a frame (used for
- *          animation)
- *          <p>
- *          <b>direction</b> String value representing direction of player
- *          movement
- *          <p>
- *          <b>name</b> String value representing user's name
- *          <p>
- *          <b>paused</b> boolean value used to determine if game is paused
- *          <p>
- *          <b>priority</b> boolean value used to determine whether or not
- *          priorityDraw() method is called
- *          <p>
- *          <b>gameEnded</b> boolean value used to determine if game has ended
- *          <p>
- *          <b>catched</b> boolean value used to determine if cursor is visible
- *          <p>
- *          <b>retrieved</b> boolean value used to determine if treasure has
- *          been retrieved
- *          <p>
- *          <b>timeSeconds</b> int value representing amount of time elapsed
- *          <p>
- *          <b>difficulty</b> int value representing the level difficulty
- *          <p>
- *          <b>b</b> Instance of Boulder class used to update and draw boulder
- *          locations
- *          <p>
- *          <b>desertMusic</b> Instance of Music used to stream music
- *          <p>
- *          <b>earthMusic</b> Instance of Music used to stream music
- *          <p>
- *          <b>iceMusic</b> Instance of Music used to stream music
- *          <p>
- *          <b>timerFont</b> Instance of BitmapFont used to display custom
- *          windows fonts for the timer.
- *          <p>
- *          <b>dialogFont</b> Instance of BitmapFont used to display custom
- *          windows fonts for dialog boxes.
+ * <p>
+ * <b>Instance Variables</b>
+ * <p>
+ * <b>animation_right</b> Instance of Animation class used to animate right walking cycle
+ * <p>
+ * <b>animation_left</b> Instance of Animation class used to animate left walking cycle
+ * <p>
+ * <b>animation_up</b> Instance of Animation class used to animate up walking cycle
+ * <p>
+ * <b>animation_down</b> Instance of Animation class used to animate down walking cycle
+ * <p>
+ * <b>frames_right</b> TextureRegion array used to store frames for right walk cycle
+ * <p>
+ * <b>frames_left</b> TextureRegion array used to store frames for left walk cycle
+ * <p>
+ * <b>frames_up</b> TextureRegion array used to store frames for up walk cycle
+ * <p>
+ * <b>frames_down</b> TextureRegion array used to store frames for down walk cycle
+ * <p>
+ * <b>game</b> Instance of Game used to store screen information from MainGame
+ * <p>
+ * <b>batch</b> Instance of SpriteBatch used as container for screen elements
+ * <p>
+ * <b>indianaJones</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>pauseTextSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>backSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>quitSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>darkBackSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>darkQuitSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>boulder1Sprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>successSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>scoreSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>menuDarkSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>menuSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>goDarkSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>goSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>treasureSprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>treasureOverlaySprite</b> Instance of Sprite used to store a custom texture sprite
+ * <p>
+ * <b>body</b> Instance of Rectangle used to detect collision of main sprite
+ * <p>
+ * <b>interp</b> Instance of Rectangle used to prerender collision of sprites
+ * <p>
+ * <b>backRect</b> Instance of Rectangle used to detect mouse input with back button
+ * <p>
+ * <b>quitRect</b> Instance of Rectangle used to detect mouse input with quit button
+ * <p>
+ * <b>endRect</b> Instance of Rectangle used to player collision with level end
+ * <p>
+ * <b>menuRect</b> Instance of Rectangle used to detect mouse input with menu button
+ * <p>
+ * <b>goRect</b> Instance of Rectangle used to detect mouse input with go button
+ * <p>
+ * <b>collisionArray</b> ArrayList of Rectangle used to store collision boxes of map
+ * <p>
+ * <b>boulderArr</b> ArrayList of Rectangle used to store boulder locations and properties
+ * <p>
+ * <b>boulderXArr</b> ArrayList of Integer used to store x-coordinates of all boulders on the map
+ * <p>
+ * <b>boulderYArr</b> ArrayList of Integer used to store y-coordinates of all boulders on the map
+ * <p>
+ * <b>distanceArr</b> ArrayList of Integer used to store max distance traveled of all boulders on the map
+ * <p>
+ * <b>directionArr</b> ArrayList of String used to store direction of boulder travel of all boulders on the map
+ * <p>
+ * <b>mapList</b> ArrayList of TiledMap used to store game maps
+ * <p>
+ * <b>Textures</b>
+ * <p>
+ * <b>pauseOverlay</b> Instance of Texture used to store texture for pause screen overlay
+ * <p>
+ * <b>pauseText</b> Instance of Texture used to store texture for pause text
+ * <p>
+ * <b>backButton</b> Instance of Texture used to store texture for back button
+ * <p>
+ * <b>quitButton</b> Instance of Texture used to store texture for quit button
+ * <p>
+ * <b>boulder1</b> Instance of Texture used to store texture for boulder
+ * <p>
+ * <b>successText</b> Instance of Texture used to store level end text
+ * <p>
+ * <b>scoreText</b> Instance of Texture used to store score text
+ * <p>
+ * <b>menuDarkText</b> Instance of Texture used to store dark menu button
+ * <p>
+ * <b>menuText</b> Instance of Texture used to store menu button
+ * <p>
+ * <b>goText</b> Instance of Texture used to store go button
+ * <p>
+ * <b>goDarkText</b> Instance of Texture used to store dark go button
+ * <p>
+ * <b>indianaText</b> Instance of Texture used to store texture for an image
+ * <p>
+ * <b>walk_right</b> Instance of Texture used to store sprite sheet for right walk cycle
+ * <p>
+ * <b>walk_left</b> Instance of Texture used to store sprite sheet for left walk cycle
+ * <p>
+ * <b>walk_up</b> Instance of Texture used to store sprite sheet for up walk cycle
+ * <p>
+ * <b>walk_down</b> Instance of Texture used to store sprite sheet for down walk cycle
+ * <p>
+ * <b>treasureText</b> Instance of Texture used to store texture for treasure item
+ * <p>
+ * <b>treasureOverlayText</b> Instance of Texture used to store texture for treasure overlay prompt
+ * <p>
+ * <b>start</b> Instance of Ellipse used to store player start position
+ * <p>
+ * <b>currentMap</b> Instance of TiledMap used to store the current custom .tmx map file
+ * <p>
+ * <b>tmRender</b> Instance of TileMapRenderer used to render custom .tmx map file
+ * <p>
+ * <b>tweenManager</b> Instance of TweenManager used to manage sprite animations
+ * <p>
+ * <b>camera</b> Instance of OrthographicCamera used to display the map
+ * <p>
+ * <b>totalTime</b> float value representing total time user took to complete the level
+ * <p>
+ * <b>interpY</b> float value representing y-coord of interp collision box
+ * <p>
+ * <b>indianaX</b> float value used to store x-coord of main sprite
+ * <p>
+ * <b>indianaY</b> float value used to store y-coord of main sprite
+ * <p>
+ * <b>speed</b> float value used to determine move speed of main sprite (pixels per second)
+ * <p>
+ * <b>time</b> float value used to store duration of a frame (used for animation)
+ * <p>
+ * <b>direction</b> String value representing direction of player movement
+ * <p>
+ * <b>name</b> String value representing user's name
+ * <p>
+ * <b>paused</b> boolean value used to determine if game is paused
+ * <p>
+ * <b>priority</b> boolean value used to determine whether or not priorityDraw() method is called
+ * <p>
+ * <b>gameEnded</b> boolean value used to determine if game has ended
+ * <p>
+ * <b>catched</b> boolean value used to determine if cursor is visible
+ * <p>
+ * <b>retrieved</b> boolean value used to determine if treasure has been retrieved
+ * <p>
+ * <b>timeSeconds</b> int value representing amount of time elapsed
+ * <p>
+ * <b>difficulty</b> int value representing the level difficulty
+ * <p>
+ * <b>b</b> Instance of Boulder class used to update and draw boulder locations
+ * <p>
+ * <b>desertMusic</b> Instance of Music used to stream music
+ * <p>
+ * <b>earthMusic</b> Instance of Music used to stream music
+ * <p>
+ * <b>iceMusic</b> Instance of Music used to stream music
+ * <p>
+ * <b>timerFont</b> Instance of BitmapFont used to display custom windows fonts for the timer.
+ * <p>
+ * <b>dialogFont</b> Instance of BitmapFont used to display custom windows fonts for dialog boxes.
  */
 public class GameScreen implements Screen {
 	private Animation animation_right;
@@ -404,11 +306,10 @@ public class GameScreen implements Screen {
 	private Texture treasureOverlayText;
 	private Texture saveButton;
 	private Texture saveDark;
-	private Texture roll_up;
+    private Texture roll_up;
 	private Texture roll_down;
 	private Texture roll_left;
 	private Texture roll_right;
-
 	private Ellipse start;
 
 	private TiledMap currentMap;
@@ -712,7 +613,7 @@ public class GameScreen implements Screen {
 		walk_left = new Texture("assets/left_walk.png");
 		walk_up = new Texture("assets/up_walk.png");
 		walk_down = new Texture("assets/down_walk.png");
-		roll_up = new Texture("assets/roll_up.png");
+        roll_up = new Texture("assets/roll_up.png");
 		roll_down = new Texture("assets/roll_down.png");
 		roll_left = new Texture("assets/roll_left.png");
 		roll_right = new Texture("assets/roll_right.png");
@@ -740,10 +641,10 @@ public class GameScreen implements Screen {
 				frames_left[index] = temp_left[rows][col];
 				frames_up[index] = temp_up[rows][col];
 				frames_down[index] = temp_down[rows][col];
-				roller_up[index] = temp_roll_up[rows][col];
-				roller_down[index] = temp_roll_down[rows][col];
-				roller_left[index] = temp_roll_left[rows][col];
-				roller_right[index] = temp_roll_right[rows][col];
+				roller_up[index]=temp_roll_up[rows][col];
+				roller_down[index]=temp_roll_down[rows][col];
+				roller_left[index]=temp_roll_left[rows][col];
+				roller_right[index]=temp_roll_right[rows][col];
 				index++;
 			}
 		}
@@ -751,28 +652,28 @@ public class GameScreen implements Screen {
 		animation_left = new Animation(0.13f, frames_left);
 		animation_right = new Animation(0.13f, frames_right);
 		animation_down = new Animation(0.13f, frames_down);
-
-		boulder_up = new Animation(0.07f, roller_up);
-		boulder_down = new Animation(0.07f, roller_down);
-		boulder_left = new Animation(0.07f, roller_left);
-		boulder_right = new Animation(0.07f, roller_right);
+		
+		boulder_up=new Animation(0.07f, roller_up);
+		boulder_down=new Animation(0.07f, roller_down);
+		boulder_left=new Animation(0.07f, roller_left);
+		boulder_right=new Animation(0.07f, roller_right);
 
 		pauseTextSprite.setPosition(0, 780 - pauseTextSprite.getHeight());
 
 		// pause text animation
 		Tween.set(pauseTextSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(pauseTextSprite, SpriteManager.ALPHA, 0.5f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-				.start(tweenManager);
+		.start(tweenManager);
 
 		// success animation
 		Tween.set(successSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(successSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-				.start(tweenManager);
+		.start(tweenManager);
 
 		// treasure animation
 		Tween.set(treasureSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(treasureSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-				.start(tweenManager);
+		.start(tweenManager);
 	}
 
 	/**
@@ -787,20 +688,20 @@ public class GameScreen implements Screen {
 	 * to update the game whenever it is not paused. If it is paused, this if
 	 * statement draws the pause overlay. First for loop draws all of the
 	 * boulders when the game is paused. Fourth if statement is used to save the
-	 * game when the Save button is clicked. Fifth if statement is used to quit
-	 * to the main menu when the quit button is pressed. Sixth if statement is
-	 * used to resume the game when the back button is pressed. Seventh if
-	 * statement is used to resume the game when the escape key is pressed while
-	 * the game is in pause state. Eighth if statement is used to draw the
-	 * treasure item if the map properties state that the map contains one.
-	 * Ninth if statement closes the game if the user presses the CTRL + W
-	 * shortcut.
+	 * game when the Save button is clicked. Fifth if statement is used to quit to
+	 * the main menu when the quit button is pressed. Sixth if statement is used
+	 * to resume the game when the back button is pressed. Seventh if statement is
+	 * used to resume the game when the escape key is pressed while the game is
+	 * in pause state. Eighth if statement is used to draw the treasure item if
+	 * the map properties state that the map contains one. Ninth if statement closes
+	 * the game if the user presses the CTRL + W shortcut.
 	 */
 	/*
-	 * post java doc: fixed paused buttons and added saves
+	 * post java doc:  fixed paused buttons and added saves
 	 */
 	@Override
 	public void render(float delta) {
+
 
 		tweenManager.update(delta);
 
@@ -813,15 +714,9 @@ public class GameScreen implements Screen {
 				&& Gdx.input.isKeyPressed(Keys.S) && !gameEnded) {
 			saveGame();
 			game.getSaveManager().writeSave();
-<<<<<<< HEAD
 			catched = true;
 			Gdx.input.setCursorCatched(catched);
 			paused = false;
-=======
-			paused = false;
-			Gdx.input.setCursorCatched(!catched);
-			catched = !catched;
->>>>>>> refs/remotes/origin/b-branch-43
 		}
 
 		if (!paused && !gameEnded)
@@ -856,17 +751,16 @@ public class GameScreen implements Screen {
 			saveDarkSprite.draw(batch);
 			darkQuitSprite.draw(batch);
 
-			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY() + 150)
-					|| Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			if (backRect.contains(Gdx.input.getX(), Gdx.input.getY()+150)||Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 				backSprite.draw(batch);
-				if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+				if (Gdx.input.justTouched()||Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 					paused = false;
 					Gdx.input.setCursorCatched(!catched);
 					catched = !catched;
 				}
 			}
 
-			if (saveRect.contains(Gdx.input.getX(), Gdx.input.getY() - 150) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+			if (saveRect.contains(Gdx.input.getX(), Gdx.input.getY()-150) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 
 				saveSprite.draw(batch);
 				if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) {
@@ -878,7 +772,7 @@ public class GameScreen implements Screen {
 				}
 			}
 
-			if (quitRect.contains(Gdx.input.getX(), Gdx.input.getY() - 450) || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			if (quitRect.contains(Gdx.input.getX(), Gdx.input.getY()-450) || Gdx.input.isKeyJustPressed(Keys.ENTER)) { 
 				quitSprite.draw(batch);
 				if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 					game.setScreen(new MainMenu(batch, game));
@@ -892,8 +786,8 @@ public class GameScreen implements Screen {
 		if (Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure", String.class)) && !retrieved) {
 			treasureSprite.draw(batch);
 		}
-
-		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Keys.W)) {
+		
+		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
 			batch.dispose();
 			Gdx.app.exit();
 		}
@@ -906,40 +800,32 @@ public class GameScreen implements Screen {
 	 * current location based on the keys the user enters. This method is called
 	 * everytime the render method runs, as long as the game is not in a paused
 	 * state. First for loop is used to update every boulder with the Boulder
-	 * class, and to reset and draw the boulders in their new locations. First if
-	 * statement is used to determine which boulder animation to use if the boulder
-	 * direction is "up". Second if statement reverses the animation if needed. Third
-	 * if statement is used to determine which boulder animation to use if the boulder
-	 * direction is "down". Fourth if statement reverses the animation if needed. Fifth
-	 * if statement is used to determine which boulder animation to use if the boulder
-	 * direction is "left". Sixth if statement reverses the animation if needed. Seventh
-	 * if statement determines what boulder animation to use if the boulder direction
-	 * is "right". Eighth if statement is used to reverse the animation if needed. Ninth
+	 * class, and to reset and draw the boulders in their new locations. First
 	 * if statement is used to respawn the player if they collide with a
-	 * boulder. Tenth if statement is used to set the retrieved boolean to true
-	 * if the player has retrieved the treasure item. Eleventh if statement is used
+	 * boulder. Second if statement is used to set the retrieved boolean to true
+	 * if the player has retrieved the treasure item. Third if statement is used
 	 * to set paused boolean to true and to set mouse cursor to catched if the
-	 * escape key is pressed. Twelfth if statement is used to determine actions
-	 * that are performed if the D key or the right arrow key is pressed. Thirteenth
+	 * escape key is pressed. Fourth if statement is used to determine actions
+	 * that are performed if the D key or the right arrow key is pressed. Fifth
 	 * if statement updates player location as long as they don't collide with
-	 * the map. Fourteenth if statement resets player location if the collide with
-	 * outer map boundaries. Fifteenth if statement sets player movement direction
-	 * to right. Sixteenth if statement determines actions to be performed if the A
-	 * key or the left arrow key is pressed. Seventeenth if statement updates player
-	 * location as long as they don't collide with the map. Eighteenth if statement
+	 * the map. Sixth if statement resets player location if the collide with
+	 * outer map boundaries. Seventh if statement sets player movement direction
+	 * to right. Eighth if statement determines actions to be performed if the A
+	 * key or the left arrow key is pressed. Ninth if statement updates player
+	 * location as long as they don't collide with the map. Tenth if statement
 	 * resets player location if they collide with the outer map boundaries.
-	 * Nineteenth if statement sets player direction to left. Twentieth if statement
+	 * Eleventh if statement sets player direction to left. Twelfth if statement
 	 * determines actions to be performed if the S key or the down arrow key is
-	 * pressed. Twenty-first if statement updates player location as long as they
-	 * don't collide with the map. Twenty-second if statement resets player
-	 * location if they collide with the outer map boundaries. Twenty-third if
-	 * statement sets the player direction to down. Twenty-fourth if statement
+	 * pressed. Thirteenth if statement updates player location as long as they
+	 * don't collide with the map. Fourteenth if statement resets player
+	 * location if they collide with the outer map boundaries. Fifteenth if
+	 * statement sets the player direction to down. Sixteenth if statement
 	 * determines actions to be performed if the W key or the up arrow key is
-	 * pressed. Twenty-fifth if statement updates player location as long as they
-	 * don't collide with the map. Twenty-sixth if statement resets player
-	 * location if they collide with outer map boundaries. Twenty-seventh if
-	 * statement sets the player direction to up. Twenty-eighth if statement sets
-	 * player direction to none. Twenty-ninth if statement saves the game and
+	 * pressed. Seventeenth if statement updates player location as long as they
+	 * don't collide with the map. Eighteenth if statement resets player
+	 * location if they collide with outer map boundaries. Nineteenth if
+	 * statement sets the player direction to up. Twentieth if statement sets
+	 * player direction to none. Twenty-first if statement saves the game and
 	 * resets timer/direction values if the player completes the game.
 	 */
 	public void gameUpdate() {
@@ -956,31 +842,28 @@ public class GameScreen implements Screen {
 			boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
 
 			boulderCollision[x] = new Rectangle(boulderXArr.get(x), boulderYArr.get(x), 64, 64);
-			if (directionArr.get(x).equals("up")) {
+			if(directionArr.get(x).equals("up")){
+
 				batch.draw(boulder_up.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
-				if (!b.returningArr[x]){
-					batch.draw(boulder_down.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x),64f,64f);
-				}
-			} else if (directionArr.get(x).equals("down")) {
-				batch.draw(boulder_down.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
-				if (!b.returningArr[x]){
-					batch.draw(boulder_up.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x),64f,64f);
-				}
-			} else if (directionArr.get(x).equals("left")) {
-				batch.draw(boulder_left.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
-				if (!b.returningArr[x]){
-					batch.draw(boulder_right.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x),64f,64f);
-				}
-			} else if (directionArr.get(x).equals("right")) {
-				batch.draw(boulder_right.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
-				if (!b.returningArr[x]){
-					batch.draw(boulder_left.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x),64f,64f);
-				}
-			} else {
-				batch.draw(boulder1Sprite, boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
 			}
 
-		}
+
+
+			else if(directionArr.get(x).equals("down")){
+				batch.draw(boulder_down.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
+			}
+			else if(directionArr.get(x).equals("left")){
+				batch.draw(boulder_left.getKeyFrame(time, true),boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
+			}
+			else if(directionArr.get(x).equals("right")){
+				batch.draw(boulder_right.getKeyFrame(time, true), boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);
+			}
+			else{
+				batch.draw(boulder1Sprite, boulderXArr.get(x), boulderYArr.get(x), 64f, 64f);	
+			}
+				
+			}
+		
 
 		endCheck();
 
@@ -1258,7 +1141,7 @@ public class GameScreen implements Screen {
 		Gdx.input.setCursorCatched(false);
 
 		batch.draw(pauseOverlay, 0, 0);
-		successSprite.draw(batch);
+		successSprite.draw(batch); 
 		scoreSprite.draw(batch);
 		menuDarkSprite.draw(batch);
 		goDarkSprite.draw(batch);
