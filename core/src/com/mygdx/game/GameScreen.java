@@ -713,10 +713,10 @@ public class GameScreen implements Screen {
 		if ((Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT))
 				&& Gdx.input.isKeyPressed(Keys.S) && !gameEnded) {
 			saveGame();
-			//game.getSaveManager().writeSave();
+			game.getSaveManager().writeSave();
+			catched = true;
+			Gdx.input.setCursorCatched(catched);
 			paused = false;
-					Gdx.input.setCursorCatched(!catched);
-					catched = !catched;
 		}
 
 		if (!paused && !gameEnded)
@@ -765,7 +765,7 @@ public class GameScreen implements Screen {
 				saveSprite.draw(batch);
 				if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) {
 					saveGame();
-					//game.getSaveManager().writeSave();
+					game.getSaveManager().writeSave();
 					paused = false;
 					Gdx.input.setCursorCatched(!catched);
 					catched = !catched;
