@@ -1,12 +1,10 @@
 package com.mygdx.game;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
