@@ -326,6 +326,9 @@ public class GameScreen implements Screen {
 	private Animation boulder_down;
 	private Animation boulder_left;
 	private Animation boulder_right;
+	private Animation first_sign;
+	private Animation second_sign;
+
 
 	private Music desertMusic;
 	private Music earthMusic;
@@ -342,6 +345,9 @@ public class GameScreen implements Screen {
 	private TextureRegion[] roller_down;
 	private TextureRegion[] roller_left;
 	private TextureRegion[] roller_right;
+	private TextureRegion[] first_sign_text;
+	private TextureRegion[] second_sign_text;
+	
 	private MainGame game;
 
 	private SpriteBatch batch;
@@ -408,6 +414,8 @@ public class GameScreen implements Screen {
 	private Texture roll_down;
 	private Texture roll_left;
 	private Texture roll_right;
+	private Texture first_sign_texture;
+	private Texture second_sign_texture;
 
 	private Ellipse start;
 
@@ -428,8 +436,8 @@ public class GameScreen implements Screen {
 	private String direction;
 	private String name;
 
-	private boolean catched = true;
-	private boolean paused = false;
+	private boolean catched;
+	private boolean paused;
 	private boolean priority;
 	private boolean gameEnded;
 	private boolean retrieved;
@@ -523,6 +531,13 @@ public class GameScreen implements Screen {
 		goDarkText.dispose();
 		treasureText.dispose();
 		treasureOverlayText.dispose();
+		roll_up.dispose();
+		roll_down.dispose();
+		roll_left.dispose();
+		roll_right.dispose();
+		first_sign_texture.dispose();
+		second_sign_texture.dispose();
+
 	}
 
 	/**
@@ -533,6 +548,7 @@ public class GameScreen implements Screen {
 	 * playing of music. First and second for loop is used to fill the texture
 	 * region arrays with images from the spritesheet to be used for animation.
 	 */
+	//post java doc - a bunch of animation
 	@Override
 	public void show() {
 		MainGame.mainMusic.dispose();
@@ -619,7 +635,6 @@ public class GameScreen implements Screen {
 
 		treasureSprite.setPosition(900f, 100f);
 
-		Gdx.input.setCursorCatched(catched);
 
 		// tiledmap renderer
 		// fills array with maps
@@ -716,6 +731,9 @@ public class GameScreen implements Screen {
 		roll_down = new Texture("assets/roll_down.png");
 		roll_left = new Texture("assets/roll_left.png");
 		roll_right = new Texture("assets/roll_right.png");
+		first_sign_texture=new Texture("assets/first_sign.png");
+		second_sign_texture=new Texture("assets/second_sign.png");
+		
 		TextureRegion[][] temp_right = TextureRegion.split(walk_right, 32, 64);
 		frames_right = new TextureRegion[4];
 		TextureRegion[][] temp_left = TextureRegion.split(walk_left, 32, 64);
@@ -732,6 +750,11 @@ public class GameScreen implements Screen {
 		roller_left = new TextureRegion[4];
 		TextureRegion[][] temp_roll_right = TextureRegion.split(roll_right, 32, 32);
 		roller_right = new TextureRegion[4];
+		TextureRegion[][] temp_first_sign = TextureRegion.split(first_sign_texture, 32, 32);
+		first_sign_text = new TextureRegion[4];
+		TextureRegion[][] temp_second_sign = TextureRegion.split(second_sign_texture, 32, 32);
+		second_sign_text = new TextureRegion[4];
+		
 		int index = 0;
 		// transfer 2D array of sprite sheet to 1d array for animation
 		for (int rows = 0; rows < 2; rows++) {
@@ -744,9 +767,12 @@ public class GameScreen implements Screen {
 				roller_down[index] = temp_roll_down[rows][col];
 				roller_left[index] = temp_roll_left[rows][col];
 				roller_right[index] = temp_roll_right[rows][col];
+				first_sign_text[index] = temp_first_sign[rows][col];
+				second_sign_text[index] = temp_second_sign[rows][col];
 				index++;
 			}
 		}
+		
 		animation_up = new Animation(0.13f, frames_up);
 		animation_left = new Animation(0.13f, frames_left);
 		animation_right = new Animation(0.13f, frames_right);
@@ -756,7 +782,10 @@ public class GameScreen implements Screen {
 		boulder_down = new Animation(0.07f, roller_down);
 		boulder_left = new Animation(0.07f, roller_left);
 		boulder_right = new Animation(0.07f, roller_right);
-
+		
+	   first_sign= new Animation(1.5f, first_sign_text);
+	   second_sign= new Animation(0.15f, second_sign_text);
+	   
 		pauseTextSprite.setPosition(0, 780 - pauseTextSprite.getHeight());
 
 		// pause text animation
@@ -773,6 +802,8 @@ public class GameScreen implements Screen {
 		Tween.set(treasureSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(treasureSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
 				.start(tweenManager);
+		
+		Gdx.input.setCursorCatched(catched);
 	}
 
 	/**
@@ -832,6 +863,11 @@ public class GameScreen implements Screen {
 
 		batch.begin();
 
+		if(difficulty==0){
+			batch.draw(first_sign.getKeyFrame(time, true), 193,512,64f,64f);
+			batch.draw(second_sign.getKeyFrame(time, true), 289,512,64f,64f);
+		}
+		
 		// draw font
 		timerFont.setColor(Color.BLACK);
 		timerFont.draw(batch, "Time [ " + (timeSeconds + (int) time) + " ]", 100f, 700f);
@@ -841,6 +877,12 @@ public class GameScreen implements Screen {
 		if (!paused && !gameEnded) {
 			gameUpdate();
 		} else if (paused) {
+			
+			if(difficulty==0){
+				batch.draw(first_sign.getKeyFrame(0, true), 193,512,64f,64f);
+				batch.draw(second_sign.getKeyFrame(0, true), 289,512,64f,64f);
+			}
+			
 			for (int x = 0; x < boulderArr.size(); x++) {
 				boulder1Sprite.setPosition(boulderXArr.get(x), boulderYArr.get(x));
 				boulder1Sprite.draw(batch);
@@ -856,9 +898,9 @@ public class GameScreen implements Screen {
 					|| Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 				backSprite.draw(batch);
 				if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+					catched = true;
+					Gdx.input.setCursorCatched(catched);
 					paused = false;
-					Gdx.input.setCursorCatched(!catched);
-					catched = !catched;
 				}
 			}
 
@@ -868,9 +910,9 @@ public class GameScreen implements Screen {
 				if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) {
 					saveGame();
 					game.getSaveManager().writeSave();
+					catched = true;
+					Gdx.input.setCursorCatched(catched);
 					paused = false;
-					Gdx.input.setCursorCatched(!catched);
-					catched = !catched;
 				}
 			}
 
@@ -884,6 +926,8 @@ public class GameScreen implements Screen {
 			drawOverlay();
 		}
 
+		
+		
 		// draw treasure
 		if (Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure", String.class)) && !retrieved) {
 			treasureSprite.draw(batch);
@@ -1280,8 +1324,9 @@ public class GameScreen implements Screen {
 			goSprite.draw(batch);
 			if (Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.ENTER)) {
 				if (difficulty < 5) {
-					catched = true;
 					difficulty++;
+					catched = true;
+					
 					gameEnded = false;
 					setCurrentMap(difficulty);
 					musicPlay();
@@ -1313,7 +1358,9 @@ public class GameScreen implements Screen {
 	 * contains a treasure item.
 	 */
 	private void createMap() {
-
+catched=true;
+paused=false;
+		
 		b = new Boulder(currentMap);
 
 		tmRender = new OrthogonalTiledMapRenderer(currentMap);

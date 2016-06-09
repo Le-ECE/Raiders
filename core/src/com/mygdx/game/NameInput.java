@@ -65,9 +65,14 @@ public class NameInput implements Screen {
 	SpriteBatch batch;
 
 	MainGame game;
-
+	
+	Skin skin;
+	
 	Texture backgroundText;
 	Texture titleText;
+	
+	TextButton backButton;
+	TextButton goButton;
 
 	TextField userNameField;
 
@@ -111,7 +116,7 @@ public class NameInput implements Screen {
 
 		Gdx.input.setInputProcessor(stage);
 
-		Skin skin = new Skin();
+		skin = new Skin();
 
 		Texture tfBackgroundText = new Texture("assets/textfield_background.png");
 
@@ -130,7 +135,7 @@ public class NameInput implements Screen {
 		skin.add("gobuttontexture", new Texture("assets/go.png"));
 		skin.add("backbuttontexture", new Texture("assets/backbutton.png"));
 		skin.add("cursor", cursorSprite);
-
+		
 		// create go button style
 		TextButtonStyle goBS = new TextButtonStyle();
 		goBS.up = skin.newDrawable("gobuttontexture", Color.LIGHT_GRAY);
@@ -168,10 +173,10 @@ public class NameInput implements Screen {
 		userNameField.setSize(550, 70);
 
 		// create go button
-		TextButton goButton = new TextButton("", goBS);
+		goButton = new TextButton("", goBS);
 		goButton.setPosition(700, 100);
 		goButton.setSize(290f, 110f);
-
+		
 		goButton.addCaptureListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
 				name = userNameField.getText();
@@ -180,7 +185,7 @@ public class NameInput implements Screen {
 		});
 
 		// create back button
-		TextButton backButton = new TextButton("", bBS);
+		backButton = new TextButton("", bBS);
 		backButton.setPosition(200, 100);
 		backButton.setSize(290f, 110f);
 
@@ -288,6 +293,7 @@ public class NameInput implements Screen {
 		batch.begin();
 
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			dispose();
 			game.setScreen(new MainMenu(batch, game));
 		}
 
@@ -365,7 +371,9 @@ public class NameInput implements Screen {
 		// TODO Auto-generated method stub
 		backgroundText.dispose();
 		font.dispose();
+		skin.dispose();
 		titleText.dispose();
+
 	}
 
 }

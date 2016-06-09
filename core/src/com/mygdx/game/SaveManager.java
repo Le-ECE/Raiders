@@ -79,7 +79,7 @@ public class SaveManager {
 			PrintWriter saveWriter = new PrintWriter(
 					new FileWriter("//" + choose.getCurrentDirectory() + "//" + "GameSave" + MainGame.EXT));
 
-
+			
 			saveWriter.println(loadedSave.getName());
 			saveWriter.println(loadedSave.getDifficulty());
 			saveWriter.println(loadedSave.getTimeSeconds());
