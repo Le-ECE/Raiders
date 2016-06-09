@@ -617,48 +617,63 @@ public class HighScore implements Screen, Printable {
 	/**
 	 * The render method is an overridden method from the Screen interface that
 	 * runs once every frame. The render method is commonly used to render
-	 * textures and sprites to the screen. The first if statement determines
-	 * what information to display on the high scores screen if the screen is on
-	 * the first page. The first for loop is used to draw the first 1-5 entries
-	 * of the highscores for the easy category. The second if statement is used
-	 * to determine what occurs if the highscores have more than 5 entries. If
-	 * it does, then the second for loop is used to run through the rest of the
-	 * highscores array to display the rest. The third if statement is used to
-	 * determine what displays on the highscores screen if the screen is on the
-	 * second page. If it is, the third for loop is used to run through the
-	 * first 1-5 entries of the highscores in the medium category. The fourth if
-	 * statement determines what happens if the highscores for medium have more
-	 * than 5 entries. If it does, the fourth for loop is used to display the
-	 * rest of the highscores entries. The fifth if statement is used to
-	 * determine what is displayed on the screen if the screen is on the third
-	 * page of the highscores screen. If it is, the fifth for loop is used to
-	 * display the first 1-5 entries of the highscores. The sixth if statement
-	 * is used to determine if the array of split names consists of more than 2
-	 * words. If it is, a sixth for loop is used to add those words to the
-	 * second word of the array. A seventh for loop is used to draw the names
-	 * onto the screen. The seventh if statement is used to determine what
-	 * occurs if the array of entries exceeds a length of 5. If it does, an
-	 * eighth for loop is used to draw the entries of the hard difficulty onto
-	 * the screen. The eighth if statement is used to determine if the array of
-	 * split words from the entries' names exceed the length of two. If it does,
-	 * the ninth for loop is used to add the extra words to the second word in
-	 * the array. The tenth for loop is used to draw the names to the screen.
-	 * The ninth if statement is used to determine what happens if the mouse is
-	 * hovered over the next button. The tenth if statement determines what
-	 * happens if the mouse is clicked. If it is, an eleventh if statement is
-	 * used to determine what happens if the page number is at max. If it is,
-	 * the page counter is reset to the minimum to allow for looping. The
-	 * twelfth if statement is used to determine what happens if the page number
-	 * is at minimum. If it is, the page counter is set to the maximum to allow
-	 * for looping. The thirteenth if statement determines what happens if the
-	 * cursor is hovered over the back button. The fourteenth if statement is
-	 * used to change the screen to the main menu if the mouse button is click
-	 * while the cursor is over the button. The fifteenth if statement is used
-	 * to determine what happens if the cursor is hovering over the print
-	 * button. The sixteenth if statement runs the print() method if the mouse
-	 * button is clicked while hovering over the button, or if the CTRL + P
-	 * shortcut is used. The seventeenth if statement is used to close the game
-	 * when the CTRL + W shortcut is pressed.
+	 * textures and sprites to the screen. The first if statement is used to
+	 * determine what is rendered on the screen when the first page of high
+	 * scores is displayed. The first for loop is used to print the first 1-5
+	 * entries of high scores. The second if statement is used to determine if
+	 * the entry name is more than two words. If so, a second for loop runs that
+	 * adds the extra words to the second word of the name. A third for loop
+	 * runs that draws the names to a screen. The third if statement is used to
+	 * determine if the entries exceed 5 entries. If so, the third for loop runs
+	 * that prints the rest of the entries up to 10 entries. The fourth if
+	 * statement checks if the name is over 2 words long. If so, a fourth for
+	 * loop is run to add the extra words to the second word of the name. A
+	 * fifth for loop is used to draw the names to a screen. A fifth if
+	 * statement is used to determine what draws on screen if the page is on the
+	 * second high score page. A sixth for loop is used to draw the first 1-5
+	 * entries on to the screen. A sixth if statement is used to determine if
+	 * the entry names are over the length of 2. A seventh for loop is used to
+	 * add the extra words to the second word of the name. An eighth for loop is
+	 * used to draw the name onto the screen. A seventh if statement is used to
+	 * determine if the medium difficulty contains more than 5 high score
+	 * entries. If so, a ninth for loop is used to draw the rest of the entries
+	 * up until entry ten. An eighth if statement is used to determine if the
+	 * entry names exceed a length of 2. If so, a tenth for loop is used to add
+	 * the extra words to the second word of the name. An eleventh for loop is
+	 * used to draw the name to the screen. The ninth if (else) statement is
+	 * used to determine what draws on the screen on the third page. A twelfth
+	 * for loop runs that draws the first 1-5 elements onto the screen. The
+	 * tenth if statement is used to determine if the length of the entry name
+	 * exceeds 2 words. If it does, a thirteenth for loop runs that adds the
+	 * extra words to the second word of the name. A fourteenth for loop is used
+	 * to draw the name to the screen. The eleventh if statement determines if
+	 * the name exceeds 5 words. If it does, a fifteenth for loop is used to
+	 * draw the rest of the entries up to the tenth entry. A twelfth if
+	 * statement determines if the entry name exceeds the length of 2 words. If
+	 * it does, a sixteenth for loop is run which adds the extra words to the
+	 * second word. A seventeenth for loop is run to draw the name to the
+	 * screen. A thirteenth if statement determines what happens when the user
+	 * hovers their cursor over the next button. The fourteenth if statement
+	 * determines what happens if the user presses the mouse button while the
+	 * cursor is over the next button. A fifteenth if statement sets the page
+	 * value to its minimum if the page is on the max page, to allow for
+	 * looping. Otherwise, page count increments by one. A sixteenth if
+	 * statement determines what happens when the user hovers their cursor over
+	 * the previous button. A seventeenth if statement determines what happens
+	 * when the user clicks the mouse button while the cursor is hovering over
+	 * the previous button. An eighteenth if statement sets the page count to
+	 * its maximum value if the page is on its minimum page, to allow for
+	 * looping. Otherwise, the page decrements by one. A nineteenth if statement
+	 * is used to determine what happens when the user hovers their cursor over
+	 * the back button (or when the ESC key is pressed). A twentieth if
+	 * statement changes the screen to the main menu when the user presses their
+	 * mouse button while the cursor is over the back button, or when they press
+	 * their ESC key. The twenty-first if statement determines what happens when
+	 * the user hovers their cursor over the print button, or when they press
+	 * the ENTER key. The twenty- second if statement runs the printer() method
+	 * when the user clicks the mouse button or presses their ENTER key. The
+	 * twenty-third if statement exits the program when the user presses the
+	 * CTRL + W keyboard shortcut.
 	 */
 	@Override
 	public void render(float delta) {
@@ -856,20 +871,19 @@ public class HighScore implements Screen, Printable {
 	@Override
 	public void dispose() {
 
-
 		scoreboardEasyText.dispose();
-		 scoreboardMedText.dispose();
-		 scoreboardHardText.dispose();
-		 backgroundText.dispose();
-		 nextText.dispose();
-		 nextDarkText.dispose();
-		 prevText.dispose();
-		 prevDarkText.dispose();
-		 backText.dispose();
-		 backDarkText.dispose();
-		 printText.dispose();
-		 printDarkText.dispose();
-		
+		scoreboardMedText.dispose();
+		scoreboardHardText.dispose();
+		backgroundText.dispose();
+		nextText.dispose();
+		nextDarkText.dispose();
+		prevText.dispose();
+		prevDarkText.dispose();
+		backText.dispose();
+		backDarkText.dispose();
+		printText.dispose();
+		printDarkText.dispose();
+
 	}
 
 }
