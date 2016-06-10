@@ -162,10 +162,10 @@
     <property name="distance" type="int" value="200"/>
    </properties>
   </object>
-  <object id="76" name="boulder3" x="476" y="343" width="25" height="25">
+  <object id="76" name="boulder3" x="476" y="562" width="25" height="25">
    <properties>
-    <property name="direction" value="down"/>
-    <property name="distance" type="int" value="300"/>
+    <property name="direction" value="up"/>
+    <property name="distance" type="int" value="250"/>
    </properties>
   </object>
   <object id="75" name="boulder4" x="692" y="429" width="25" height="25">
