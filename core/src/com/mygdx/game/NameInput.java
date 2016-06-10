@@ -94,7 +94,7 @@ public class NameInput implements Screen {
 	 * The NameInput constructor is used to take in a SpriteBatch and a MainGame
 	 * from other classes as parameters. This allows for the NameInput class to
 	 * make use of the SpriteBatch and MainGame without having to create new
-	 * ones. SpriteBatch being used for rendering on screem elements, and
+	 * ones. SpriteBatch being used for rendering on screen elements, and
 	 * MainGame being used to manage on screen elements.
 	 * 
 	 * @param batch

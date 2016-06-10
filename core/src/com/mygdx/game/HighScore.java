@@ -195,7 +195,7 @@ public class HighScore implements Screen, Printable {
 
 	/**
 	 * The HighScore constructor is responsible for taking in a SpriteBatch and
-	 * a MainGame. SpriteBatch is used for rendering onscreen elements, while
+	 * a MainGame. SpriteBatch is used for rendering on screen elements, while
 	 * the MainGame is used for setting game screens.
 	 * 
 	 * @param batch
