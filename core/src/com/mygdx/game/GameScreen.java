@@ -783,17 +783,17 @@ public class GameScreen implements Screen {
 		// pause text animation
 		Tween.set(pauseTextSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(pauseTextSprite, SpriteManager.ALPHA, 0.5f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-				.start(tweenManager);
+		.start(tweenManager);
 
 		// success animation
 		Tween.set(successSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(successSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-				.start(tweenManager);
+		.start(tweenManager);
 
 		// treasure animation
 		Tween.set(treasureSprite, SpriteManager.ALPHA).target(0.5f).start(tweenManager);
 		Tween.to(treasureSprite, SpriteManager.ALPHA, 0.3f).target(1f).repeatYoyo(Tween.INFINITY, 0f)
-				.start(tweenManager);
+		.start(tweenManager);
 
 		Gdx.input.setCursorCatched(catched);
 	}
@@ -1239,11 +1239,9 @@ public class GameScreen implements Screen {
 				setCurrentMap(difficulty);
 				b = new Boulder(currentMap);
 				createMap();
-				System.out.println("stage end");
 			} else {
 				if (retrieved
 						|| !Boolean.parseBoolean(currentMap.getProperties().get("containsTreasure", String.class))) {
-					System.out.println("level complete");
 					gameEnded = true;
 					drawOverlay();
 				} else {

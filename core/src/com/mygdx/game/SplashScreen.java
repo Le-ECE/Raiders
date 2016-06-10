@@ -149,13 +149,13 @@ public class SplashScreen implements Screen {
 
 		Tween.set(splashTitleSprite, SpriteManager.ALPHA).target(0f).start(tweenManager);
 		Tween.to(splashTitleSprite, SpriteManager.ALPHA, 2f).target(1f).repeatYoyo(1, 4f)
-				.setCallback(new TweenCallback() {
-					@Override
-					public void onEvent(int arg0, BaseTween<?> arg1) {
-						dispose();
-						((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
-					}
-				}).start(tweenManager);
+		.setCallback(new TweenCallback() {
+			@Override
+			public void onEvent(int arg0, BaseTween<?> arg1) {
+				dispose();
+				((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
+			}
+		}).start(tweenManager);
 
 		Gdx.gl.glClearColor(.8f, .8f, .8f, 1);
 	}
@@ -196,7 +196,7 @@ public class SplashScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE) || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(batch, game));
 		}
-		
+
 		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
 			batch.dispose();
 			Gdx.app.exit();

@@ -176,7 +176,7 @@ public class Instructions implements Screen {
 		screenList = new Sprite[6];
 
 		// create background texture
-		backgroundText = new Texture("splash.png");
+		backgroundText = new Texture("assets/splash.png");
 		backgroundSprite = new Sprite(backgroundText);
 		backgroundSprite.setSize(1200f, 768f);
 
@@ -184,67 +184,67 @@ public class Instructions implements Screen {
 		pageNum = 0;
 
 		// create back button
-		backText = new Texture("backbutton.png");
+		backText = new Texture("assets/backbutton.png");
 		backSprite = new Sprite(backText);
 		backSprite.setSize(290f, 110f);
 		backSprite.setPosition(Gdx.graphics.getWidth() / 2 - backSprite.getWidth() / 2, 90f);
 
 		// create back dark button
-		backDarkText = new Texture("back_dark.png");
+		backDarkText = new Texture("assets/back_dark.png");
 		backDarkSprite = new Sprite(backDarkText);
 		backDarkSprite.setSize(290f, 110f);
 		backDarkSprite.setPosition(Gdx.graphics.getWidth() / 2 - backDarkSprite.getWidth() / 2, 90f);
 
 		// create screen 1
-		screen1Text = new Texture("screen1.png");
+		screen1Text = new Texture("assets/screen1.png");
 		screen1Sprite = new Sprite(screen1Text);
 		screenList[0] = screen1Sprite;
 
 		// create screen 2
-		screen2Text = new Texture("screen2.png");
+		screen2Text = new Texture("assets/screen2.png");
 		screen2Sprite = new Sprite(screen2Text);
 		screenList[1] = screen2Sprite;
 
 		// create screen 3
-		screen3Text = new Texture("screen3.png");
+		screen3Text = new Texture("assets/screen3.png");
 		screen3Sprite = new Sprite(screen3Text);
 		screenList[2] = screen3Sprite;
 
 		// create screen 4
-		screen4Text = new Texture("screen4.png");
+		screen4Text = new Texture("assets/screen4.png");
 		screen4Sprite = new Sprite(screen4Text);
 		screenList[3] = screen4Sprite;
 
 		// create screen 5
-		screen5Text = new Texture("screen5.png");
+		screen5Text = new Texture("assets/screen5.png");
 		screen5Sprite = new Sprite(screen5Text);
 		screenList[4] = screen5Sprite;
-		
+
 		//create screen 6
-		screen6Text = new Texture ("screen6.png");
+		screen6Text = new Texture ("assets/screen6.png");
 		screen6Sprite = new Sprite (screen6Text);
 		screenList[5] = screen6Sprite;
 
 		// create next button
-		nextText = new Texture("next_arrow.png");
+		nextText = new Texture("assets/next_arrow.png");
 		nextSprite = new Sprite(nextText);
 		nextSprite.setPosition(800f, 80f);
 		nextSprite.setSize(252f, 140f);
 
 		// create dark next button
-		nextDarkText = new Texture("next_arrow_dark.png");
+		nextDarkText = new Texture("assets/next_arrow_dark.png");
 		nextDarkSprite = new Sprite(nextDarkText);
 		nextDarkSprite.setPosition(800f, 80f);
 		nextDarkSprite.setSize(252f, 140f);
 
 		// create previous button
-		prevText = new Texture("prev_arrow.png");
+		prevText = new Texture("assets/prev_arrow.png");
 		prevSprite = new Sprite(prevText);
 		prevSprite.setPosition(148f, 80f);
 		prevSprite.setSize(252f, 140f);
 
 		// create dark previous button
-		prevDarkText = new Texture("prev_arrow_dark.png");
+		prevDarkText = new Texture("assets/prev_arrow_dark.png");
 		prevDarkSprite = new Sprite(prevDarkText);
 		prevDarkSprite.setPosition(148f, 80f);
 		prevDarkSprite.setSize(252f, 140f);
@@ -348,7 +348,7 @@ public class Instructions implements Screen {
 				game.setScreen(new MainMenu(batch, game));
 			}
 		}
-		
+
 		if (Gdx.input.isKeyPressed (Keys.CONTROL_LEFT)&&Gdx.input.isKeyJustPressed(Keys.W)){
 			batch.dispose();
 			Gdx.app.exit();

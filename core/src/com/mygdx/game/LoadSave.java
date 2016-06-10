@@ -110,8 +110,8 @@ public class LoadSave {
 	 * a new GameScreen object with the save values. 
 	 * 
 	 * @return boolean used to determine if the the save is valid or corrupted.
-	
-	*/
+
+	 */
 	private boolean fileRead() {
 		char[] illegalChar = { 47, 92, 58, 42, 63, 34, 60, 62 };
 		boolean illegalTrue = false;

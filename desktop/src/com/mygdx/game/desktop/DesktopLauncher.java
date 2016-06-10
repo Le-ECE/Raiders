@@ -15,6 +15,11 @@ import com.mygdx.game.MainGame;
  * @version 4.0 09.06.2016
  */
 public class DesktopLauncher {
+	/**
+	 * The main method of the driver class sets the game window's properties
+	 * and creates a new instance of MainGame.
+	 * @param arg Parameter for main method to be run by compiler. 
+	 */
 	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1200;
