@@ -10,4 +10,4 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/my-gdx-game-core"/>
 	<classpathentry kind="output" path="bin"/>
-</classpath>
+</classpath> 
